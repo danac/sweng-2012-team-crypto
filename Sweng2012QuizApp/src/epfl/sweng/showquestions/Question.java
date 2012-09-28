@@ -4,25 +4,25 @@ package epfl.sweng.showquestions;
  * Simple data structure holding the data retrieved from the web service
  */
 public class Question {
-    private String question;
-    private String[] answers;
-    private int solutionIndex;
-    private String[] tags;
-    private String owner;
-    private int id;
+    private String mQuestion;
+    private String[] mAnswers;
+    private int mSolutionIndex;
+    private String[] mTags;
+    private String mOwner;
+    private int mId;
 
     /**
      * Constructor setting default values for the question and the answers
      */
     public Question() {
         super();
-        question = "Choose an answer:";
-    	answers = new String[] {
-					"Answer 1",
-					"Answer 2",
-					"Answer 3",
-					"Answer 4"
-    	    };
+        mQuestion = "Choose an answer:";
+    	mAnswers = new String[] {
+			"Answer 1",
+			"Answer 2",
+			"Answer 3",
+			"Answer 4"
+    	};
     }
 
 
@@ -31,7 +31,15 @@ public class Question {
      * @return String The question
      */
     public String getQuestion() {
-    	return question;
+    	return mQuestion;
+    }
+    
+    /**
+     * Get owner of the dataset
+     * @return String The owner
+     */
+    public String getOwner() {
+    	return mOwner;
     }
     
     /**
@@ -39,47 +47,71 @@ public class Question {
      * @return String[] string holding the possible answers
      */
     public String[] getAnswers() {
-    	return answers;
+    	return mAnswers;
+    }
+
+    /**
+     * Get an array of tags
+     * @return String[] string holding the possible answers
+     */
+    public String[] getTags() {
+    	return mTags;
+    }
+    
+    /**
+     * Get the index of the right solution in the given array of the possible answers
+     * @return int the index of the correct answer
+     */
+    public int getSolutionIndex() {
+    	return mSolutionIndex;
+    }
+    
+    /**
+     * Get id of the question-answer dataset
+     * @return
+     */
+    public int getId() {
+    	return mId;
     }
     
     /**
      * Set the possible answers
-     * @param String[] _answers the answers to be set
+     * @param String[] answers the answers to be set
      */
-    public void setAnswers(String[] _answers) {
-    	answers = _answers;
+    public void setAnswers(String[] answers) {
+    	mAnswers = answers;
     }
     
     /**
      * Set the possible tags
-     * @param String[] _tags the tags to be set
+     * @param String[] tags the tags to be set
      */
-    public void setTags(String[] _tags) {
-    	tags = _tags;
+    public void setTags(String[] tags) {
+    	mTags = tags;
     }
     
     /**
      * Set the question
-     * @param String _question the question to be set
+     * @param String question the question to be set
      */
-    public void setQuestion(String _question) {
-    	question = _question;
+    public void setQuestion(String question) {
+    	mQuestion = question;
     }
     
     /**
      * Set the index of the right solution in the given array of the possible answers
-     * @param int _solutionIndex the index of the correct answer
+     * @param int solutionIndex the index of the correct answer
      */
-    public void setSolutionIndex(int _solutionIndex) {
-    	solutionIndex = _solutionIndex;
+    public void setSolutionIndex(int solutionIndex) {
+    	mSolutionIndex = solutionIndex;
     }
     
     /**
      * Set the id of the question-answers dataset
      * @param int id the id of the dataset
      */
-    public void setId(int _id) {
-    	id = _id;
+    public void setId(int id) {
+    	mId = id;
     }
     
     

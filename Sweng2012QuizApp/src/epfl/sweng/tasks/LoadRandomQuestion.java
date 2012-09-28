@@ -21,16 +21,18 @@ import android.os.AsyncTask;
  * Class used to create a Asynchronous Task that will load a random question and display it on a ShowQuestionsActivity
  *
  */
-public class LoadRandomQuestion extends AsyncTask<Void,Void,Question> {
+public class LoadRandomQuestion extends AsyncTask<Void, Void, Question> {
     
-	private ShowQuestionsActivity showQuestionsActivity;
+	private ShowQuestionsActivity mShowQuestionsActivity;
 	
 	/**
-	 * Constructor. Create a LoadRandomQuestion object. The loading process can be launched by invoking the inherited execute() method. 
-	 * @param ShowQuestionsActivity _showQuestionsActivity Reference to the ShowQuestionsActivity the question will be displayed in.
+	 * Constructor. Create a LoadRandomQuestion object. The loading process can 
+	 * be launched by invoking the inherited execute() method. 
+	 * @param ShowQuestionsActivity _showQuestionsActivity Reference to the ShowQuestionsActivity
+	 * the question will be displayed in.
 	 */
-	public LoadRandomQuestion(ShowQuestionsActivity _showQuestionsActivity) {
-		showQuestionsActivity = _showQuestionsActivity;
+	public LoadRandomQuestion(ShowQuestionsActivity showQuestionsActivity) {
+		mShowQuestionsActivity = showQuestionsActivity;
 	}
 	
 	/**
@@ -49,14 +51,14 @@ public class LoadRandomQuestion extends AsyncTask<Void,Void,Question> {
 			
 			JSONArray answersJSON = responseJson.getJSONArray("answers");
 			String[] answers = new String[answersJSON.length()];
-			for(int i=0; i<answersJSON.length(); i++) {
+			for (int i=0; i<answersJSON.length(); i++) {
 				answers[i]=answersJSON.getString(i);
 			}
 			
 
 			JSONArray tagsJSON = responseJson.getJSONArray("tags");
 			String[] tags = new String[tagsJSON.length()];
-			for(int i=0; i<tagsJSON.length(); i++) {
+			for (int i=0; i<tagsJSON.length(); i++) {
 				tags[i]=tagsJSON.getString(i);
 			}
 			
@@ -81,12 +83,13 @@ public class LoadRandomQuestion extends AsyncTask<Void,Void,Question> {
 	}
 	
 	/**
-	 * Calls back the displayQuestion Method of the ShowQuestionsActivity once the background process loading the random message completed
+	 * Calls back the displayQuestion Method of the ShowQuestionsActivity once 
+	 * the background process loading the random message completed
 	 * @param Question question The random question to be displayed as received from the server.
 	 */
 	@Override
 	protected void onPostExecute(Question question) {
-	      showQuestionsActivity.displayQuestion(question);
+		mShowQuestionsActivity.displayQuestion(question);
 	}
 	
 }
