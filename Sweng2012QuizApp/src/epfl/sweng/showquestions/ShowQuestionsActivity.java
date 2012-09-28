@@ -1,23 +1,38 @@
 package epfl.sweng.showquestions;
 
 import epfl.sweng.R;
-import epfl.sweng.R.layout;
-import epfl.sweng.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
+/**
+ * Activity showing a question
+ */
 public class ShowQuestionsActivity extends Activity {
-
+		
     @Override
     public void onCreate(Bundle savedInstanceState) {
+	
+    	Question testQuestion = new Question();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_questions);
+        
+        ListView listview = (ListView) findViewById(R.id.listView);
+        TextView questionTxt = (TextView) findViewById(R.id.question);
+        
+        questionTxt.setText(testQuestion.getQuestion());
+                       
+        // Instantiating array adapter to populate the listView
+        // The layout android.R.layout.simple_list_item_single_choice creates radio button for each listview item
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        														android.R.layout.simple_list_item_single_choice,
+        														testQuestion.getAnswers());
+
+        listview.setAdapter(adapter);
+        
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_show_questions, menu);
-        return true;
-    }
+    
 }
