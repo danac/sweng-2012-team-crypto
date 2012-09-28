@@ -1,5 +1,9 @@
 package epfl.sweng.showquestions;
 
+/**
+ * Simple data structure holding the data retrieved from the web service
+ *
+ */
 public class Question {
     private String question;
     private String[] answers;
@@ -8,23 +12,23 @@ public class Question {
     private String owner;
     private int id;
     
-    public String getQuestion(){
+    public String getQuestion() {
     	return question;
     }
     
-    public String[] getAnswers(){
+    public String[] getAnswers() {
     	return answers;
     }
       
     
-    public Question(){
+    public Question() {
         super();
         question = "Choose an answer:";
     	answers = new String[] {
-    	        "Answer 1",
-    	        "Answer 2",
-    	        "Answer 3",
-    	        "Answer 4"
+					"Answer 1",
+					"Answer 2",
+					"Answer 3",
+					"Answer 4"
     	    };
     }
 

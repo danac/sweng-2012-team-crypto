@@ -22,16 +22,39 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import android.os.Bundle;
+import android.app.Activity;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
+/**
+ * Activity showing a question
+ */
 public class ShowQuestionsActivity extends Activity {
-
+		
     @Override
     public void onCreate(Bundle savedInstanceState) {
+	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_questions);
         
         try {
-			Question q = new LoadRandomQuestion().execute().get();
+			Question question = new LoadRandomQuestion().execute().get();
+	        ListView listview = (ListView) findViewById(R.id.listView);
+	        TextView questionTxt = (TextView) findViewById(R.id.question);
+	        
+	        questionTxt.setText(question.getQuestion());
+	                       
+	        // Instantiating array adapter to populate the listView
+	        // The layout android.R.layout.simple_list_item_single_choice creates radio button for each listview item
+	        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+	        														android.R.layout.simple_list_item_single_choice,
+	        														question.getAnswers());
+
+	        listview.setAdapter(adapter);
+	        
+
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,19 +64,5 @@ public class ShowQuestionsActivity extends Activity {
 		}
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_show_questions, menu);
-        return true;
-    }
-    
-    public boolean displayRandomQuestion() throws ClientProtocolException, IOException {
-    	HttpGet request = new HttpGet("https://sweng-quiz.appspot.com/quizquestions/random");
-    	ResponseHandler<String> response = new BasicResponseHandler();
-    	String question = SwengHttpClientFactory.getInstance().execute(request, response);
-    	Toast.makeText(this, question, Toast.LENGTH_SHORT).show();
-        
-        return true;
-    }
     
 }
