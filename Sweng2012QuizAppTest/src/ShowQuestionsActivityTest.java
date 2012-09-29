@@ -24,12 +24,10 @@ public class ShowQuestionsActivityTest extends
 
 	/* Begin list of the different tests to be performed */
 	
-	public void testHello1() {
-		
-	}
-	
-	public void testHello2() {
-		
+	public void testDisplayQuestion() {
+		solo.assertCurrentActivity("A question is being displayed",
+                ShowQuestionsActivity.class);
+		assertTrue(solo.searchText("?"));
 	}
 	
 	/* End list of the different tests to be performed */
