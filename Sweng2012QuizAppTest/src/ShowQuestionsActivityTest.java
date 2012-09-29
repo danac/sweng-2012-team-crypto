@@ -25,11 +25,11 @@ public class ShowQuestionsActivityTest extends
 	/* Begin list of the different tests to be performed */
 	
 	public void testHello1() {
-		fail("Not yet implemented 1");
+		
 	}
 	
 	public void testHello2() {
-		fail("Not yet implemented 2");
+		
 	}
 	
 	/* End list of the different tests to be performed */
