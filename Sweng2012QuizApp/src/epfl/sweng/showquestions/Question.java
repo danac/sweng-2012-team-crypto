@@ -17,12 +17,7 @@ public class Question {
     public Question() {
         super();
         mQuestion = "Choose an answer:";
-    	mAnswers = new String[] {
-			"Answer 1",
-			"Answer 2",
-			"Answer 3",
-			"Answer 4"
-    	};
+    	mAnswers = new String[] {"Answer 1", "Answer 2", "Answer 3", "Answer 4"};
     }
 
 

@@ -6,6 +6,7 @@ import epfl.sweng.tasks.LoadRandomQuestion;
 import android.os.Bundle;
 import android.app.Activity;
 
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,7 +15,7 @@ import android.widget.TextView;
  * Activity showing a question
  */
 public class ShowQuestionsActivity extends Activity {
-		
+	
 	/**
 	 * Method invoked at the creation of the Activity. 
 	 * Triggers the display of a random question fetched from the server.
@@ -47,6 +48,10 @@ public class ShowQuestionsActivity extends Activity {
         														question.getAnswers());
 
         listview.setAdapter(adapter);
+    }
+    
+    public void nextQuestion(View currentView) {
+        new LoadRandomQuestion(this).execute();
     }
 
     
