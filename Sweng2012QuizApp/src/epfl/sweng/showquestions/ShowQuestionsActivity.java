@@ -76,10 +76,8 @@ public class ShowQuestionsActivity extends Activity {
         			listAnswers.set(position, listAnswers.get(position) + " \u2714");
         			listView.setEnabled(false);
         			button.setEnabled(true);
-        		}
-        		
         		// User clicked the wrong answer for first time
-        		else if (!clickedItems[position]) {
+        		} else if (!clickedItems[position]) {
         			clickedItems[position] = true;
         			listAnswers.set(position, listAnswers.get(position) + " \u2718");
         		}
