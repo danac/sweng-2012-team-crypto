@@ -47,16 +47,11 @@ public class ShowQuestionsActivityTest extends
 		           /// TO DO: SCROLL
 		           /// reset childIndex
 		     }
-		     solo.clickOnView(childView);
-		     /// check cycle stop condition
+		     else {
+			     solo.clickOnView(childView);
+		    	 
+		     }
 		}
-
-		/*
-		//Get all text views in the list item
-		for (TextView txt : solo.getCurrentTextViews(v)) {
-			solo.clickOnView(txt);
-		}
-		*/
 		
 		assertTrue(solo.searchText("\u2718") || solo.searchText("\u2714"));
 		
