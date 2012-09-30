@@ -13,6 +13,7 @@ public class ShowQuestionsActivityTest extends
 		ActivityInstrumentationTestCase2<ShowQuestionsActivity> {
 	
 	private Solo solo;
+	private static final int NUMBER_OF_QUESTIONS = 5;
 	
 	public ShowQuestionsActivityTest() {
 		super(ShowQuestionsActivity.class);
@@ -25,7 +26,7 @@ public class ShowQuestionsActivityTest extends
 	}
 
 	/* Begin list of the different tests to be performed */
-	
+
 	public void testDisplayQuestion() {
 		solo.assertCurrentActivity("A question is being displayed",
                 ShowQuestionsActivity.class);
@@ -35,20 +36,22 @@ public class ShowQuestionsActivityTest extends
 		
 		assertNotNull("No list views!", l);
 		assertTrue("No items in list view!", l.getChildCount()>0);
+		
+		for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
+			for (int childIndex = 0; childIndex < l.getAdapter().getCount(); childIndex++) {
+				View childView = l.getChildAt(childIndex);
 				
-		for (int childIndex = 0; childIndex < l.getAdapter().getCount(); childIndex++) {
-			View childView = l.getChildAt(childIndex);
-			
-			if (childView != null) {
-				solo.clickOnView(childView);
+				if (childView != null) {
+					solo.clickOnView(childView);
+				}
 			}
+			
+			assertTrue(solo.searchText("\u2718") || solo.searchText("\u2714"));
+			
+			solo.clickOnButton("Next question");
+			assertTrue(solo.searchText("?"));
+			assertFalse(solo.searchText("\u2718") && solo.searchText("\u2714"));
 		}
-		
-		assertTrue(solo.searchText("\u2718") || solo.searchText("\u2714"));
-		
-		solo.clickOnButton("Next question");
-		assertTrue(solo.searchText("?"));
-		assertFalse(solo.searchText("\u2718") && solo.searchText("\u2714"));
 
 		
 		
