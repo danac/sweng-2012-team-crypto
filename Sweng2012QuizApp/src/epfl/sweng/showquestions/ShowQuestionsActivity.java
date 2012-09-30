@@ -1,15 +1,20 @@
 package epfl.sweng.showquestions;
 
 
-import epfl.sweng.R;
-import epfl.sweng.tasks.LoadRandomQuestion;
-import android.os.Bundle;
-import android.app.Activity;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import epfl.sweng.R;
+import epfl.sweng.tasks.LoadRandomQuestion;
 
 /**
  * Activity showing a question
@@ -34,20 +39,54 @@ public class ShowQuestionsActivity extends Activity {
      * Display a question on the screen
      * @param Question question The question to be displayed
      */
-    public void displayQuestion(Question question) {
+    public void displayQuestion(final Question question) {
     	
-    	ListView listview = (ListView) findViewById(R.id.listView);
-        TextView questionTxt = (TextView) findViewById(R.id.question);
+    	final ListView listView = (ListView) findViewById(R.id.listView);
+        final TextView questionTxt = (TextView) findViewById(R.id.question);
+        final Button button = (Button) findViewById(R.id.button);
         
         questionTxt.setText(question.getQuestion());
                        
         // Instantiating array adapter to populate the listView
+        // Using an ArrayList instead of an Array to populate, for future modifications
         // The layout android.R.layout.simple_list_item_single_choice creates radio button for each listview item
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        final ArrayList<String> listAnswers = new ArrayList<String>();
+        listAnswers.addAll(Arrays.asList(question.getAnswers()));
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
         														android.R.layout.simple_list_item_single_choice,
-        														question.getAnswers());
+        														listAnswers);
 
-        listview.setAdapter(adapter);
+        listView.setAdapter(adapter);
+        listView.setEnabled(true);
+        
+        button.setEnabled(false);
+        
+        // Instantiating a boolean array to keep track of the clicked items
+        // Item #i has been clicked <=> clickedItems[i]==true
+        final boolean[] clickedItems = new boolean[question.getAnswers().length];
+        
+        // Implementing the interaction with the user
+        listView.setOnItemClickListener(new OnItemClickListener() {
+        	@Override
+        	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        		
+        		// User clicked the right answer
+        		if (position == question.getSolutionIndex()) {
+        			clickedItems[position] = true;
+        			listAnswers.set(position, listAnswers.get(position) + " \u2714");
+        			listView.setEnabled(false);
+        			button.setEnabled(true);
+        		}
+        		
+        		// User clicked the wrong answer for first time
+        		else if (!clickedItems[position]) {
+        			clickedItems[position] = true;
+        			listAnswers.set(position, listAnswers.get(position) + " \u2718");
+        		}
+        		
+        		adapter.notifyDataSetChanged();
+        	}
+        });
     }
     
     public void nextQuestion(View currentView) {
