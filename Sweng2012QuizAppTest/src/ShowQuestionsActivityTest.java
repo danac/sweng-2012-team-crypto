@@ -1,7 +1,6 @@
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -36,27 +35,20 @@ public class ShowQuestionsActivityTest extends
 		
 		assertNotNull("No list views!", l);
 		assertTrue("No items in list view!", l.getChildCount()>0);
-		
-		//Get the last list item
-		View v = l.getChildAt(l.getChildCount()-1);
-		
+				
 		for (int childIndex = 0; childIndex < l.getAdapter().getCount(); childIndex++) {
-		     View childView = l.getChildAt(childIndex);
-		     
-		     if(childView == null) {
-		           /// TO DO: SCROLL
-		           /// reset childIndex
-		     }
-		     else {
-			     solo.clickOnView(childView);
-		    	 
-		     }
+			View childView = l.getChildAt(childIndex);
+			
+			if (childView != null) {
+				solo.clickOnView(childView);
+			}
 		}
 		
 		assertTrue(solo.searchText("\u2718") || solo.searchText("\u2714"));
 		
 		solo.clickOnButton("Next question");
-		//assertFalse(solo.searchText("\u2718") || solo.searchText("\u2714"));
+		assertTrue(solo.searchText("?"));
+		assertFalse(solo.searchText("\u2718") && solo.searchText("\u2714"));
 
 		
 		
