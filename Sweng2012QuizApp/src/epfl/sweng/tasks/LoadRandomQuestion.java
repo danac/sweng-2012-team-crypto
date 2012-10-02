@@ -10,12 +10,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import epfl.sweng.R;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.Question;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 /**
  * Class used to create a Asynchronous Task that will load a random question and display it on a ShowQuestionsActivity
@@ -44,7 +46,7 @@ public class LoadRandomQuestion extends AsyncTask<Void, Void, Question> {
     	Question question = new Question();
     	try {
     		
-    		HttpGet request = new HttpGet("https://sweng-quiz.appspot.com/quizquestions/random");
+    		HttpGet request = new HttpGet(mShowQuestionsActivity.getString(R.string.random_question_url));
     		ResponseHandler<String> response = new BasicResponseHandler();
     		String responseText = SwengHttpClientFactory.getInstance().execute(request, response);
 			JSONObject responseJson = new JSONObject(responseText);
@@ -69,18 +71,16 @@ public class LoadRandomQuestion extends AsyncTask<Void, Void, Question> {
 			question.setAnswers(answers);
 			question.setTags(tags);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			cancel(true);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			cancel(true);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			cancel(true);
 		}
     	
 		return question;
 	}
+	
 	
 	/**
 	 * Calls back the displayQuestion Method of the ShowQuestionsActivity once 
@@ -90,6 +90,11 @@ public class LoadRandomQuestion extends AsyncTask<Void, Void, Question> {
 	@Override
 	protected void onPostExecute(Question question) {
 		mShowQuestionsActivity.displayQuestion(question);
+	}
+
+	@Override
+	protected void onCancelled() {
+		mShowQuestionsActivity.displayError();
 	}
 	
 }

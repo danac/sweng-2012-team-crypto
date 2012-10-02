@@ -35,6 +35,15 @@ public class ShowQuestionsActivity extends Activity {
     }
     
     
+    public void displayError() {
+    	final ListView listView = (ListView) findViewById(R.id.listView);
+        final TextView questionTxt = (TextView) findViewById(R.id.question);
+    	final Button button = (Button) findViewById(R.id.button);
+        listView.setVisibility(View.GONE);
+        questionTxt.setText(R.string.error_message);
+        button.setEnabled(true);
+    }
+    
     /**
      * Display a question on the screen
      * @param Question question The question to be displayed
@@ -44,6 +53,7 @@ public class ShowQuestionsActivity extends Activity {
     	final ListView listView = (ListView) findViewById(R.id.listView);
         final TextView questionTxt = (TextView) findViewById(R.id.question);
         final Button button = (Button) findViewById(R.id.button);
+        listView.setVisibility(View.VISIBLE);
         
         questionTxt.setText(question.getQuestion());
                        
@@ -91,5 +101,6 @@ public class ShowQuestionsActivity extends Activity {
         new LoadRandomQuestion(this).execute();
     }
 
+    
     
 }
