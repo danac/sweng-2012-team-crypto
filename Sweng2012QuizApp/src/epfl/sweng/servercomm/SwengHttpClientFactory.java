@@ -20,12 +20,11 @@ import org.apache.http.protocol.HttpContext;
  * for testing.
  */
 public class SwengHttpClientFactory {
-	
-	private static final int HTTP_PORT = 80;
-	private static final int HTTPS_PORT = 443;
-
 
 	private static AbstractHttpClient httpClient;
+	private static final int HTTP_PORT = 80;
+	private final static int HTTPS_PORT = 443;
+	
 	
 	public static synchronized AbstractHttpClient getInstance() {
 		if (httpClient == null) {

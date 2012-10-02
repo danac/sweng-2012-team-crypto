@@ -1,3 +1,4 @@
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.ListView;
@@ -5,6 +6,7 @@ import android.widget.ListView;
 import com.jayway.android.robotium.solo.Solo;
 
 import epfl.sweng.showquestions.ShowQuestionsActivity;
+import epfl.sweng.tasks.LoadRandomQuestion;
 
 /**
  * First test case...
@@ -55,6 +57,15 @@ public class ShowQuestionsActivityTest extends
 
 		
 		
+	}
+	
+	public void testNoNetwork() {
+		solo.assertCurrentActivity("A question is being displayed",
+                ShowQuestionsActivity.class);
+    	LoadRandomQuestion loadRandomQuestion = new LoadRandomQuestion(getActivity());
+    	loadRandomQuestion.execute();
+    	loadRandomQuestion.cancel(true);
+    	assertTrue(solo.searchText("There was an error retrieving the question"));
 	}
 	
 	/* End list of the different tests to be performed */
