@@ -17,7 +17,6 @@ import epfl.sweng.showquestions.ShowQuestionsActivity;
 
 
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 /**
  * Class used to create a Asynchronous Task that will load a random question and display it on a ShowQuestionsActivity
