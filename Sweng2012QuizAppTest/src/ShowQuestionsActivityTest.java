@@ -15,6 +15,7 @@ public class ShowQuestionsActivityTest extends
 	
 	private Solo solo;
 	private static final int NUMBER_OF_QUESTIONS = 5;
+	private static final int SLEEP_LISTCHECK = 2000;
 	
 	public ShowQuestionsActivityTest() {
 		super(ShowQuestionsActivity.class);
@@ -32,10 +33,10 @@ public class ShowQuestionsActivityTest extends
 		solo.assertCurrentActivity("A question is being displayed",
                 ShowQuestionsActivity.class);
 		assertTrue(solo.searchText("?"));
-				
 		ListView l = solo.getCurrentListViews().get(0);
 		
 		assertNotNull("No list views!", l);
+		solo.sleep(SLEEP_LISTCHECK);
 		assertTrue("No items in list view!", l.getChildCount()>0);
 		
 		for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
