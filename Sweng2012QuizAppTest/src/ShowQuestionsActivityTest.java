@@ -59,11 +59,15 @@ public class ShowQuestionsActivityTest extends
 	}
 	
 	public void testNoNetwork() {
+		
 		solo.assertCurrentActivity("A question is being displayed",
                 ShowQuestionsActivity.class);
+		int i=NUMBER_OF_QUESTIONS;
     	LoadRandomQuestion loadRandomQuestion = new LoadRandomQuestion(getActivity());
-    	loadRandomQuestion.execute();
-    	loadRandomQuestion.cancel(true);
+    	while (!solo.searchText("There was an error retrieving the question") || i--==0) {
+			loadRandomQuestion.execute();
+			loadRandomQuestion.cancel(true);
+    	}
     	assertTrue(solo.searchText("There was an error retrieving the question"));
 	}
 	
