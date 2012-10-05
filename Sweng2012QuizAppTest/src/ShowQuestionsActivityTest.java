@@ -62,12 +62,9 @@ public class ShowQuestionsActivityTest extends
 		
 		solo.assertCurrentActivity("A question is being displayed",
                 ShowQuestionsActivity.class);
-		int i=NUMBER_OF_QUESTIONS;
-    	LoadRandomQuestion loadRandomQuestion = new LoadRandomQuestion(getActivity());
-    	while (!solo.searchText("There was an error retrieving the question") || i--==0) {
-			loadRandomQuestion.execute();
-			loadRandomQuestion.cancel(true);
-    	}
+    	new LoadRandomQuestion(getActivity()).execute("http://www.google.com");
+    	assertTrue(solo.searchText("There was an error retrieving the question"));
+    	new LoadRandomQuestion(getActivity()).execute("http://0.0.0.0");
     	assertTrue(solo.searchText("There was an error retrieving the question"));
 	}
 	

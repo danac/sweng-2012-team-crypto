@@ -22,7 +22,7 @@ import android.os.AsyncTask;
  * Class used to create a Asynchronous Task that will load a random question and display it on a ShowQuestionsActivity
  *
  */
-public class LoadRandomQuestion extends AsyncTask<Void, Void, Question> {
+public class LoadRandomQuestion extends AsyncTask<String, Void, Question> {
     
 	private ShowQuestionsActivity mShowQuestionsActivity;
 	
@@ -40,12 +40,17 @@ public class LoadRandomQuestion extends AsyncTask<Void, Void, Question> {
 	 * Method fetching the random question
 	 */
 	@Override
-	protected Question doInBackground(Void... nothing) {
+	protected Question doInBackground(String... urls) {
 		// TODO Auto-generated method stub
     	Question question = new Question();
+    	String url;
     	try {
-    		
-    		HttpGet request = new HttpGet(mShowQuestionsActivity.getString(R.string.random_question_url));
+    		if (urls.length == 0) {
+    			url = mShowQuestionsActivity.getString(R.string.random_question_url);
+    		} else {
+    			url = urls[0];
+    		}
+    		HttpGet request = new HttpGet(url);
     		ResponseHandler<String> response = new BasicResponseHandler();
     		String responseText = SwengHttpClientFactory.getInstance().execute(request, response);
 			JSONObject responseJson = new JSONObject(responseText);
