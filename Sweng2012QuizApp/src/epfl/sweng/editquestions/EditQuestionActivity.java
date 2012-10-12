@@ -1,12 +1,14 @@
 package epfl.sweng.editquestions;
 
 import epfl.sweng.R;
-import epfl.sweng.R.layout;
-import epfl.sweng.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
+/**
+ * Activity enabling the user to edit a question
+ *
+ */
 public class EditQuestionActivity extends Activity {
 
     @Override
