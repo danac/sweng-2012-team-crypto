@@ -12,8 +12,8 @@
     <string name="random_question_url">https://sweng-quiz.appspot.com/quizquestions/random</string>
     <string name="title_activity_edit_question">Create here a new question</string>
     <string name="edit_button_submit">Submit</string>
-    <string name="edit_tags_hint">Type in the question's tags</string>
-    <string name="edit_question_hint">Type in the question's text body</string>
+    <string name="edit_tags_hint">Type in the question\'s tags</string>
+    <string name="edit_question_hint">Type in the question\'s text body</string>
     <string name="edit_button_new_answer">\u002B</string>
     <string name="edit_button_remove_answer">\u002D</string>
     <string name="edit_answer_hint">Type in the answer</string>
