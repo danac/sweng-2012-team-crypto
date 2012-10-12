@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
+/**
+ * Activity enabling the user to edit a question
+ *
+ */
 public class EditQuestionActivity extends Activity {
 
     @Override

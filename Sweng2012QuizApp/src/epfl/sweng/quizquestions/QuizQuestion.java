@@ -2,7 +2,6 @@ package epfl.sweng.quizquestions;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -81,8 +80,8 @@ public class QuizQuestion {
 	}
 	
 	/** Returns the number of rep invariant violations*/
-	public int auditErrors(int depth){
-	  return 0;
+	public int auditErrors(int depth) {
+		return 0;
 	}
 	
     /**
