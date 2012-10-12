@@ -2,6 +2,7 @@ package epfl.sweng.quizquestions;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -188,5 +189,23 @@ public class QuizQuestion {
     }
     
     
+    public String getJSONString() throws JSONException {
+
+    	JSONObject json = new JSONObject();
+    	
+    	json.put("question", mQuestion); 
+    	
+    	for (String answer : mAnswers) {
+    		json.accumulate("answers", answer);
+    	}
+    	json.put("solutionIndex", mSolutionIndex); 
+
+    	for (String tag : mTags) {
+    		json.accumulate("tags", tag);
+    	}
+    	
+    	return json.toString();
+
+    }
     
 }

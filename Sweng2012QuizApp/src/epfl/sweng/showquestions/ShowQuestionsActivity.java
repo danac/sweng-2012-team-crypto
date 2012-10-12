@@ -4,6 +4,8 @@ package epfl.sweng.showquestions;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.json.JSONException;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +35,7 @@ public class ShowQuestionsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_questions);
         new LoadRandomQuestion(this).execute();
+
     }
     
     
@@ -51,6 +54,12 @@ public class ShowQuestionsActivity extends Activity {
      */
     public void displayQuestion(final QuizQuestion question) {
     	
+    	try {
+			System.out.println(question.getJSONString());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	final ListView listView = (ListView) findViewById(R.id.listView);
         final TextView questionTxt = (TextView) findViewById(R.id.question);
         final Button button = (Button) findViewById(R.id.button);

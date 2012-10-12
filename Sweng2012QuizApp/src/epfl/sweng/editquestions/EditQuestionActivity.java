@@ -20,4 +20,9 @@ public class EditQuestionActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_edit_question, menu);
         return true;
     }
+    
+    
+    public void displaySubmitError() {
+    	
+    }
 }

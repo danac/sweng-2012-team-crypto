@@ -9,7 +9,6 @@
     <string name="question_heading">Here is the question:</string>
     <string name="button_nextQuestion">Next question</string>
     <string name="error_message">There was an error retrieving the question</string>
-    <string name="random_question_url">https://sweng-quiz.appspot.com/quizquestions/random</string>
     <string name="title_activity_edit_question">EditQuestionActivity</string>
 
 </resources>
