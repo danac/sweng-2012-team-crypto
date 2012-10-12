@@ -53,13 +53,7 @@ public class ShowQuestionsActivity extends Activity {
      * @param QuizQuestion question The question to be displayed
      */
     public void displayQuestion(final QuizQuestion question) {
-    	
-    	try {
-			System.out.println(question.getJSONString());
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
     	final ListView listView = (ListView) findViewById(R.id.listView);
         final TextView questionTxt = (TextView) findViewById(R.id.question);
         final Button button = (Button) findViewById(R.id.button);
