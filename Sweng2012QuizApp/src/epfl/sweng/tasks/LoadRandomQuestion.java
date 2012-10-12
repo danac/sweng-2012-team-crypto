@@ -6,13 +6,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import epfl.sweng.R;
+import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
-import epfl.sweng.showquestions.Question;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 
 
@@ -22,7 +20,7 @@ import android.os.AsyncTask;
  * Class used to create a Asynchronous Task that will load a random question and display it on a ShowQuestionsActivity
  *
  */
-public class LoadRandomQuestion extends AsyncTask<String, Void, Question> {
+public class LoadRandomQuestion extends AsyncTask<String, Void, QuizQuestion> {
     
 	private ShowQuestionsActivity mShowQuestionsActivity;
 	
@@ -40,9 +38,9 @@ public class LoadRandomQuestion extends AsyncTask<String, Void, Question> {
 	 * Method fetching the random question
 	 */
 	@Override
-	protected Question doInBackground(String... urls) {
+	protected QuizQuestion doInBackground(String... urls) {
 		// TODO Auto-generated method stub
-    	Question question = new Question();
+    	QuizQuestion question = new QuizQuestion();
     	String url;
     	try {
     		if (urls.length == 0) {
@@ -53,34 +51,15 @@ public class LoadRandomQuestion extends AsyncTask<String, Void, Question> {
     		HttpGet request = new HttpGet(url);
     		ResponseHandler<String> response = new BasicResponseHandler();
     		String responseText = SwengHttpClientFactory.getInstance().execute(request, response);
-			JSONObject responseJson = new JSONObject(responseText);
+			question = new QuizQuestion(responseText);
 			
-			JSONArray answersJSON = responseJson.getJSONArray("answers");
-			String[] answers = new String[answersJSON.length()];
-			for (int i=0; i<answersJSON.length(); i++) {
-				answers[i]=answersJSON.getString(i);
-			}
-			
-
-			JSONArray tagsJSON = responseJson.getJSONArray("tags");
-			String[] tags = new String[tagsJSON.length()];
-			for (int i=0; i<tagsJSON.length(); i++) {
-				tags[i]=tagsJSON.getString(i);
-			}
-			
-			question.setQuestion(responseJson.getString("question"));
-			question.setId(responseJson.getInt("id"));
-			question.setSolutionIndex(responseJson.getInt("solutionIndex"));
-
-			question.setAnswers(answers);
-			question.setTags(tags);
-		} catch (JSONException e) {
-			cancel(true);
-		} catch (ClientProtocolException e) {
-			cancel(true);
-		} catch (IOException e) {
-			cancel(true);
-		}
+    	} catch (JSONException e) {
+    		cancel(true);
+    	} catch (ClientProtocolException e) {
+    		cancel(true);
+    	} catch (IOException e) {
+    		cancel(true);
+    	}
     	
 		return question;
 	}
@@ -89,10 +68,10 @@ public class LoadRandomQuestion extends AsyncTask<String, Void, Question> {
 	/**
 	 * Calls back the displayQuestion Method of the ShowQuestionsActivity once 
 	 * the background process loading the random message completed
-	 * @param Question question The random question to be displayed as received from the server.
+	 * @param QuizQuestion question The random question to be displayed as received from the server.
 	 */
 	@Override
-	protected void onPostExecute(Question question) {
+	protected void onPostExecute(QuizQuestion question) {
 		mShowQuestionsActivity.displayQuestion(question);
 	}
 

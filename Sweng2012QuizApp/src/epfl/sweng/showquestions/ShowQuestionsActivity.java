@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import epfl.sweng.R;
+import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.tasks.LoadRandomQuestion;
 
 /**
@@ -46,9 +47,9 @@ public class ShowQuestionsActivity extends Activity {
     
     /**
      * Display a question on the screen
-     * @param Question question The question to be displayed
+     * @param QuizQuestion question The question to be displayed
      */
-    public void displayQuestion(final Question question) {
+    public void displayQuestion(final QuizQuestion question) {
     	
     	final ListView listView = (ListView) findViewById(R.id.listView);
         final TextView questionTxt = (TextView) findViewById(R.id.question);
