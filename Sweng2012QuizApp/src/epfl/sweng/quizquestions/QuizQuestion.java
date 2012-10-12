@@ -1,5 +1,7 @@
 package epfl.sweng.quizquestions;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -11,13 +13,13 @@ import org.json.JSONObject;
  * Simple data structure holding the data retrieved from the web service
  */
 public class QuizQuestion {
+	
     private String mQuestion;
-    private String[] mAnswers;
+    private List<String> mAnswers;
     private int mSolutionIndex;
-    private String[] mTags;
+    private Set<String> mTags;
     private String mOwner;
-    private int mId;
-
+    private String mId;
     
 	/** The constructor for quiz questions received as JSON strings from the Sweng2012QuizApp server, as in homework #1
 	* @param json The JSON string received from the Sweng2012QuizApp server, as in homework #1
@@ -32,7 +34,11 @@ public class QuizQuestion {
 	* @param owner The owner of the question
 	*/
 	public QuizQuestion(String txt, List<String> answers, int solutionIdx, Set<String> tags, String id, String owner) {
-	    
+		setQuestion(txt);
+		setId(id);
+		setSolutionIndex(solutionIdx);
+		setAnswers(answers);
+		setTags(tags);	
 	}
 	
     /**
@@ -40,10 +46,10 @@ public class QuizQuestion {
      */
     public QuizQuestion() {
         super();
-        mQuestion = "Choose an answer:";
+        /*mQuestion = "Choose an answer:";
         mAnswers = new String[] {"Answer 1", "Answer 2", "Answer 3", "Answer 4"};
         mTags = new String[] {"Answer 1", "Answer 2", "Answer 3", "Answer 4"};
-        mSolutionIndex = 1;
+        mSolutionIndex = 1;*/
     	
     }
 	
@@ -58,7 +64,6 @@ public class QuizQuestion {
 		for (int i=0; i<answersJSON.length(); i++) {
 			answers[i]=answersJSON.getString(i);
 		}
-		
 
 		JSONArray tagsJSON = responseJson.getJSONArray("tags");
 		String[] tags = new String[tagsJSON.length()];
@@ -67,14 +72,18 @@ public class QuizQuestion {
 		}
 		
 		setQuestion(responseJson.getString("question"));
-		setId(responseJson.getInt("id"));
+		setId(responseJson.getString("id"));
 		setSolutionIndex(responseJson.getInt("solutionIndex"));
 		setAnswers(answers);
 		setTags(tags);
-
 	
 	}
-
+	
+	/** Returns the number of rep invariant violations*/
+	public int auditErrors(int depth){
+	  return 0;
+	}
+	
     /**
      * Get multiple choice question
      * @return String The question
@@ -96,7 +105,7 @@ public class QuizQuestion {
      * @return String[] string holding the possible answers
      */
     public String[] getAnswers() {
-    	return mAnswers;
+    	return mAnswers.toArray(new String[mAnswers.size()]);
     }
 
     /**
@@ -104,7 +113,7 @@ public class QuizQuestion {
      * @return String[] string holding the possible answers
      */
     public String[] getTags() {
-    	return mTags;
+    	return mTags.toArray(new String[mTags.size()]);
     }
     
     /**
@@ -119,7 +128,7 @@ public class QuizQuestion {
      * Get id of the question-answer dataset
      * @return
      */
-    public int getId() {
+    public String getId() {
     	return mId;
     }
     
@@ -128,7 +137,15 @@ public class QuizQuestion {
      * @param String[] answers the answers to be set
      */
     public void setAnswers(String[] answers) {
-    	mAnswers = answers;
+    	mAnswers = Arrays.asList(answers);	
+    }
+    
+    /**
+     * Set the possible answers
+     * @param List<String> answers the answers to be set
+     */
+    public void setAnswers(List<String> answers) {
+    	mAnswers = answers;	
     }
     
     /**
@@ -136,9 +153,16 @@ public class QuizQuestion {
      * @param String[] tags the tags to be set
      */
     public void setTags(String[] tags) {
-    	mTags = tags;
+    	mTags = new HashSet<String>(Arrays.asList(tags));
     }
     
+    /**
+     * Set the possible tags
+     * @param Set<String> tags the tags to be set
+     */
+    public void setTags(Set<String> tags) {
+    	mTags = tags;
+    }
     /**
      * Set the question
      * @param String question the question to be set
@@ -159,7 +183,7 @@ public class QuizQuestion {
      * Set the id of the question-answers dataset
      * @param int id the id of the dataset
      */
-    public void setId(int id) {
+    public void setId(String id) {
     	mId = id;
     }
     
