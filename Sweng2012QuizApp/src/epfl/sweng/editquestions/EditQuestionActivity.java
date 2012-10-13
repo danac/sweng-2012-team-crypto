@@ -20,7 +20,7 @@ public class EditQuestionActivity extends Activity {
         setContentView(R.layout.activity_edit_question);
     }
 
-    public QuizQuestion createQuestion() {
+    public QuizQuestion createQuestionFromUser() {
     	QuizQuestion question = new QuizQuestion();
     	// TODO Implement a listener that will hydrate the question
     	// and check that it is valid using question.auditErrors()

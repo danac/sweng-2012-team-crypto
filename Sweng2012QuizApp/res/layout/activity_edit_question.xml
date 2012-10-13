@@ -26,48 +26,54 @@
 
     <!-- The answers -->
 
-    <LinearLayout
-        android:id="@+id/edit_answers_container"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <EditText
-            android:id="@+id/edit_answer_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/edit_answer_hint" />
-
-        <Button
-            android:id="@+id/edit_button_mark_correct_answer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="" />
-
-        <Button
-            android:id="@+id/edit_button_remove_answer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="@string/edit_button_remove_answer" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/edit_button_new_answer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="@string/edit_button_new_answer" />
-
-    <!-- Bottom: tags and submit -->
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1" >
-    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/edit_answers_container"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/edit_answer_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/edit_answer_hint" />
+
+                <Button
+                    android:id="@+id/edit_button_mark_correct_answer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="" />
+
+                <Button
+                    android:id="@+id/edit_button_remove_answer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="@string/edit_button_remove_answer" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/edit_button_new_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@string/edit_button_new_answer" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom: tags and submit -->
 
     <LinearLayout
         android:layout_width="fill_parent"
