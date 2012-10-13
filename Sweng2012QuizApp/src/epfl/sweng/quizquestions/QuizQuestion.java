@@ -131,7 +131,7 @@ public class QuizQuestion {
 	    // Check owner
     	boolean ownerOK = true;
 	    for (int i = 0; i < mOwner.length(); i++) {
-    	    if (Character.isLetterOrDigit(mOwner.charAt(i))) {
+    	    if (!Character.isLetterOrDigit(mOwner.charAt(i))) {
     	    	ownerOK = false;
     	    	break;
     	    }
@@ -144,7 +144,7 @@ public class QuizQuestion {
 	    // Check the ID
     	boolean idOK = true;
 	    for (int i = 0; i < mId.length(); i++) {
-    	    if (Character.isLetterOrDigit(mId.charAt(i))) {
+    	    if (!Character.isLetterOrDigit(mId.charAt(i))) {
     	    	idOK = false;
     	    	break;
     	    }
