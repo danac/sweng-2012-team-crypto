@@ -38,8 +38,13 @@ public class EditQuestionActivity extends Activity {
     	newQuestionButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				int nbAnswers = answersContainer.getChildCount()-1;
 				View newAnswer = getLayoutInflater().inflate(R.layout.edit_new_answer, null);
 				answersContainer.addView(newAnswer, answersContainer.getChildCount()-1);
+				nbAnswers++;
+				if (nbAnswers>=10) { // TODO Change this '10', need to access QuizQuestion.MAX_NUMBER_OF_ANSWERS 
+					newQuestionButton.setEnabled(false);
+				}
 			}
 		});
     }

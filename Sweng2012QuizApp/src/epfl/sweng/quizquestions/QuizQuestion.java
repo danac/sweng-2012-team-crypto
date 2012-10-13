@@ -14,9 +14,9 @@ import org.json.JSONObject;
  * Simple data structure holding the data retrieved from the web service
  */
 public class QuizQuestion {
-	private final static int MAX_NUMBER_OF_ANSWERS = 2;
-	private final static int MIN_NUMBER_OF_ANSWERS = 10;
-	private final static int MAX_NUMER_OF_TAGS = 20;
+	private final static int MAX_NUMBER_OF_ANSWERS = 10;
+	private final static int MIN_NUMBER_OF_ANSWERS = 2;
+	private final static int MAX_NUMBER_OF_TAGS = 20;
     private String mQuestion;
     private List<String> mAnswers;
     private int mSolutionIndex;
@@ -103,7 +103,7 @@ public class QuizQuestion {
 	    	boolean tagOK = true;
 	    	String tag = iter.next();
 	    	
-	    	if (tag.length()>MAX_NUMER_OF_TAGS) {
+	    	if (tag.length()>MAX_NUMBER_OF_TAGS) {
 	    		tagOK = false;
 	    	
 	    	} else {
