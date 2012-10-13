@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Sweng2012QuizApp</string>
     <string name="hello_world">Welcome</string>
     <string name="menu_settings">Settings</string>
@@ -12,7 +13,10 @@
     <string name="edit_button_submit">Submit</string>
     <string name="edit_tags_hint">Type in the question\'s tags</string>
     <string name="edit_question_hint">Type in the question\'s text body</string>
-    <string name="edit_button_new_answer">\u002B</string>
-    <string name="edit_button_remove_answer">\u002D</string>
+    <string name="plus_sign">\u002B</string>
+    <string name="hyphen_minus">\u002D</string>
+    <string name="heavy_ballot_x">\u2718</string>
+    <string name="heavy_check_mark">\u2714</string>
     <string name="edit_answer_hint">Type in the answer</string>
+
 </resources>

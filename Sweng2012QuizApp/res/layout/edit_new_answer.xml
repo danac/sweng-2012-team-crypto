@@ -11,17 +11,17 @@
         android:hint="@string/edit_answer_hint" />
 
     <Button
-        android:id="@+id/edit_button_mark_correct_answer"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:text="" />
+        android:tag="@string/heavy_ballot_x"
+        android:text="@string/heavy_ballot_x" />
 
     <Button
-        android:id="@+id/edit_button_remove_answer"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:text="@string/edit_button_remove_answer" />
+        android:tag="@string/hyphen_minus"
+        android:text="@string/hyphen_minus" />
 
 </LinearLayout>
