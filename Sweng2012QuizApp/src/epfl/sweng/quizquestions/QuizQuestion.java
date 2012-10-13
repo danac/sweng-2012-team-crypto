@@ -2,6 +2,7 @@ package epfl.sweng.quizquestions;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +14,9 @@ import org.json.JSONObject;
  * Simple data structure holding the data retrieved from the web service
  */
 public class QuizQuestion {
-	
+	private final static int MAX_NUMBER_OF_ANSWERS = 2;
+	private final static int MIN_NUMBER_OF_ANSWERS = 10;
+	private final static int MAX_NUMER_OF_TAGS = 20;
     private String mQuestion;
     private List<String> mAnswers;
     private int mSolutionIndex;
@@ -38,7 +41,8 @@ public class QuizQuestion {
 		setId(id);
 		setSolutionIndex(solutionIdx);
 		setAnswers(answers);
-		setTags(tags);	
+		setTags(tags);
+		setOwner(owner);
 	}
 	
     /**
@@ -76,12 +80,84 @@ public class QuizQuestion {
 		setSolutionIndex(responseJson.getInt("solutionIndex"));
 		setAnswers(answers);
 		setTags(tags);
+		setOwner(responseJson.getString("owner"));
 	
 	}
 	
 	/** Returns the number of rep invariant violations*/
-	public int auditErrors(int depth){
-	  return 0;
+	public int auditErrors(int depth) {
+		
+		int errorCount = 0;
+
+		//Check that no string is larger than 500 characters
+		
+		
+		// Check the number of answers
+		if (mAnswers.size()<MIN_NUMBER_OF_ANSWERS || mAnswers.size()>MAX_NUMBER_OF_ANSWERS) {
+			errorCount++;
+		}
+		
+		// Check the tags
+		Iterator<String> iter = mTags.iterator();
+	    while (iter.hasNext()) {
+	    	boolean tagOK = true;
+	    	String tag = iter.next();
+	    	
+	    	if (tag.length()>MAX_NUMER_OF_TAGS) {
+	    		tagOK = false;
+	    	
+	    	} else {
+		    
+	    		for (int i = 0; i < tag.length(); i++) {
+		    	    if (Character.isLetterOrDigit(tag.charAt(i))) {
+		    	    	tagOK = false;
+		    	    	break;
+		    	    }
+		    	}
+	    	}
+	    	
+	    	if (!tagOK) {
+	    		errorCount++;
+	    		break;
+	    	}
+	    }
+		
+
+		// Check the id of the right answer
+	    if (mSolutionIndex>=mAnswers.size()) {
+	    	errorCount++;
+	    }
+	    
+	    // Check owner
+    	boolean ownerOK = true;
+	    for (int i = 0; i < mOwner.length(); i++) {
+    	    if (Character.isLetterOrDigit(mOwner.charAt(i))) {
+    	    	ownerOK = false;
+    	    	break;
+    	    }
+    	}
+	    
+	    if (!ownerOK) {
+    		errorCount++;
+    	}
+		
+	    // Check the ID
+    	boolean idOK = true;
+	    for (int i = 0; i < mId.length(); i++) {
+    	    if (Character.isLetterOrDigit(mId.charAt(i))) {
+    	    	idOK = false;
+    	    	break;
+    	    }
+    	}
+	    
+	    if (!idOK) {
+    		errorCount++;
+    	}
+		
+	    
+	    
+	    return errorCount;
+			
 	}
 	
     /**
@@ -98,6 +174,14 @@ public class QuizQuestion {
      */
     public String getOwner() {
     	return mOwner;
+    } 
+    
+    /**
+     * Set owner of the dataset
+     * @param String owner
+     */
+    public void setOwner(String owner) {
+    	mOwner = owner;
     }
     
     /**
@@ -186,7 +270,5 @@ public class QuizQuestion {
     public void setId(String id) {
     	mId = id;
     }
-    
-    
-    
+        
 }
