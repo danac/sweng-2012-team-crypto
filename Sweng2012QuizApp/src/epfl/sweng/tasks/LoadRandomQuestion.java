@@ -8,7 +8,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.json.JSONException;
 
-import epfl.sweng.R;
+import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
@@ -39,19 +39,17 @@ public class LoadRandomQuestion extends AsyncTask<String, Void, QuizQuestion> {
 	 */
 	@Override
 	protected QuizQuestion doInBackground(String... urls) {
-		// TODO Auto-generated method stub
-    	QuizQuestion question = new QuizQuestion();
     	String url;
     	try {
     		if (urls.length == 0) {
-    			url = mShowQuestionsActivity.getString(R.string.random_question_url);
+    			url = Globals.RANDOM_QUESITON_URL;
     		} else {
     			url = urls[0];
     		}
     		HttpGet request = new HttpGet(url);
     		ResponseHandler<String> response = new BasicResponseHandler();
     		String responseText = SwengHttpClientFactory.getInstance().execute(request, response);
-			question = new QuizQuestion(responseText);
+			return new QuizQuestion(responseText);
 			
     	} catch (JSONException e) {
     		cancel(true);
@@ -61,7 +59,7 @@ public class LoadRandomQuestion extends AsyncTask<String, Void, QuizQuestion> {
     		cancel(true);
     	}
     	
-		return question;
+		return null;
 	}
 	
 	
@@ -72,7 +70,11 @@ public class LoadRandomQuestion extends AsyncTask<String, Void, QuizQuestion> {
 	 */
 	@Override
 	protected void onPostExecute(QuizQuestion question) {
-		mShowQuestionsActivity.displayQuestion(question);
+		if (question != null) {
+			mShowQuestionsActivity.displayQuestion(question);
+		} else {
+			mShowQuestionsActivity.displayError();
+		}
 	}
 
 	@Override

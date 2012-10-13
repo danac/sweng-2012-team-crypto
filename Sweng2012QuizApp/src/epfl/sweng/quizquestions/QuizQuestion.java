@@ -270,5 +270,24 @@ public class QuizQuestion {
     public void setId(String id) {
     	mId = id;
     }
-        
+
+    public String getJSONString() throws JSONException {
+
+    	JSONObject json = new JSONObject();
+    	
+    	json.put("question", mQuestion); 
+    	
+    	for (String answer : mAnswers) {
+    		json.accumulate("answers", answer);
+    	}
+    	json.put("solutionIndex", mSolutionIndex); 
+
+    	for (String tag : mTags) {
+    		json.accumulate("tags", tag);
+    	}
+    	
+    	return json.toString();
+
+    }
+    
 }
