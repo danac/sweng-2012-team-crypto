@@ -16,7 +16,7 @@ import org.json.JSONObject;
 public class QuizQuestion {
 	private final static int MAX_NUMBER_OF_ANSWERS = 10;
 	private final static int MIN_NUMBER_OF_ANSWERS = 2;
-	private final static int MAX_NUMBER_OF_TAGS = 20;
+	private final static int MAX_LENGTH_OF_TAGS = 20;
     private String mQuestion;
     private List<String> mAnswers;
     private int mSolutionIndex;
@@ -103,13 +103,13 @@ public class QuizQuestion {
 	    	boolean tagOK = true;
 	    	String tag = iter.next();
 	    	
-	    	if (tag.length()>MAX_NUMBER_OF_TAGS) {
+	    	if (tag.length()>MAX_LENGTH_OF_TAGS) {
 	    		tagOK = false;
 	    	
 	    	} else {
 		    
 	    		for (int i = 0; i < tag.length(); i++) {
-		    	    if (Character.isLetterOrDigit(tag.charAt(i))) {
+		    	    if (!Character.isLetterOrDigit(tag.charAt(i))) {
 		    	    	tagOK = false;
 		    	    	break;
 		    	    }
