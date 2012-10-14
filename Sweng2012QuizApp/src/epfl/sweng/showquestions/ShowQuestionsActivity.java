@@ -4,8 +4,6 @@ package epfl.sweng.showquestions;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.json.JSONException;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;

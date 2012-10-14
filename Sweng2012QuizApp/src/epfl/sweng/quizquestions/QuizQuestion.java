@@ -17,6 +17,7 @@ public class QuizQuestion {
 	private final static int MAX_NUMBER_OF_ANSWERS = 2;
 	private final static int MIN_NUMBER_OF_ANSWERS = 10;
 	private final static int MAX_NUMER_OF_TAGS = 20;
+	
     private String mQuestion;
     private List<String> mAnswers;
     private int mSolutionIndex;
