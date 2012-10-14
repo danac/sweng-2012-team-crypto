@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import epfl.sweng.R;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
@@ -79,6 +80,10 @@ public class EditQuestionActivity extends Activity {
     		
     	case SOLUTION_INDEX:
     		mEditedQuestion.setSolutionIndex(Integer.parseInt(value));
+    		if (value == "-1") {
+    			Toast toast = Toast.makeText(this, "One answer should be marked as correct", Toast.LENGTH_SHORT);
+    			toast.show();
+    		}
     		return mEditedQuestion.auditErrors(0) == 0;
     		
     	case TAGS:    		

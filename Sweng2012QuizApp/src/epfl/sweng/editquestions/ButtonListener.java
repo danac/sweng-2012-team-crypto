@@ -78,10 +78,11 @@ public class ButtonListener implements OnClickListener {
 					Integer.toString(((ViewGroup) v.getParent().getParent()).indexOfChild((View) v.getParent())) );
 		}
 		
-		// On click 'V' button: check corresponding answer as wrong
+		// On click 'V' button: check corresponding answer as wrong and update question
 		else if (buttonTag == mActivity.getResources().getText(R.string.heavy_check_mark)) {
 			((Button) v).setText(mActivity.getResources().getText(R.string.heavy_ballot_x));
 			((Button) v).setTag(mActivity.getResources().getText(R.string.heavy_ballot_x));
+			mActivity.buildQuestionFromView( v, QuizQuestionParam.SOLUTION_INDEX, "-1" );
 		}
 		
 		// On click 'Submit' button
