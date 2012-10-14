@@ -43,16 +43,16 @@ public class EditTextWatcher implements TextWatcher {
 		if (mEditText.getTag().toString() == mActivity.getResources().getText(R.string.edit_question_hint)) {
 			mActivity.buildQuestionFromView(mEditText, QuizQuestionParam.QUESTION,
 					mEditText.getText().toString());
-		}
+		
 		
 		// User has entered tags
-		else if (mEditText.getTag().toString() == mActivity.getResources().getText(R.string.edit_tags_hint)) {
+		} else if (mEditText.getTag().toString() == mActivity.getResources().getText(R.string.edit_tags_hint)) {
 			mActivity.buildQuestionFromView(mEditText, QuizQuestionParam.TAGS,
 					mEditText.getText().toString());
-		}
+		
 		
 		// User has entered an answer
-		else if (mEditText.getTag().toString() == mActivity.getResources().getText(R.string.edit_answer_hint)) {
+		} else if (mEditText.getTag().toString() == mActivity.getResources().getText(R.string.edit_answer_hint)) {
 			
 			mActivity.buildQuestionFromView(mEditText, QuizQuestionParam.ANSWER,
 					mEditText.getText().toString());
@@ -71,10 +71,9 @@ public class EditTextWatcher implements TextWatcher {
     	int nbChildren = v.getChildCount();
     	for (int i=0; i<nbChildren; i++) {
     		if (v.getChildAt(i) instanceof EditText) {
-    			list.add((EditText)v.getChildAt(i));
-    		}
-    		else if (v.getChildAt(i) instanceof ViewGroup) {
-    			list.addAll(findAllEditTexts((ViewGroup)v.getChildAt(i)));
+    			list.add((EditText) v.getChildAt(i));
+    		} else if (v.getChildAt(i) instanceof ViewGroup) {
+    			list.addAll(findAllEditTexts((ViewGroup) v.getChildAt(i)));
     		}
     	}
     	return list;

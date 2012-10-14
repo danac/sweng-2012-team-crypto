@@ -16,7 +16,6 @@ import android.widget.Toast;
 import epfl.sweng.R;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
-import epfl.sweng.editquestions.ButtonListener;
 
 /**
  * Activity enabling the user to edit a question
@@ -60,50 +59,52 @@ public class EditQuestionActivity extends Activity {
     	
     	switch (param) {
     	
-    	case QUESTION:
-    		if (!mEditedQuestion.checkString(value)) {
-    			((EditText) view).setError("The question must be non-empty or have less than 500 characters");
-    		} else {
-    			mEditedQuestion.setQuestion(value);
-    			((EditText) view).setError(null);
-    		}
-    		return mEditedQuestion.auditErrors(0) == 0;
-    		
-    	case ANSWER:
-    		if (!mEditedQuestion.checkString(value)) {
-    			((EditText) view).setError("An answer must be non-empty or have less than 500 characters");
-    		} else {
-    			mEditedQuestion.addAnswerAtIndex(value, ((ViewGroup) view.getParent().getParent()).indexOfChild((View) view.getParent()));
-    			((EditText) view).setError(null);
-    		}
-    		return mEditedQuestion.auditErrors(0) == 0;
-    		
-    	case SOLUTION_INDEX:
-    		mEditedQuestion.setSolutionIndex(Integer.parseInt(value));
-    		if (value == "-1") {
-    			Toast toast = Toast.makeText(this, "One answer should be marked as correct", Toast.LENGTH_SHORT);
-    			toast.show();
-    		}
-    		return mEditedQuestion.auditErrors(0) == 0;
-    		
-    	case TAGS:    		
-    		String[] tags = value.split("[^a-zA-Z0-9']");
-    		boolean flag = true;
-    		for (String tag : tags) {
-    			if (!(flag = flag && mEditedQuestion.checkTag(tag))) {
-    				((EditText) view).setError("A tag must be less than 20 alphanumeric characters");
-    				break;
-    			}
-    		}
-			if (flag) {
-				Set<String> tagsSet = new HashSet<String>(Arrays.asList(tags));
-				mEditedQuestion.setTags(tagsSet);
-				((EditText) view).setError(null);
-			}
-    		return mEditedQuestion.auditErrors(0) == 0;
-    		
-    	default:
-    		return mEditedQuestion.auditErrors(0) == 0;
+	    	case QUESTION:
+	    		if (!mEditedQuestion.checkString(value)) {
+	    			((EditText) view).setError("The question must be non-empty or have less than 500 characters");
+	    		} else {
+	    			mEditedQuestion.setQuestion(value);
+	    			((EditText) view).setError(null);
+	    		}
+	    		return mEditedQuestion.auditErrors(0) == 0;
+	    		
+	    	case ANSWER:
+	    		if (!mEditedQuestion.checkString(value)) {
+	    			((EditText) view).setError("An answer must be non-empty or have less than 500 characters");
+	    		} else {
+	    			mEditedQuestion.addAnswerAtIndex(value, 
+	    					((ViewGroup) view.getParent().getParent()).indexOfChild((View) view.getParent()));
+	    			((EditText) view).setError(null);
+	    		}
+	    		return mEditedQuestion.auditErrors(0) == 0;
+	    		
+	    	case SOLUTION_INDEX:
+	    		mEditedQuestion.setSolutionIndex(Integer.parseInt(value));
+	    		if (value.equals("-1")) {
+	    			Toast toast = Toast.makeText(this, "One answer should be marked as correct", Toast.LENGTH_SHORT);
+	    			toast.show();
+	    		}
+	    		return mEditedQuestion.auditErrors(0) == 0;
+	    		
+	    	case TAGS:    		
+	    		String[] tags = value.split("[^a-zA-Z0-9']");
+	    		boolean flag = true;
+	    		for (String tag : tags) {
+	    			flag = flag && mEditedQuestion.checkTag(tag);
+	    			if (!flag) {
+	    				((EditText) view).setError("A tag must be less than 20 alphanumeric characters");
+	    				break;
+	    			}
+	    		}
+				if (flag) {
+					Set<String> tagsSet = new HashSet<String>(Arrays.asList(tags));
+					mEditedQuestion.setTags(tagsSet);
+					((EditText) view).setError(null);
+				}
+	    		return mEditedQuestion.auditErrors(0) == 0;
+	    		
+	    	default:
+	    		return mEditedQuestion.auditErrors(0) == 0;
     	}
     }
     

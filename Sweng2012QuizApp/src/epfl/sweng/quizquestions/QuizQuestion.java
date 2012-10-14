@@ -27,6 +27,9 @@ public class QuizQuestion {
     private String mOwner;
     private String mId;
     
+    /**
+     * Possible QuizQuestion Parameters
+     */
     public enum QuizQuestionParam {
     	QUESTION, ANSWER, SOLUTION_INDEX, TAGS, OWNER, ID
     }
@@ -190,7 +193,7 @@ public class QuizQuestion {
 			for (int i = 0; i < string.length(); i++) {
 				onlyWhiteSpace = onlyWhiteSpace && Character.isWhitespace(string.charAt(i));
 			}
-			return ((string.length() <= MAX_LENGTH_OF_STRINGS) && (!onlyWhiteSpace));
+			return string.length() <= MAX_LENGTH_OF_STRINGS && !onlyWhiteSpace;
 		}
 	}
 	
@@ -307,13 +310,11 @@ public class QuizQuestion {
     	// Replace an existing answer
     	if (mAnswers.size() >= index+1) {
     		mAnswers.set(index, answer);
-    	}
     	// Push a new answer
-    	else if (mAnswers.size() == index) {
+    	} else if (mAnswers.size() == index) {
     		mAnswers.add(answer);
-    	}
     	// Add empty answers and push new one
-    	else {
+    	} else {
     		while (mAnswers.size() < index) {
     			mAnswers.add("");
     		}

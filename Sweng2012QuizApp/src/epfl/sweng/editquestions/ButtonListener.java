@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epfl.sweng.R;
+import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,21 +51,22 @@ public class ButtonListener implements OnClickListener {
 				editText.addTextChangedListener(new EditTextWatcher(mActivity, editText));
 			}
 			
-			// Prevent user from entering more than 10 answers  
-			if (answersContainer.getChildCount() >= 10) { // TODO Change this '10', need to access QuizQuestion.MAX_NUMBER_OF_ANSWERS 
+			// Prevent user from entering more than 10 answers
+			// TODO Change this '10', need to access QuizQuestion.MAX_NUMBER_OF_ANSWERS
+			if (answersContainer.getChildCount() >= Globals.MAX_NUMBER_OF_ANSWERS) {  
 				v.setEnabled(false);
 			}
-		}
+		
 		
 		// On click '-' button: remove corresponding answer and enable '+'
-		else if (buttonTag == mActivity.getResources().getText(R.string.hyphen_minus)) {
+		} else if (buttonTag == mActivity.getResources().getText(R.string.hyphen_minus)) {
 			answersContainer.removeView((View) v.getParent());
 			Button newAnswerButton = (Button) mActivity.findViewById(R.id.edit_button_new_answer);
 			newAnswerButton.setEnabled(true);
-		}
+		
 		
 		// On click 'X' button: check all other right answers as wrong and this one as right and update question
-		else if (buttonTag == mActivity.getResources().getText(R.string.heavy_ballot_x)) {
+		} else if (buttonTag == mActivity.getResources().getText(R.string.heavy_ballot_x)) {
 			List<Button> listWrongButton = findAllButtons(
 					(ViewGroup) answersContainer, mActivity.getResources().getText(R.string.heavy_check_mark));
 			for (Button button : listWrongButton) {
@@ -74,20 +76,22 @@ public class ButtonListener implements OnClickListener {
 			
 			((Button) v).setText(mActivity.getResources().getText(R.string.heavy_check_mark));
 			((Button) v).setTag(mActivity.getResources().getText(R.string.heavy_check_mark));
-			mActivity.buildQuestionFromView( v, QuizQuestionParam.SOLUTION_INDEX,
-					Integer.toString(((ViewGroup) v.getParent().getParent()).indexOfChild((View) v.getParent())) );
-		}
+			mActivity.buildQuestionFromView(v, QuizQuestionParam.SOLUTION_INDEX,
+					Integer.toString(((ViewGroup) v.getParent().getParent()).indexOfChild((View) v.getParent())));
+		
 		
 		// On click 'V' button: check corresponding answer as wrong and update question
-		else if (buttonTag == mActivity.getResources().getText(R.string.heavy_check_mark)) {
+		} else if (buttonTag == mActivity.getResources().getText(R.string.heavy_check_mark)) {
 			((Button) v).setText(mActivity.getResources().getText(R.string.heavy_ballot_x));
 			((Button) v).setTag(mActivity.getResources().getText(R.string.heavy_ballot_x));
-			mActivity.buildQuestionFromView( v, QuizQuestionParam.SOLUTION_INDEX, "-1" );
-		}
+			mActivity.buildQuestionFromView(v, QuizQuestionParam.SOLUTION_INDEX, "-1");
+		
 		
 		// On click 'Submit' button
-		else if (buttonTag == mActivity.getResources().getText(R.string.heavy_check_mark)) {
+		} else if (buttonTag == mActivity.getResources().getText(R.string.heavy_check_mark)) {
 			// TODO implement something nice :)
+			
+			
 		}
 	}
 	
@@ -101,10 +105,9 @@ public class ButtonListener implements OnClickListener {
     	int nbChildren = v.getChildCount();
     	for (int i=0; i<nbChildren; i++) {
     		if (v.getChildAt(i) instanceof Button) {
-    			list.add((Button)v.getChildAt(i));
-    		}
-    		else if (v.getChildAt(i) instanceof ViewGroup) {
-    			list.addAll(findAllButtons((ViewGroup)v.getChildAt(i)));
+    			list.add((Button) v.getChildAt(i));
+    		} else if (v.getChildAt(i) instanceof ViewGroup) {
+    			list.addAll(findAllButtons((ViewGroup) v.getChildAt(i)));
     		}
     	}
     	return list;
@@ -121,10 +124,9 @@ public class ButtonListener implements OnClickListener {
     	int nbChildren = v.getChildCount();
     	for (int i=0; i<nbChildren; i++) {
     		if (v.getChildAt(i) instanceof Button && v.getChildAt(i).getTag() == tag) {
-    			list.add((Button)v.getChildAt(i));
-    		}
-    		else if (v.getChildAt(i) instanceof ViewGroup) {
-    			list.addAll(findAllButtons((ViewGroup)v.getChildAt(i), tag));
+    			list.add((Button) v.getChildAt(i));
+    		} else if (v.getChildAt(i) instanceof ViewGroup) {
+    			list.addAll(findAllButtons((ViewGroup) v.getChildAt(i), tag));
     		}
     	}
     	return list;
