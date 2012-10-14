@@ -57,12 +57,12 @@ public class QuizQuestion {
      */
     public QuizQuestion() {
         super();
-        mQuestion = null;
-        mAnswers = null;
-        mTags = null;
+        mQuestion = "";
+        mAnswers = new ArrayList<String>();
+        mTags = new HashSet<String>();
         mSolutionIndex = -1;
-        mOwner = null;
-        mId = null;
+        mOwner = "";
+        mId = "";
     	
     }
 	
@@ -183,12 +183,15 @@ public class QuizQuestion {
 	 */
 	public boolean checkString(String string) {
 		
-		boolean onlyWhiteSpace = true;
-		for (int i = 0; i < string.length(); i++) {
-			onlyWhiteSpace = onlyWhiteSpace && Character.isWhitespace(string.charAt(i));
+		if (string == null || string.length() == 0) {
+			return false;
+		} else {
+			boolean onlyWhiteSpace = true;
+			for (int i = 0; i < string.length(); i++) {
+				onlyWhiteSpace = onlyWhiteSpace && Character.isWhitespace(string.charAt(i));
+			}
+			return ((string.length() <= MAX_LENGTH_OF_STRINGS) && (!onlyWhiteSpace));
 		}
-		
-		return (!(string.length() == 0)) && (string.length() <= MAX_LENGTH_OF_STRINGS) && (!onlyWhiteSpace);
 	}
 	
 	/**

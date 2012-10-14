@@ -35,11 +35,11 @@ public class EditQuestionActivity extends Activity {
         	button.setOnClickListener(new ButtonListener(this));
         }
         
-        OnEditTextFocusChangeListener onFocusChangeListener = new OnEditTextFocusChangeListener(this);
-        List<EditText> listEditTexts = onFocusChangeListener.findAllEditTexts(
+        EditTextWatcher editTextWatcher = new EditTextWatcher(this);
+        List<EditText> listEditTexts = editTextWatcher.findAllEditTexts(
         		(ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content));
-        for (EditText EditText : listEditTexts) {
-        	EditText.setOnFocusChangeListener(new OnEditTextFocusChangeListener(this));
+        for (EditText editText : listEditTexts) {
+        	editText.addTextChangedListener(new EditTextWatcher(this, editText));
         }
     }
 
@@ -49,9 +49,9 @@ public class EditQuestionActivity extends Activity {
      * @param view The View from which value come from
      * @param param enum of the parameters
      * @param value value of the field to add
-     * @return question The modified QuizQuestion
+     * @return true if mEditedQuestion is valid according to mEditedQuestion.auditErrors()
      */
-    public void buildQuestionFromView(View view, QuizQuestionParam param, String value) {
+    public boolean buildQuestionFromView(View view, QuizQuestionParam param, String value) {
     	
     	switch (param) {
     	
@@ -60,31 +60,34 @@ public class EditQuestionActivity extends Activity {
     			((EditText) view).setError("The question must be non-empty or have less than 500 characters");
     		} else {
     			mEditedQuestion.setQuestion(value);
+    			((EditText) view).setError(null);
     		}
-    		return;
+    		return mEditedQuestion.auditErrors(0) == 0;
     		
     	case ANSWER:
     		if (!mEditedQuestion.checkString(value)) {
     			((EditText) view).setError("An answer must be non-empty or have less than 500 characters");
     		} else {
     			mEditedQuestion.addAnswer(value);
+    			((EditText) view).setError(null);
     		}
-    		return;
+    		return mEditedQuestion.auditErrors(0) == 0;
     		
     	case SOLUTION_INDEX:
     		mEditedQuestion.setSolutionIndex(Integer.parseInt(value));
-    		return;
+    		return mEditedQuestion.auditErrors(0) == 0;
     		
     	case TAG:
     		if (!mEditedQuestion.checkTag(value)) {
     			((EditText) view).setError("A tag must be no longer than 20 alphanumeric characters");
     		} else {
     			mEditedQuestion.addTag(value);
+    			((EditText) view).setError(null);
     		}
-    		return;
+    		return mEditedQuestion.auditErrors(0) == 0;
     		
     	default:
-    		return;
+    		return mEditedQuestion.auditErrors(0) == 0;
     	}
     }
     

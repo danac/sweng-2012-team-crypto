@@ -5,39 +5,49 @@ import java.util.List;
 
 import epfl.sweng.R;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
-import android.view.View;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ViewGroup;
-import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 
 /**
  * A class to handle all the EditTexts of an activity.
  */
-public class OnEditTextFocusChangeListener implements OnFocusChangeListener {
+public class EditTextWatcher implements TextWatcher {
 
 	private EditQuestionActivity mActivity;
+	private EditText mEditText;
 	
-	public OnEditTextFocusChangeListener(EditQuestionActivity activity) {
+	public EditTextWatcher(EditQuestionActivity activity, EditText editText) {
+		super();
+		mActivity = activity;
+		mEditText = editText;
+	}
+	
+	public EditTextWatcher(EditQuestionActivity activity) {
 		super();
 		mActivity = activity;
 	}
 
-	@Override
-	public void onFocusChange(View v, boolean hasFocus) {
+	public void afterTextChanged(Editable s) {
 		
-		if (hasFocus) {
-			return;
-		}
-			
-		// User has entered the question's text
-		if (v.getId() == mActivity.getResources().getInteger(R.id.edit_question_text)) {
-			mActivity.buildQuestionFromView(v, QuizQuestionParam.QUESTION,
-					((EditText) v).getText().toString());
+	}
+	
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+		
+	}
+	
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    	
+    	// User has entered the question's text
+		if (mEditText.getId() == mActivity.getResources().getInteger(R.id.edit_question_text)) {
+			mActivity.buildQuestionFromView(mEditText, QuizQuestionParam.QUESTION,
+					mEditText.getText().toString());
 		}
 		
 		// User has entered tags
-		else if (v.getId() == mActivity.getResources().getInteger(R.id.edit_tags)) {
-			String tags = ((EditText) v).getText().toString();
+		else if (mEditText.getId() == mActivity.getResources().getInteger(R.id.edit_tags)) {
+			String tags = ((EditText) mEditText).getText().toString();
 			int i = 0;
 			while (i < tags.length()) {
 				
@@ -49,7 +59,7 @@ public class OnEditTextFocusChangeListener implements OnFocusChangeListener {
 				
 				// i is the index of the last character of a tag
 				String tag = tags.substring(j, i);
-				mActivity.buildQuestionFromView(v, QuizQuestionParam.TAG, tag);
+				mActivity.buildQuestionFromView(mEditText, QuizQuestionParam.TAG, tag);
 				
 				// Move i to the next tag
 				while (!Character.isLetterOrDigit(tags.charAt(i))) {
@@ -59,15 +69,16 @@ public class OnEditTextFocusChangeListener implements OnFocusChangeListener {
 		}
 		
 		// User has entered an answer
-		else if ( ((EditText) v).getTag().toString() ==
+		else if ( ((EditText) mEditText).getTag().toString() ==
 				mActivity.getResources().getText(R.string.edit_answer_hint)) {
 			
-			mActivity.buildQuestionFromView(v, QuizQuestionParam.ANSWER,
-					((EditText) v).getText().toString());
+			mActivity.buildQuestionFromView(mEditText, QuizQuestionParam.ANSWER,
+					mEditText.getText().toString());
 		}
 
-	}
-	
+    }
+
+
 	/**
      * Finds recursively all the EditTexts inside a ViewGroup
      * @param v ViewGroup in which to search

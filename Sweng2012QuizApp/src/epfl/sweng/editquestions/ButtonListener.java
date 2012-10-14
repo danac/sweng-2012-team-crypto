@@ -42,12 +42,12 @@ public class ButtonListener implements OnClickListener {
 			for (Button button : listNewButton) {
 				button.setOnClickListener(new ButtonListener(mActivity));
 			}
-			// Set OnFocusChangeListener
-			OnEditTextFocusChangeListener onFocusChangeListener = new OnEditTextFocusChangeListener(mActivity);
-			List<EditText> listNewEditTexts= onFocusChangeListener.findAllEditTexts(
+			// Set EditTextWatcher
+			EditTextWatcher editTextWatcher = new EditTextWatcher(mActivity);
+			List<EditText> listNewEditTexts= editTextWatcher.findAllEditTexts(
 					(ViewGroup) answersContainer.getChildAt(answersContainer.getChildCount()-1));
-			for (EditText EditText : listNewEditTexts) {
-				EditText.setOnFocusChangeListener(new OnEditTextFocusChangeListener(mActivity));
+			for (EditText editText : listNewEditTexts) {
+				editText.addTextChangedListener(new EditTextWatcher(mActivity, editText));
 			}
 			
 			// Prevent user from entering more than 10 answers  
