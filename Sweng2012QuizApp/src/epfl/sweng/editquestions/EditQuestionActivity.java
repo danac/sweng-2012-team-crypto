@@ -111,4 +111,9 @@ public class EditQuestionActivity extends Activity {
     public void displaySubmitError() {
     	
     }
+
+	public QuizQuestion getQuestion() {
+		// TODO Auto-generated method stub
+		return mEditedQuestion;
+	}
 }

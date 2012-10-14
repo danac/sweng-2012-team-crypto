@@ -36,7 +36,7 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
 		// TODO Auto-generated method stub
     	try {
     		String url;
-    		epfl.sweng.quizquestions.QuizQuestion question = (QuizQuestion) args[0];
+    		QuizQuestion question = (QuizQuestion) args[0];
     		if (args.length == 1) {
     			url = Globals.SUBMIT_QUESITON_URL;
     		} else {
@@ -48,6 +48,7 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
     		post.setHeader("Content-type", "application/json");
     		ResponseHandler<String> handler = new BasicResponseHandler();
     		String response = SwengHttpClientFactory.getInstance().execute(post, handler);
+    		System.out.println("Response from server: " + response);
     		return new QuizQuestion(response);
 		} catch (JSONException e) {
 			cancel(true);

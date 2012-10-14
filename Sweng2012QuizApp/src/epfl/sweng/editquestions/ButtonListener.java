@@ -6,6 +6,7 @@ import java.util.List;
 import epfl.sweng.R;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
+import epfl.sweng.tasks.SubmitQuestion;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -88,10 +89,9 @@ public class ButtonListener implements OnClickListener {
 		
 		
 		// On click 'Submit' button
-		} else if (buttonTag == mActivity.getResources().getText(R.string.heavy_check_mark)) {
+		} else if (buttonTag == mActivity.getResources().getText(R.string.edit_button_submit)) {
 			// TODO implement something nice :)
-			
-			
+			new SubmitQuestion(mActivity).execute(mActivity.getQuestion());
 		}
 	}
 	
