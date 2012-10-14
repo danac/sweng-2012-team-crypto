@@ -3,17 +3,11 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <!-- Top: title and question text -->
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/title_activity_edit_question"
-        android:textSize="22dp" />
+    <!-- Top: question text -->
 
     <EditText
         android:id="@+id/edit_question_text"
+        android:tag="@string/edit_question_hint"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#336699"
@@ -26,48 +20,61 @@
 
     <!-- The answers -->
 
-    <LinearLayout
-        android:id="@+id/edit_answers_container"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <EditText
-            android:id="@+id/edit_answer_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/edit_answer_hint" />
-
-        <Button
-            android:id="@+id/edit_button_mark_correct_answer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="" />
-
-        <Button
-            android:id="@+id/edit_button_remove_answer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="@string/edit_button_remove_answer" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/edit_button_new_answer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="@string/edit_button_new_answer" />
-
-    <!-- Bottom: tags and submit -->
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1" >
-    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/edit_answers_container"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:tag="@string/edit_answer_hint"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/edit_answer_hint" />
+
+                    <Button
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:tag="@string/heavy_ballot_x"
+                        android:text="@string/heavy_ballot_x" />
+
+                    <Button
+                        android:tag="@string/hyphen_minus"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="@string/hyphen_minus" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/edit_button_new_answer"
+                android:tag="@string/plus_sign"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@string/plus_sign" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom: tags and submit -->
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -76,6 +83,7 @@
 
         <EditText
             android:id="@+id/edit_tags"
+            android:tag="@string/edit_tags_hint"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -83,7 +91,7 @@
             android:textSize="15dp" />
 
         <Button
-            android:id="@+id/edit_submit"
+            android:tag="@string/edit_button_submit"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:text="@string/edit_button_submit" />

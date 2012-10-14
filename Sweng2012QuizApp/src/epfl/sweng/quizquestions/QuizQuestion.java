@@ -1,6 +1,6 @@
 package epfl.sweng.quizquestions;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -10,20 +10,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 /**
  * Simple data structure holding the data retrieved from the web service
  */
 public class QuizQuestion {
-	private final static int MAX_NUMBER_OF_ANSWERS = 2;
-	private final static int MIN_NUMBER_OF_ANSWERS = 10;
-	private final static int MAX_NUMER_OF_TAGS = 20;
-	
+
+	private final static int MAX_NUMBER_OF_ANSWERS = 10;
+	private final static int MIN_NUMBER_OF_ANSWERS = 2;
+	private final static int MAX_LENGTH_OF_TAGS = 20;
+	private final static int MAX_LENGTH_OF_STRINGS = 500;
     private String mQuestion;
     private List<String> mAnswers;
     private int mSolutionIndex;
     private Set<String> mTags;
     private String mOwner;
     private String mId;
+    
+    public enum QuizQuestionParam {
+    	QUESTION, ANSWER, SOLUTION_INDEX, TAG, OWNER, ID
+    }
     
 	/** The constructor for quiz questions received as JSON strings from the Sweng2012QuizApp server, as in homework #1
 	* @param json The JSON string received from the Sweng2012QuizApp server, as in homework #1
@@ -51,10 +57,12 @@ public class QuizQuestion {
      */
     public QuizQuestion() {
         super();
-        /*mQuestion = "Choose an answer:";
-        mAnswers = new String[] {"Answer 1", "Answer 2", "Answer 3", "Answer 4"};
-        mTags = new String[] {"Answer 1", "Answer 2", "Answer 3", "Answer 4"};
-        mSolutionIndex = 1;*/
+        mQuestion = null;
+        mAnswers = null;
+        mTags = null;
+        mSolutionIndex = -1;
+        mOwner = null;
+        mId = null;
     	
     }
 	
@@ -65,15 +73,15 @@ public class QuizQuestion {
 		JSONObject responseJson = new JSONObject(json);
 		
 		JSONArray answersJSON = responseJson.getJSONArray("answers");
-		String[] answers = new String[answersJSON.length()];
+		List<String> answers = new ArrayList<String>();
 		for (int i=0; i<answersJSON.length(); i++) {
-			answers[i]=answersJSON.getString(i);
+			answers.add(answersJSON.getString(i));
 		}
 
 		JSONArray tagsJSON = responseJson.getJSONArray("tags");
-		String[] tags = new String[tagsJSON.length()];
+		Set<String> tags = new HashSet<String>();
 		for (int i=0; i<tagsJSON.length(); i++) {
-			tags[i]=tagsJSON.getString(i);
+			tags.add(tagsJSON.getString(i));
 		}
 		
 		setQuestion(responseJson.getString("question"));
@@ -90,49 +98,56 @@ public class QuizQuestion {
 		
 		int errorCount = 0;
 
-		//Check that no string is larger than 500 characters
+		//Check that no string is larger than 500 characters nor empty or only whitespaces
+		if (!checkString(mQuestion)) {
+			errorCount++;
+		}
+		Iterator<String> iter1 = mAnswers.iterator();
+		while (iter1.hasNext()) {
+	    	String answer = iter1.next();
+	    	if (!checkString(answer)) {
+	    		errorCount++;
+	    	}
+	    }
+		Iterator<String> iter2 = mTags.iterator();
+		while (iter2.hasNext()) {
+	    	String tag = iter2.next();
+	    	if (!checkString(tag)) {
+	    		errorCount++;
+	    	}
+	    }
+		if (!checkString(mOwner)) {
+			errorCount++;
+		}
+		if (!checkString(mId)) {
+			errorCount++;
+		}
 		
 		
 		// Check the number of answers
-		if (mAnswers.size()<MIN_NUMBER_OF_ANSWERS || mAnswers.size()>MAX_NUMBER_OF_ANSWERS) {
+		if (!checkNbAnswers()) {
 			errorCount++;
 		}
 		
 		// Check the tags
-		Iterator<String> iter = mTags.iterator();
-	    while (iter.hasNext()) {
-	    	boolean tagOK = true;
-	    	String tag = iter.next();
-	    	
-	    	if (tag.length()>MAX_NUMER_OF_TAGS) {
-	    		tagOK = false;
-	    	
-	    	} else {
-		    
-	    		for (int i = 0; i < tag.length(); i++) {
-		    	    if (Character.isLetterOrDigit(tag.charAt(i))) {
-		    	    	tagOK = false;
-		    	    	break;
-		    	    }
-		    	}
-	    	}
-	    	
-	    	if (!tagOK) {
+		Iterator<String> iter3 = mTags.iterator();
+	    while (iter3.hasNext()) {
+	    	String tag = iter3.next();
+	    	if (!checkTag(tag)) {
 	    		errorCount++;
-	    		break;
 	    	}
 	    }
 		
 
 		// Check the id of the right answer
-	    if (mSolutionIndex>=mAnswers.size()) {
+	    if (mSolutionIndex>=mAnswers.size() || mSolutionIndex<0) {
 	    	errorCount++;
 	    }
 	    
 	    // Check owner
     	boolean ownerOK = true;
 	    for (int i = 0; i < mOwner.length(); i++) {
-    	    if (Character.isLetterOrDigit(mOwner.charAt(i))) {
+    	    if (!Character.isLetterOrDigit(mOwner.charAt(i))) {
     	    	ownerOK = false;
     	    	break;
     	    }
@@ -145,7 +160,7 @@ public class QuizQuestion {
 	    // Check the ID
     	boolean idOK = true;
 	    for (int i = 0; i < mId.length(); i++) {
-    	    if (Character.isLetterOrDigit(mId.charAt(i))) {
+    	    if (!Character.isLetterOrDigit(mId.charAt(i))) {
     	    	idOK = false;
     	    	break;
     	    }
@@ -159,6 +174,53 @@ public class QuizQuestion {
 	    
 	    return errorCount;
 			
+	}
+	
+	/**
+	 * Checks that a String is non empty nor only whitespaces, nor longer than MAX_LENGTH_OF_STRINGS
+	 * @param string The string
+	 * @return true if non empty nor too long
+	 */
+	public boolean checkString(String string) {
+		
+		boolean onlyWhiteSpace = true;
+		for (int i = 0; i < string.length(); i++) {
+			onlyWhiteSpace = onlyWhiteSpace && Character.isWhitespace(string.charAt(i));
+		}
+		
+		return (!(string.length() == 0)) && (string.length() <= MAX_LENGTH_OF_STRINGS) && (!onlyWhiteSpace);
+	}
+	
+	/**
+	 * Checks that the number of answers is between MIN_NUMBER_OF_ANSWERS and MAX_NUMBER_OF_ANSWERS
+	 * @return true if between the bounds
+	 */
+	public boolean checkNbAnswers() {
+		return mAnswers.size()>=MIN_NUMBER_OF_ANSWERS && mAnswers.size()<=MAX_NUMBER_OF_ANSWERS;
+	}
+	
+	/**
+	 * Checks that a tag is shorter than MAX_LENGTH_OF_TAGS and made of alphanumerics characters
+	 * @param tag The tag
+	 * @return true if short enough and alphanumeric
+	 */
+	public boolean checkTag(String tag) {
+		boolean tagOK = true;
+		
+    	if (tag.length()>MAX_LENGTH_OF_TAGS) {
+    		tagOK = false;
+    	
+    	} else {
+	    
+    		for (int i = 0; i < tag.length(); i++) {
+	    	    if (!Character.isLetterOrDigit(tag.charAt(i))) {
+	    	    	tagOK = false;
+	    	    	break;
+	    	    }
+	    	}
+    	}
+    	
+	    return tagOK;
 	}
 	
     /**
@@ -221,9 +283,9 @@ public class QuizQuestion {
      * Set the possible answers
      * @param String[] answers the answers to be set
      */
-    public void setAnswers(String[] answers) {
+   /* public void setAnswers(String[] answers) {
     	mAnswers = Arrays.asList(answers);	
-    }
+    }*/
     
     /**
      * Set the possible answers
@@ -234,12 +296,26 @@ public class QuizQuestion {
     }
     
     /**
+     * Add an answer
+     * @param answer answer to be added
+     */
+    public void addAnswer(String answer) {
+    	if (mAnswers == null) {
+    		List<String> answers = new ArrayList<String>();
+    		answers.add(answer);
+    		setAnswers(answers);
+    	} else {
+    		mAnswers.add(answer);
+    	}
+    }
+    
+    /**
      * Set the possible tags
      * @param String[] tags the tags to be set
      */
-    public void setTags(String[] tags) {
+   /* public void setTags(String[] tags) {
     	mTags = new HashSet<String>(Arrays.asList(tags));
-    }
+    }*/
     
     /**
      * Set the possible tags
@@ -252,6 +328,21 @@ public class QuizQuestion {
      * Set the question
      * @param String question the question to be set
      */
+    
+    /**
+     * Add a tag
+     * @param tag tag to be added
+     */
+    public void addTag(String tag) {
+    	if (mTags == null) {
+    		Set<String> tags = new HashSet<String>();
+    		tags.add(tag);
+    		setTags(tags);
+    	} else {
+    		mTags.add(tag);
+    	}
+    }
+    
     public void setQuestion(String question) {
     	mQuestion = question;
     }
