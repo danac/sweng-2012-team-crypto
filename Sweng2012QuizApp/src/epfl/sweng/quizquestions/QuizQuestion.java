@@ -10,6 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.bool;
+
 /**
  * Simple data structure holding the data retrieved from the web service
  */
@@ -17,12 +19,17 @@ public class QuizQuestion {
 	private final static int MAX_NUMBER_OF_ANSWERS = 10;
 	private final static int MIN_NUMBER_OF_ANSWERS = 2;
 	private final static int MAX_LENGTH_OF_TAGS = 20;
+	private final static int MAX_LENGTH_OF_STRINGS = 500;
     private String mQuestion;
     private List<String> mAnswers;
     private int mSolutionIndex;
     private Set<String> mTags;
     private String mOwner;
     private String mId;
+    
+    public enum QuizQuestionParam {
+    	QUESTION, ANSWERS, SOLUTION_INDEX, TAGS, OWNER, ID
+    }
     
 	/** The constructor for quiz questions received as JSON strings from the Sweng2012QuizApp server, as in homework #1
 	* @param json The JSON string received from the Sweng2012QuizApp server, as in homework #1
@@ -89,36 +96,43 @@ public class QuizQuestion {
 		
 		int errorCount = 0;
 
-		//Check that no string is larger than 500 characters
+		//Check that no string is larger than 500 characters nor empty or only whitespaces
+		if (!checkString(mQuestion)) {
+			errorCount++;
+		}
+		Iterator<String> iter1 = mAnswers.iterator();
+		while (iter1.hasNext()) {
+	    	String answer = iter1.next();
+	    	if (!checkString(answer)) {
+	    		errorCount++;
+	    	}
+	    }
+		Iterator<String> iter2 = mTags.iterator();
+		while (iter2.hasNext()) {
+	    	String tag = iter2.next();
+	    	if (!checkString(tag)) {
+	    		errorCount++;
+	    	}
+	    }
+		if (!checkString(mOwner)) {
+			errorCount++;
+		}
+		if (!checkString(mId)) {
+			errorCount++;
+		}
 		
 		
 		// Check the number of answers
-		if (mAnswers.size()<MIN_NUMBER_OF_ANSWERS || mAnswers.size()>MAX_NUMBER_OF_ANSWERS) {
+		if (!checkNbAnswers()) {
 			errorCount++;
 		}
 		
 		// Check the tags
-		Iterator<String> iter = mTags.iterator();
-	    while (iter.hasNext()) {
-	    	boolean tagOK = true;
-	    	String tag = iter.next();
-	    	
-	    	if (tag.length()>MAX_LENGTH_OF_TAGS) {
-	    		tagOK = false;
-	    	
-	    	} else {
-		    
-	    		for (int i = 0; i < tag.length(); i++) {
-		    	    if (!Character.isLetterOrDigit(tag.charAt(i))) {
-		    	    	tagOK = false;
-		    	    	break;
-		    	    }
-		    	}
-	    	}
-	    	
-	    	if (!tagOK) {
+		Iterator<String> iter3 = mTags.iterator();
+	    while (iter3.hasNext()) {
+	    	String tag = iter3.next();
+	    	if (!checkTag(tag)) {
 	    		errorCount++;
-	    		break;
 	    	}
 	    }
 		
@@ -158,6 +172,40 @@ public class QuizQuestion {
 	    
 	    return errorCount;
 			
+	}
+	
+	public boolean checkString(String string) {
+		
+		boolean onlyWhiteSpace = true;
+		int i = 0;
+		while (i++ < string.length()) {
+			onlyWhiteSpace = onlyWhiteSpace && Character.isWhitespace(string.charAt(i));
+		}
+		
+		return (!string.isEmpty()) && (string.length() <= MAX_LENGTH_OF_STRINGS) && (!onlyWhiteSpace);
+	}
+	
+	public boolean checkNbAnswers() {
+		return mAnswers.size()>=MIN_NUMBER_OF_ANSWERS && mAnswers.size()<=MAX_NUMBER_OF_ANSWERS;
+	}
+	
+	public boolean checkTag(String tag) {
+		boolean tagOK = true;
+		
+    	if (tag.length()>MAX_LENGTH_OF_TAGS) {
+    		tagOK = false;
+    	
+    	} else {
+	    
+    		for (int i = 0; i < tag.length(); i++) {
+	    	    if (!Character.isLetterOrDigit(tag.charAt(i))) {
+	    	    	tagOK = false;
+	    	    	break;
+	    	    }
+	    	}
+    	}
+    	
+	    return tagOK;
 	}
 	
     /**
