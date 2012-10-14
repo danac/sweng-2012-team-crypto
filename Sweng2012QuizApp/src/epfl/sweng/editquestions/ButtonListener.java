@@ -4,21 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epfl.sweng.R;
-import android.app.Activity;
+import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.EditText;
 
 /**
- * A class to handle all the buttons of an activity
+ * A class to handle all the Buttons of an activity
  */
 public class ButtonListener implements OnClickListener {
 
-	private Activity mActivity;
+	private EditQuestionActivity mActivity;
 	
-	public ButtonListener(Activity activity) {
+	public ButtonListener(EditQuestionActivity activity) {
 		super();
 		mActivity = activity;
 	}
@@ -31,14 +32,22 @@ public class ButtonListener implements OnClickListener {
 		String buttonTag = ((Button) v).getTag().toString();
 		LinearLayout answersContainer = (LinearLayout) mActivity.findViewById(R.id.edit_answers_container);
 		
-		// On click '+' button: add a new answer and set its OnClickListeners
+		// On click '+' button: add a new answer and set its Listeners
 		if (buttonTag == mActivity.getResources().getText(R.string.plus_sign)) {
 			View newAnswer = mActivity.getLayoutInflater().inflate(R.layout.edit_new_answer, null);
 			answersContainer.addView(newAnswer, answersContainer.getChildCount());
+			// Set OnClickListeners
 			List<Button> listNewButton = findAllButtons(
 					(ViewGroup) answersContainer.getChildAt(answersContainer.getChildCount()-1));
 			for (Button button : listNewButton) {
 				button.setOnClickListener(new ButtonListener(mActivity));
+			}
+			// Set OnFocusChangeListener
+			OnEditTextFocusChangeListener onFocusChangeListener = new OnEditTextFocusChangeListener(mActivity);
+			List<EditText> listNewEditTexts= onFocusChangeListener.findAllEditTexts(
+					(ViewGroup) answersContainer.getChildAt(answersContainer.getChildCount()-1));
+			for (EditText EditText : listNewEditTexts) {
+				EditText.setOnFocusChangeListener(new OnEditTextFocusChangeListener(mActivity));
 			}
 			
 			// Prevent user from entering more than 10 answers  
@@ -54,7 +63,7 @@ public class ButtonListener implements OnClickListener {
 			newAnswerButton.setEnabled(true);
 		}
 		
-		// On click 'X' button: check all other right answers as wrong and this one as right and 
+		// On click 'X' button: check all other right answers as wrong and this one as right and update question
 		else if (buttonTag == mActivity.getResources().getText(R.string.heavy_ballot_x)) {
 			List<Button> listWrongButton = findAllButtons(
 					(ViewGroup) answersContainer, mActivity.getResources().getText(R.string.heavy_check_mark));
@@ -62,8 +71,11 @@ public class ButtonListener implements OnClickListener {
 				button.setText(mActivity.getResources().getText(R.string.heavy_ballot_x));
 				button.setTag(mActivity.getResources().getText(R.string.heavy_ballot_x));
 			}
+			
 			((Button) v).setText(mActivity.getResources().getText(R.string.heavy_check_mark));
 			((Button) v).setTag(mActivity.getResources().getText(R.string.heavy_check_mark));
+			mActivity.buildQuestionFromView( v, QuizQuestionParam.SOLUTION_INDEX,
+					Integer.toString(((ViewGroup) v.getParent().getParent()).indexOfChild((View) v.getParent())) );
 		}
 		
 		// On click 'V' button: check corresponding answer as wrong

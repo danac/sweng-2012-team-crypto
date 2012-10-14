@@ -7,6 +7,7 @@
 
     <EditText
         android:id="@+id/edit_question_text"
+        android:tag="@string/edit_question_hint"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#336699"
@@ -41,7 +42,7 @@
                     android:orientation="horizontal" >
 
                     <EditText
-                        android:id="@+id/edit_answer_text"
+                        android:tag="@string/edit_answer_hint"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -82,6 +83,7 @@
 
         <EditText
             android:id="@+id/edit_tags"
+            android:tag="@string/edit_tags_hint"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
