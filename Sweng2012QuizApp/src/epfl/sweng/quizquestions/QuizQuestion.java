@@ -28,7 +28,7 @@ public class QuizQuestion {
     private String mId;
     
     public enum QuizQuestionParam {
-    	QUESTION, ANSWER, SOLUTION_INDEX, TAG, OWNER, ID
+    	QUESTION, ANSWER, SOLUTION_INDEX, TAGS, OWNER, ID
     }
     
 	/** The constructor for quiz questions received as JSON strings from the Sweng2012QuizApp server, as in homework #1
@@ -299,26 +299,28 @@ public class QuizQuestion {
     }
     
     /**
-     * Add an answer
-     * @param answer answer to be added
+     * Add or modify an answer
+     * @param answer Answer to be added/modified
+     * @param index The index of the answer
      */
-    public void addAnswer(String answer) {
-    	if (mAnswers == null) {
-    		List<String> answers = new ArrayList<String>();
-    		answers.add(answer);
-    		setAnswers(answers);
-    	} else {
+    public void addAnswerAtIndex(String answer, int index) {
+    	// Replace an existing answer
+    	if (mAnswers.size() >= index+1) {
+    		mAnswers.set(index, answer);
+    	}
+    	// Push a new answer
+    	else if (mAnswers.size() == index) {
     		mAnswers.add(answer);
     	}
+    	// Add empty answers and push new one
+    	else {
+    		while (mAnswers.size() < index) {
+    			mAnswers.add("");
+    		}
+    		mAnswers.add(answer);
+    	}
+    	
     }
-    
-    /**
-     * Set the possible tags
-     * @param String[] tags the tags to be set
-     */
-   /* public void setTags(String[] tags) {
-    	mTags = new HashSet<String>(Arrays.asList(tags));
-    }*/
     
     /**
      * Set the possible tags

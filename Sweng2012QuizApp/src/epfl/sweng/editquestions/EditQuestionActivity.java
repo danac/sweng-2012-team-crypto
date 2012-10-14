@@ -1,7 +1,11 @@
 package epfl.sweng.editquestions;
 
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -46,7 +50,7 @@ public class EditQuestionActivity extends Activity {
     /**
      * Add a field to mEditedQuestion from the user input in a View
      * Calls EditText.setError() if invalid param
-     * @param view The View from which value come from
+     * @param view The View from which value comes from
      * @param param enum of the parameters
      * @param value value of the field to add
      * @return true if mEditedQuestion is valid according to mEditedQuestion.auditErrors()
@@ -68,7 +72,7 @@ public class EditQuestionActivity extends Activity {
     		if (!mEditedQuestion.checkString(value)) {
     			((EditText) view).setError("An answer must be non-empty or have less than 500 characters");
     		} else {
-    			mEditedQuestion.addAnswer(value);
+    			mEditedQuestion.addAnswerAtIndex(value, ((ViewGroup) view.getParent().getParent()).indexOfChild((View) view.getParent()));
     			((EditText) view).setError(null);
     		}
     		return mEditedQuestion.auditErrors(0) == 0;
@@ -77,13 +81,20 @@ public class EditQuestionActivity extends Activity {
     		mEditedQuestion.setSolutionIndex(Integer.parseInt(value));
     		return mEditedQuestion.auditErrors(0) == 0;
     		
-    	case TAG:
-    		if (!mEditedQuestion.checkTag(value)) {
-    			((EditText) view).setError("A tag must be no longer than 20 alphanumeric characters");
-    		} else {
-    			mEditedQuestion.addTag(value);
-    			((EditText) view).setError(null);
+    	case TAGS:    		
+    		String[] tags = value.split("[^a-zA-Z0-9']");
+    		boolean flag = true;
+    		for (String tag : tags) {
+    			if (!(flag = flag && mEditedQuestion.checkTag(tag))) {
+    				((EditText) view).setError("A tag must be less than 20 alphanumeric characters");
+    				break;
+    			}
     		}
+			if (flag) {
+				Set<String> tagsSet = new HashSet<String>(Arrays.asList(tags));
+				mEditedQuestion.setTags(tagsSet);
+				((EditText) view).setError(null);
+			}
     		return mEditedQuestion.auditErrors(0) == 0;
     		
     	default:

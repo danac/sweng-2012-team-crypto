@@ -40,37 +40,19 @@ public class EditTextWatcher implements TextWatcher {
     public void onTextChanged(CharSequence s, int start, int before, int count) {
     	
     	// User has entered the question's text
-		if (mEditText.getId() == mActivity.getResources().getInteger(R.id.edit_question_text)) {
+		if (mEditText.getTag().toString() == mActivity.getResources().getText(R.string.edit_question_hint)) {
 			mActivity.buildQuestionFromView(mEditText, QuizQuestionParam.QUESTION,
 					mEditText.getText().toString());
 		}
 		
 		// User has entered tags
-		else if (mEditText.getId() == mActivity.getResources().getInteger(R.id.edit_tags)) {
-			String tags = ((EditText) mEditText).getText().toString();
-			int i = 0;
-			while (i < tags.length()) {
-				
-				// j is the index of the first character of a tag
-				int j = i;
-				while (Character.isLetterOrDigit(tags.charAt(i))) {
-					i++;
-				}
-				
-				// i is the index of the last character of a tag
-				String tag = tags.substring(j, i);
-				mActivity.buildQuestionFromView(mEditText, QuizQuestionParam.TAG, tag);
-				
-				// Move i to the next tag
-				while (!Character.isLetterOrDigit(tags.charAt(i))) {
-					i++;
-				}
-			}
+		else if (mEditText.getTag().toString() == mActivity.getResources().getText(R.string.edit_tags_hint)) {
+			mActivity.buildQuestionFromView(mEditText, QuizQuestionParam.TAGS,
+					mEditText.getText().toString());
 		}
 		
 		// User has entered an answer
-		else if ( ((EditText) mEditText).getTag().toString() ==
-				mActivity.getResources().getText(R.string.edit_answer_hint)) {
+		else if (mEditText.getTag().toString() == mActivity.getResources().getText(R.string.edit_answer_hint)) {
 			
 			mActivity.buildQuestionFromView(mEditText, QuizQuestionParam.ANSWER,
 					mEditText.getText().toString());
