@@ -3,7 +3,7 @@
     <string name="app_name">Sweng2012QuizApp</string>
     <string name="hello_world">Welcome</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Sweng Quiz App</string>
     <string name="title_activity_show_questions">ShowQuestionsActivity</string>
     <string name="tags_heading">Tags of this question:</string>
     <string name="question_heading">Here is the question:</string>
@@ -18,5 +18,8 @@
     <string name="heavy_ballot_x">\u2718</string>
     <string name="heavy_check_mark">\u2714</string>
     <string name="edit_answer_hint">Type in the answer</string>
+    <string name="main_message">What do you want to do?</string>
+    <string name="button_choose_submit_text">Submit quiz question</string>
+    <string name="button_choose_display_text">Show a random question</string>
 
 </resources>
