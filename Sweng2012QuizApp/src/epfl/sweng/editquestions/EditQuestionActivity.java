@@ -45,6 +45,7 @@ public class EditQuestionActivity extends Activity {
         for (EditText editText : listEditTexts) {
         	editText.addTextChangedListener(new EditTextWatcher(this, editText));
         }
+        System.out.println("EditQuestionActivity()");
     }
 
     /**
@@ -108,12 +109,20 @@ public class EditQuestionActivity extends Activity {
     	}
     }
     
-    public void displaySubmitError() {
-    	
-    }
+
 
 	public QuizQuestion getQuestion() {
-		// TODO Auto-generated method stub
 		return mEditedQuestion;
+	}
+
+	
+    public void displaySubmitError() {
+    	Toast.makeText(this, getString(R.string.submit_question_error_text), Toast.LENGTH_LONG).show();
+		
+    }
+    
+	public void displaySuccess(QuizQuestion question) {
+		Toast.makeText(this, String.format(getString(R.string.submit_question_success_text), question.getId()), 
+				Toast.LENGTH_SHORT).show();		
 	}
 }

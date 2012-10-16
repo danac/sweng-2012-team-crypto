@@ -21,5 +21,6 @@
     <string name="main_message">What do you want to do?</string>
     <string name="button_choose_submit_text">Submit quiz question</string>
     <string name="button_choose_display_text">Show a random question</string>
-
+    <string name="submit_question_success_text">\u2714 Question successfully submitted, has id %s</string>
+    <string name="submit_question_error_text">\u2718 An error occured while submitting the Question</string>
 </resources>

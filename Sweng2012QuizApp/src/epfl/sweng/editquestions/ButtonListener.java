@@ -3,6 +3,7 @@ package epfl.sweng.editquestions;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import epfl.sweng.R;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
@@ -34,7 +35,7 @@ public class ButtonListener implements OnClickListener {
 	public void onClick(View v) {
 		String buttonTag = ((Button) v).getTag().toString();
 		LinearLayout answersContainer = (LinearLayout) mActivity.findViewById(R.id.edit_answers_container);
-		
+		System.out.println("Button " + buttonTag + " clicked");
 		// On click '+' button: add a new answer and set its Listeners
 		if (buttonTag == mActivity.getResources().getText(R.string.plus_sign)) {
 			View newAnswer = mActivity.getLayoutInflater().inflate(R.layout.edit_new_answer, null);
@@ -53,8 +54,7 @@ public class ButtonListener implements OnClickListener {
 				editText.addTextChangedListener(new EditTextWatcher(mActivity, editText));
 			}
 			
-			// Prevent user from entering more than 10 answers
-			// TODO Change this '10', need to access QuizQuestion.MAX_NUMBER_OF_ANSWERS
+			// Prevent user from entering more than MAX_NUMBER_OF_ANSWERS answers
 			if (answersContainer.getChildCount() >= Globals.MAX_NUMBER_OF_ANSWERS) {  
 				v.setEnabled(false);
 			}
@@ -91,8 +91,6 @@ public class ButtonListener implements OnClickListener {
 		
 		// On click 'Submit' button
 		} else if (buttonTag == mActivity.getResources().getText(R.string.edit_button_submit)) {
-			// TODO implement something nice :)
-			System.out.println("CLICK!");
 			new SubmitQuestion(mActivity).execute(mActivity.getQuestion());
 			if (mActivity.getQuestion().auditErrors(0) != 0) {
 			} else {

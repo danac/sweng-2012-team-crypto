@@ -33,7 +33,6 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
 	 */
 	@Override
 	protected QuizQuestion doInBackground(Object... args) {
-		// TODO Auto-generated method stub
     	try {
     		String url;
     		QuizQuestion question = (QuizQuestion) args[0];
@@ -42,6 +41,7 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
     		} else {
     			url = (String) args[1];
     		}
+    		
 
     		HttpPost post = new HttpPost(url);
     		post.setEntity(new StringEntity(question.getJSONString()));
@@ -51,10 +51,14 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
     		System.out.println("Response from server: " + response);
     		return new QuizQuestion(response);
 		} catch (JSONException e) {
+			System.out.println(e.getMessage());
 			cancel(true);
 		} catch (ClientProtocolException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.toString());
 			cancel(true);
 		} catch (IOException e) {
+			System.out.println(e.getMessage());
 			cancel(true);
 		}
     	
@@ -63,12 +67,13 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
 	
 	
 	/**
-	 * Calls back the displayQuestion Method of the EditQuestionActivity once 
-	 * the background process loading the random message completed
-	 * @param QuizQuestion question The random question to be displayed as received from the server.
+	 * Calls back the displaySuccess Method of the EditQuestionActivity once 
+	 * the background process submitting the question completed
+	 * @param QuizQuestion question The question submitted to the server.
 	 */
 	@Override
 	protected void onPostExecute(QuizQuestion question) {
+		mEditQuestionActivity.displaySuccess(question);
 	}
 
 	@Override

@@ -372,17 +372,25 @@ public class QuizQuestion {
     public String getJSONString() throws JSONException {
 
     	JSONObject json = new JSONObject();
+    	JSONArray answersArray = new JSONArray();
+    	JSONArray tagsArray = new JSONArray();
     	
-    	json.put("question", mQuestion); 
     	
+    	
+
     	for (String answer : mAnswers) {
-    		json.accumulate("answers", answer);
+	    	answersArray.put(answer);
     	}
-    	json.put("solutionIndex", mSolutionIndex); 
+    	json.put("answers", answersArray);
+    	
 
     	for (String tag : mTags) {
-    		json.accumulate("tags", tag);
-    	}
+        	tagsArray.put(tag);
+        }
+    	json.put("tags", tagsArray);
+    	
+    	json.put("question", mQuestion); 
+    	json.put("solutionIndex", mSolutionIndex); 
     	
     	return json.toString();
 
