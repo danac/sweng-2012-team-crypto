@@ -53,7 +53,6 @@ public class EditTextWatcher implements TextWatcher {
 		
 		// User has entered an answer
 		} else if (mEditText.getTag().toString() == mActivity.getResources().getText(R.string.edit_answer_hint)) {
-			
 			mActivity.buildQuestionFromView(mEditText, QuizQuestionParam.ANSWER,
 					mEditText.getText().toString());
 		}

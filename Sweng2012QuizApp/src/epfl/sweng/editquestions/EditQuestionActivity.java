@@ -32,6 +32,9 @@ public class EditQuestionActivity extends Activity {
         
         mEditedQuestion = new QuizQuestion();
         
+        Button submitButton = (Button) findViewById(R.id.edit_button_submit);
+        submitButton.setEnabled(false);
+        
         ButtonListener buttonListener = new ButtonListener(this);
         List<Button> listButtons = buttonListener.findAllButtons(
         		(ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content));
@@ -45,7 +48,6 @@ public class EditQuestionActivity extends Activity {
         for (EditText editText : listEditTexts) {
         	editText.addTextChangedListener(new EditTextWatcher(this, editText));
         }
-        System.out.println("EditQuestionActivity()");
     }
 
     /**
@@ -64,28 +66,41 @@ public class EditQuestionActivity extends Activity {
 	    		if (!mEditedQuestion.checkString(value)) {
 	    			((EditText) view).setError("The question must be non-empty or have less than 500 characters");
 	    		} else {
-	    			mEditedQuestion.setQuestion(value);
 	    			((EditText) view).setError(null);
 	    		}
-	    		return mEditedQuestion.auditErrors(0) == 0;
+	    		mEditedQuestion.setQuestion(value);
+	    		break;
 	    		
 	    	case ANSWER:
 	    		if (!mEditedQuestion.checkString(value)) {
 	    			((EditText) view).setError("An answer must be non-empty or have less than 500 characters");
 	    		} else {
-	    			mEditedQuestion.addAnswerAtIndex(value, 
-	    					((ViewGroup) view.getParent().getParent()).indexOfChild((View) view.getParent()));
 	    			((EditText) view).setError(null);
 	    		}
-	    		return mEditedQuestion.auditErrors(0) == 0;
+	    		mEditedQuestion.addAnswerAtIndex(value, 
+    					((ViewGroup) view.getParent().getParent()).indexOfChild((View) view.getParent()));
+	    		break;
 	    		
 	    	case SOLUTION_INDEX:
-	    		mEditedQuestion.setSolutionIndex(Integer.parseInt(value));
-	    		if (value.equals("-1")) {
+	    		// A right answer has been marked as wrong
+	    		if (value.equals("null")) {
+	    			mEditedQuestion.setSolutionIndex(-1);
 	    			Toast toast = Toast.makeText(this, "One answer should be marked as correct", Toast.LENGTH_SHORT);
 	    			toast.show();
+	    		// The answer with index -value has been removed
+	    		} else if (Integer.parseInt(value)<0) {
+	    			int index = -Integer.parseInt(value);
+	    			if (index == mEditedQuestion.getSolutionIndex()) {
+	    				Toast toast = Toast.makeText(this,
+	    						"One answer should be marked as correct", Toast.LENGTH_SHORT);
+		    			toast.show();
+	    			}
+	    			mEditedQuestion.removeAnswerAtIndex(index);
+	    		// An answer has been marked as correct
+	    		} else {
+	    			mEditedQuestion.setSolutionIndex(Integer.parseInt(value));
 	    		}
-	    		return mEditedQuestion.auditErrors(0) == 0;
+	    		break;
 	    		
 	    	case TAGS:    		
 	    		String[] tags = value.split("[^a-zA-Z0-9']");
@@ -98,18 +113,31 @@ public class EditQuestionActivity extends Activity {
 	    			}
 	    		}
 				if (flag) {
-					Set<String> tagsSet = new HashSet<String>(Arrays.asList(tags));
-					mEditedQuestion.setTags(tagsSet);
 					((EditText) view).setError(null);
 				}
-	    		return mEditedQuestion.auditErrors(0) == 0;
+				Set<String> tagsSet = new HashSet<String>(Arrays.asList(tags));
+				mEditedQuestion.setTags(tagsSet);
+				System.out.println("Number of tags: " + mEditedQuestion.getTags().length);
+				System.out.println("Tags:");
+				for (String tag : mEditedQuestion.getTags()) {
+					System.out.println(tag);
+				}
+				break;
 	    		
 	    	default:
-	    		return mEditedQuestion.auditErrors(0) == 0;
+	    		break;
     	}
+    	
+    	Button submitButton = (Button) findViewById(R.id.edit_button_submit);
+    	if (mEditedQuestion.auditErrors(0) == 0) {
+            submitButton.setEnabled(true);
+    	} else {
+    		submitButton.setEnabled(false);
+    	}
+    	
+    	return mEditedQuestion.auditErrors(0) == 0;
     }
     
-
 
 	public QuizQuestion getQuestion() {
 		return mEditedQuestion;
@@ -122,6 +150,8 @@ public class EditQuestionActivity extends Activity {
     }
     
 	public void displaySuccess(QuizQuestion question) {
+		finish();
+		startActivity(getIntent());
 		Toast.makeText(this, "Question successfully sumitted, has id "+ question.getId(), 
 				Toast.LENGTH_SHORT).show();		
 	}

@@ -62,10 +62,11 @@ public class QuizQuestion {
         super();
         mQuestion = "";
         mAnswers = new ArrayList<String>();
+        mAnswers.add("");
         mTags = new HashSet<String>();
         mSolutionIndex = -1;
-        mOwner = "";
-        mId = "";
+        mOwner = "anonymous";
+        mId = "1";
     	
     }
 	
@@ -142,7 +143,7 @@ public class QuizQuestion {
 	    }
 		
 
-		// Check the id of the right answer
+		// Check the index of the right answer
 	    if (mSolutionIndex>=mAnswers.size() || mSolutionIndex<0) {
 	    	errorCount++;
 	    }
@@ -302,7 +303,7 @@ public class QuizQuestion {
     }
     
     /**
-     * Add or modify an answer
+     * Add an answer or modify an existing one
      * @param answer Answer to be added/modified
      * @param index The index of the answer
      */
@@ -320,7 +321,25 @@ public class QuizQuestion {
     		}
     		mAnswers.add(answer);
     	}
+    	System.out.println("Size of mAnswers: " + mAnswers.size());
     	
+    }
+    
+    /**
+     * Removes the answer at a given index from mEditedQuestion 
+     * @param index The index of the answer to be removed
+     */
+    public void removeAnswerAtIndex(int index) {
+
+    	if (mSolutionIndex < index) {
+    		mAnswers.remove(index);
+    	} else if (mSolutionIndex == index) {
+    		mSolutionIndex = -1;
+    		mAnswers.remove(index);
+    	} else {
+    		mSolutionIndex--;
+    		mAnswers.remove(index);
+    	}
     }
     
     /**
@@ -329,6 +348,11 @@ public class QuizQuestion {
      */
     public void setTags(Set<String> tags) {
     	mTags = tags;
+    	for (String tag : mTags) {
+    		if (tag.equals("")) {
+    			mTags.remove(tag);
+    		}
+    	}
     }
     /**
      * Set the question
