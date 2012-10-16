@@ -94,9 +94,9 @@ public class ButtonListener implements OnClickListener {
 			new SubmitQuestion(mActivity).execute(mActivity.getQuestion());
 			if (mActivity.getQuestion().auditErrors(0) != 0) {
 			} else {
-			Intent intent = new Intent(mActivity, EditQuestionActivity.class);
-			mActivity.finish();
-			mActivity.startActivity(intent);
+				Intent intent = new Intent(mActivity, EditQuestionActivity.class);
+				mActivity.finish();
+				mActivity.startActivity(intent);
 			}
 
 		}
