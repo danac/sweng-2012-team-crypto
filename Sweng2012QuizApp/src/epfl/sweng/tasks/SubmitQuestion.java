@@ -33,7 +33,6 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
 	 */
 	@Override
 	protected QuizQuestion doInBackground(Object... args) {
-		// TODO Auto-generated method stub
     	try {
     		String url;
     		QuizQuestion question = (QuizQuestion) args[0];
@@ -68,9 +67,9 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
 	
 	
 	/**
-	 * Calls back the displayQuestion Method of the EditQuestionActivity once 
-	 * the background process loading the random message completed
-	 * @param QuizQuestion question The random question to be displayed as received from the server.
+	 * Calls back the displaySuccess Method of the EditQuestionActivity once 
+	 * the background process submitting the question completed
+	 * @param QuizQuestion question The question submitted to the server.
 	 */
 	@Override
 	protected void onPostExecute(QuizQuestion question) {
