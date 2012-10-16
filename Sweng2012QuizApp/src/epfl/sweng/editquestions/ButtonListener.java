@@ -53,8 +53,7 @@ public class ButtonListener implements OnClickListener {
 				editText.addTextChangedListener(new EditTextWatcher(mActivity, editText));
 			}
 			
-			// Prevent user from entering more than 10 answers
-			// TODO Change this '10', need to access QuizQuestion.MAX_NUMBER_OF_ANSWERS
+			// Prevent user from entering more than MAX_NUMBER_OF_ANSWERS answers
 			if (answersContainer.getChildCount() >= Globals.MAX_NUMBER_OF_ANSWERS) {  
 				v.setEnabled(false);
 			}
@@ -91,7 +90,6 @@ public class ButtonListener implements OnClickListener {
 		
 		// On click 'Submit' button
 		} else if (buttonTag == mActivity.getResources().getText(R.string.edit_button_submit)) {
-			// TODO implement something nice :)
 			new SubmitQuestion(mActivity).execute(mActivity.getQuestion());
 		}
 	}

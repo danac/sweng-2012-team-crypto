@@ -112,7 +112,6 @@ public class EditQuestionActivity extends Activity {
 
 
 	public QuizQuestion getQuestion() {
-		// TODO Auto-generated method stub
 		return mEditedQuestion;
 	}
 
