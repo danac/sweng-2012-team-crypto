@@ -118,12 +118,12 @@ public class EditQuestionActivity extends Activity {
 
 	
     public void displaySubmitError() {
-    	Toast.makeText(this, "An error occured while submitting the Question", Toast.LENGTH_SHORT).show();
+    	Toast.makeText(this, getString(R.string.submit_question_error_text), Toast.LENGTH_LONG).show();
 		
     }
     
 	public void displaySuccess(QuizQuestion question) {
-		Toast.makeText(this, "Question successfully sumitted, has id "+ question.getId(), 
+		Toast.makeText(this, String.format(getString(R.string.submit_question_success_text), question.getId()), 
 				Toast.LENGTH_SHORT).show();		
 	}
 }
