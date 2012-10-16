@@ -8,6 +8,7 @@ import epfl.sweng.R;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
 import epfl.sweng.tasks.SubmitQuestion;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -91,6 +92,13 @@ public class ButtonListener implements OnClickListener {
 		// On click 'Submit' button
 		} else if (buttonTag == mActivity.getResources().getText(R.string.edit_button_submit)) {
 			new SubmitQuestion(mActivity).execute(mActivity.getQuestion());
+			if (mActivity.getQuestion().auditErrors(0) != 0) {
+			} else {
+			Intent intent = new Intent(mActivity, EditQuestionActivity.class);
+			mActivity.finish();
+			mActivity.startActivity(intent);
+			}
+
 		}
 	}
 	
