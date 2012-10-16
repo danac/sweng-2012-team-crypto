@@ -42,7 +42,7 @@ public class LoadRandomQuestion extends AsyncTask<String, Void, QuizQuestion> {
     	String url;
     	try {
     		if (urls.length == 0) {
-    			url = Globals.RANDOM_QUESITON_URL;
+    			url = Globals.RANDOM_QUESTION_URL;
     		} else {
     			url = urls[0];
     		}

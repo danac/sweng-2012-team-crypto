@@ -37,7 +37,7 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
     		String url;
     		QuizQuestion question = (QuizQuestion) args[0];
     		if (args.length == 1) {
-    			url = Globals.SUBMIT_QUESITON_URL;
+    			url = Globals.SUBMIT_QUESTION_URL;
     		} else {
     			url = (String) args[1];
     		}

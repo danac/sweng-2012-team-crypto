@@ -2,6 +2,8 @@ package epfl.sweng.test;
 import org.json.JSONException;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
+import android.widget.EditText;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -16,6 +18,7 @@ public class EditQuestionActivityTest extends
 	
 	private Solo solo;
 	private final static int WAIT_TIME = 4000;
+	private final static String TEST_QUESTION = "Test question..."; 
 	
 	public EditQuestionActivityTest() {
 		super(EditQuestionActivity.class);
@@ -34,18 +37,23 @@ public class EditQuestionActivityTest extends
 		solo.assertCurrentActivity("Edit Question Form is being displayed",
                 EditQuestionActivity.class);
 
-		
 		assertTrue(solo.searchText("Submit"));
 
 		solo.clickOnButton("\\+");
 		solo.clickOnButton("\\-");
 		solo.clickOnButton("\u2718");
-		
 		assertTrue(solo.searchText("\u2714"));
+		solo.clickOnButton("\u2714");
+    	assertTrue(solo.waitForText("One answer should be marked as correct"));		
 		
-		solo.clickOnButton("Submit");
+		for (View v: solo.getViews()) {
+			if (v.getId() == epfl.sweng.R.id.edit_question_text) {
+				solo.enterText((EditText) v, TEST_QUESTION);
+			}
+		}
+		 
+		 //solo.clickOnButton("Submit");
 
-    	assertTrue(solo.waitForText("\u2718 An error occured while submitting the Question"));
 	}
 
 	
