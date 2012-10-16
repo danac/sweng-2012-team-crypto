@@ -42,6 +42,7 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
     		} else {
     			url = (String) args[1];
     		}
+    		
 
     		HttpPost post = new HttpPost(url);
     		post.setEntity(new StringEntity(question.getJSONString()));
@@ -51,10 +52,14 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
     		System.out.println("Response from server: " + response);
     		return new QuizQuestion(response);
 		} catch (JSONException e) {
+			System.out.println(e.getMessage());
 			cancel(true);
 		} catch (ClientProtocolException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.toString());
 			cancel(true);
 		} catch (IOException e) {
+			System.out.println(e.getMessage());
 			cancel(true);
 		}
     	

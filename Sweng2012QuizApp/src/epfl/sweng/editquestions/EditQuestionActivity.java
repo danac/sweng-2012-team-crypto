@@ -45,6 +45,7 @@ public class EditQuestionActivity extends Activity {
         for (EditText editText : listEditTexts) {
         	editText.addTextChangedListener(new EditTextWatcher(this, editText));
         }
+        System.out.println("EditQuestionActivity()");
     }
 
     /**
