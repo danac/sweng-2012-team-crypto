@@ -74,6 +74,7 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
 	 */
 	@Override
 	protected void onPostExecute(QuizQuestion question) {
+		mEditQuestionActivity.displaySuccess(question);
 	}
 
 	@Override

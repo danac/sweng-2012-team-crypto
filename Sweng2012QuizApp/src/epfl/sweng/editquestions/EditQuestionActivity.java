@@ -109,12 +109,21 @@ public class EditQuestionActivity extends Activity {
     	}
     }
     
-    public void displaySubmitError() {
-    	
-    }
+
 
 	public QuizQuestion getQuestion() {
 		// TODO Auto-generated method stub
 		return mEditedQuestion;
+	}
+
+	
+    public void displaySubmitError() {
+    	Toast.makeText(this, "An error occured while submitting the Question", Toast.LENGTH_SHORT).show();
+		
+    }
+    
+	public void displaySuccess(QuizQuestion question) {
+		Toast.makeText(this, "Question successfully sumitted, has id "+ question.getId(), 
+				Toast.LENGTH_SHORT).show();		
 	}
 }
