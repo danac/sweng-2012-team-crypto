@@ -5,7 +5,7 @@ import com.jayway.android.robotium.solo.Solo;
 
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.entry.MainActivity;
-
+import epfl.sweng.showquestions.ShowQuestionsActivity;
 /**
  * First test case...
  */
@@ -13,7 +13,6 @@ public class MainActivityTest extends
 		ActivityInstrumentationTestCase2<MainActivity> {
 	
 	private Solo solo;
-	private final static int WAIT_TIME = 2000;
 	
 	public MainActivityTest() {
 		super(MainActivity.class);
@@ -27,20 +26,26 @@ public class MainActivityTest extends
 
 	/* Begin list of the different tests to be performed */
 
-	public void testEditQuestion() {
+	public void testMenu() {
 		solo.assertCurrentActivity("Main menu is being displayed",
                 MainActivity.class);
 
-		solo.clickOnButton("Submit quiz question");
+		solo.clickOnButton("Show a random question");
+
+		solo.assertCurrentActivity("Random Question is being displayed",
+                ShowQuestionsActivity.class);
 		
+		solo.goBack();
+		
+		
+		solo.clickOnButton("Submit quiz question");
 		solo.assertCurrentActivity("Edit Question Form is being displayed",
                 EditQuestionActivity.class);
+
+		
 		assertTrue(solo.searchText("Submit"));
-		solo.clickOnButton("\\+");
+
 		
-		solo.clickOnButton("Submit");
-		
-		solo.sleep(WAIT_TIME);
 	}
 
 

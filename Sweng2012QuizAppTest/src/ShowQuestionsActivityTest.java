@@ -33,7 +33,6 @@ public class ShowQuestionsActivityTest extends
 	public void testDisplayQuestion() {
 		solo.assertCurrentActivity("A question is being displayed",
                 ShowQuestionsActivity.class);
-		assertTrue(solo.searchText("?"));
 		ListView l = solo.getCurrentListViews().get(0);
 		
 		assertNotNull("No list views!", l);
@@ -65,9 +64,9 @@ public class ShowQuestionsActivityTest extends
 		solo.assertCurrentActivity("A question is being displayed",
                 ShowQuestionsActivity.class);
     	new LoadRandomQuestion(getActivity()).execute("http://www.google.com");
-    	assertTrue(solo.searchText("There was an error retrieving the question"));
+    	assertTrue(solo.searchText("\u2718 An error occured while submitting the Question"));
     	new LoadRandomQuestion(getActivity()).execute("http://0.0.0.0");
-    	assertTrue(solo.searchText("There was an error retrieving the question"));
+    	assertTrue(solo.searchText("\u2718 An error occured while submitting the Question"));
 	}
 	
 	/* End list of the different tests to be performed */
