@@ -51,7 +51,6 @@ public class ShowQuestionsActivityTest extends
 			assertTrue(solo.searchText("\u2718") || solo.searchText("\u2714"));
 			
 			solo.clickOnButton("Next question");
-			assertTrue(solo.searchText("?"));
 			assertFalse(solo.searchText("\u2718") && solo.searchText("\u2714"));
 		}
 
