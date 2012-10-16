@@ -13,7 +13,7 @@ public class MainActivityTest extends
 		ActivityInstrumentationTestCase2<MainActivity> {
 	
 	private Solo solo;
-	private final int WAIT_TIME = 2000;
+	private final static int WAIT_TIME = 2000;
 	
 	public MainActivityTest() {
 		super(MainActivity.class);
