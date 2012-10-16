@@ -64,9 +64,9 @@ public class ShowQuestionsActivityTest extends
 		solo.assertCurrentActivity("A question is being displayed",
                 ShowQuestionsActivity.class);
     	new LoadRandomQuestion(getActivity()).execute("http://www.google.com");
-    	assertTrue(solo.searchText("\u2718 An error occured while submitting the Question"));
+    	assertTrue(solo.searchText("There was an error retrieving the question"));
     	new LoadRandomQuestion(getActivity()).execute("http://0.0.0.0");
-    	assertTrue(solo.searchText("\u2718 An error occured while submitting the Question"));
+    	assertTrue(solo.searchText("There was an error retrieving the question"));
 	}
 	
 	/* End list of the different tests to be performed */
