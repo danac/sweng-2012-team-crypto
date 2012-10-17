@@ -49,6 +49,7 @@ public class EditQuestionActivityTest extends
 		solo.clickOnButton("\u2714");
     	assertTrue(solo.waitForText("One answer should be marked as correct"));		
     	solo.clickOnButton("\\+");
+    	solo.sleep(WAIT_TIME);
     	boolean rightAnswerEntered = false;
 		for (EditText et: solo.getCurrentEditTexts()) {
 			if (et.getTag().toString() 
