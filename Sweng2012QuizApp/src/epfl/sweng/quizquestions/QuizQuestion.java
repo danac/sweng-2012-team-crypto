@@ -354,25 +354,11 @@ public class QuizQuestion {
     		}
     	}
     }
+
     /**
      * Set the question
      * @param String question the question to be set
      */
-    
-    /**
-     * Add a tag
-     * @param tag tag to be added
-     */
-    public void addTag(String tag) {
-    	if (mTags == null) {
-    		Set<String> tags = new HashSet<String>();
-    		tags.add(tag);
-    		setTags(tags);
-    	} else {
-    		mTags.add(tag);
-    	}
-    }
-    
     public void setQuestion(String question) {
     	mQuestion = question;
     }

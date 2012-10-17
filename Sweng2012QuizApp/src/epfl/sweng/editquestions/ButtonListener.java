@@ -40,14 +40,15 @@ public class ButtonListener implements OnClickListener {
 		
 		// On click '+' button: add a new answer, set its Listeners and update question
 		if (buttonTag == mActivity.getResources().getText(R.string.plus_sign)) {
-			/*View newAnswer = */mActivity.getLayoutInflater().inflate(R.layout.edit_new_answer, answersContainer);
-			//answersContainer.addView(newAnswer, answersContainer.getChildCount());
+			mActivity.getLayoutInflater().inflate(R.layout.edit_new_answer, answersContainer);
+			
 			// Set OnClickListeners
 			List<Button> listNewButton = findAllButtons(
 					(ViewGroup) answersContainer.getChildAt(answersContainer.getChildCount()-1));
 			for (Button button : listNewButton) {
 				button.setOnClickListener(new ButtonListener(mActivity));
 			}
+			
 			// Set EditTextWatcher
 			EditTextWatcher editTextWatcher = new EditTextWatcher(mActivity);
 			List<EditText> listNewEditTexts= editTextWatcher.findAllEditTexts(
@@ -55,10 +56,12 @@ public class ButtonListener implements OnClickListener {
 			for (EditText editText : listNewEditTexts) {
 				editText.addTextChangedListener(new EditTextWatcher(mActivity, editText));
 			}
+			
 			// Prevent user from entering more than MAX_NUMBER_OF_ANSWERS answers
 			if (answersContainer.getChildCount() >= Globals.MAX_NUMBER_OF_ANSWERS) {  
 				v.setEnabled(false);
 			}
+			
 			// Update question
 			mActivity.getQuestion().addAnswerAtIndex("", mActivity.getQuestion().getAnswers().length);
 			Button submitButton = (Button) mActivity.findViewById(R.id.edit_button_submit);
