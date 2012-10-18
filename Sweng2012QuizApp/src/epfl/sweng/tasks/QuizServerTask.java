@@ -77,7 +77,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 			HttpResponse response = SwengHttpClientFactory.getInstance().execute(request);
 			String body = responseHandler.handleResponse(response);
 			
-			if (Globals.LOG_QUESTIONSERVER_REQUESTS){
+			if (Globals.LOG_QUESTIONSERVER_REQUESTS) {
 				System.out.println("==== Sweng QuizQuestion Server Response ====");
 				System.out.println(response.getStatusLine().getStatusCode() + " "
 						+ response.getStatusLine().getReasonPhrase());
