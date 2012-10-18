@@ -162,7 +162,7 @@ public class EditQuestionActivity extends Activity {
     }
     
     /**
-     * Display a success message if the submission succeded
+     * Display a success message if the submission succeeded
      * @param QuizQuestion question
      */
 	public void displaySuccess(QuizQuestion question) {
