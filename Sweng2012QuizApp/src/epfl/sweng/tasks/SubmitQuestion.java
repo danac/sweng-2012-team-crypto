@@ -9,27 +9,30 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.json.JSONException;
 
-import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.quizquestions.QuizQuestion;
 
-
-import android.os.AsyncTask;
-
 /**
+ * QuizServerTask realization that submits a new Question
  */
-public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
+public class SubmitQuestion extends QuizServerTask {
     
-	private EditQuestionActivity mEditQuestionActivity;
-	
 	/**
+	 * Constructor
+	 * @param IQuizServerCallback callback interface defining the methods to be called
+	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
-	public SubmitQuestion(EditQuestionActivity editQuestionActivity) {
-		mEditQuestionActivity = editQuestionActivity;
+	public SubmitQuestion(IQuizServerCallback callback) {
+		super(callback);
 	}
 	
+
 	/**
+	 * Method submitting the new question
+	 * 
+	 * @param QuizQuestion question the Question to be submitted
+	 * @param String url (optional) an alternative url for the QuizServer submit location
 	 */
 	@Override
 	protected QuizQuestion doInBackground(Object... args) {
@@ -63,22 +66,6 @@ public class SubmitQuestion extends AsyncTask<Object, Void, QuizQuestion> {
 		}
     	
 		return null;
-	}
-	
-	
-	/**
-	 * Calls back the displaySuccess Method of the EditQuestionActivity once 
-	 * the background process submitting the question completed
-	 * @param QuizQuestion question The question submitted to the server.
-	 */
-	@Override
-	protected void onPostExecute(QuizQuestion question) {
-		mEditQuestionActivity.displaySuccess(question);
-	}
-
-	@Override
-	protected void onCancelled() {
-		mEditQuestionActivity.displaySubmitError();
 	}
 	
 }

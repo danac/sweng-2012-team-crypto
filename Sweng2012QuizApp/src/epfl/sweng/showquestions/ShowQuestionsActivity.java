@@ -15,6 +15,8 @@ import android.widget.TextView;
 import epfl.sweng.R;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.tasks.LoadRandomQuestion;
+import epfl.sweng.tasks.IQuizServerCallback;
+
 
 /**
  * Activity showing a question
@@ -24,18 +26,27 @@ public class ShowQuestionsActivity extends Activity {
 	/**
 	 * Method invoked at the creation of the Activity. 
 	 * Triggers the display of a random question fetched from the server.
-	 * @param 
+	 * @param Bundle savedInstanceState the saved instance
 	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
 	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_questions);
-        new LoadRandomQuestion(this).execute();
+        new LoadRandomQuestion(new IQuizServerCallback() {
+        	public void onSuccess(QuizQuestion question) {
+        		displayQuestion(question);
+        	}
+        	public void onError() {
+        		displayError();
+        	}
+        }).execute();
 
     }
     
-    
+    /**
+     * Display an error if the application was unable to fetch a random Question
+     */
     public void displayError() {
     	final ListView listView = (ListView) findViewById(R.id.listView);
         final TextView questionTxt = (TextView) findViewById(R.id.question);
@@ -96,10 +107,21 @@ public class ShowQuestionsActivity extends Activity {
         		adapter.notifyDataSetChanged();
         	}
         });
-    }
+    } 
     
+    /**
+     * Handle the "Next Question" button. Loads a new random question
+     * @param View currentView
+     */
     public void nextQuestion(View currentView) {
-        new LoadRandomQuestion(this).execute();
+        new LoadRandomQuestion(new IQuizServerCallback() {
+        	public void onSuccess(QuizQuestion question) {
+        		displayQuestion(question);
+        	}
+        	public void onError() {
+        		displayError();
+        	}
+        }).execute();
     }
 
     

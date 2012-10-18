@@ -15,15 +15,31 @@ import android.widget.EditText;
  */
 public class EditTextWatcher implements TextWatcher {
 
+	/**
+	 * Reference to the EditQuestionActivity
+	 */
 	private EditQuestionActivity mActivity;
+	
+	/**
+	 * Reference to the EditText to be watched
+	 */
 	private EditText mEditText;
 	
+	/**
+	 * Constructor
+	 * @param EditQuestionActivity activity the activity the editText to be watched is placed in
+	 * @param EditText editText the editText to be watched
+	 */
 	public EditTextWatcher(EditQuestionActivity activity, EditText editText) {
 		super();
 		mActivity = activity;
 		mEditText = editText;
 	}
 	
+	/**
+	 * Constructor
+	 * @param EditQuestionActivity activity the activity the editText to be watched is placed in
+	 */	
 	public EditTextWatcher(EditQuestionActivity activity) {
 		super();
 		mActivity = activity;
@@ -36,7 +52,7 @@ public class EditTextWatcher implements TextWatcher {
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 		
 	}
-	
+
     public void onTextChanged(CharSequence s, int start, int before, int count) {
     	
     	// User has entered the question's text

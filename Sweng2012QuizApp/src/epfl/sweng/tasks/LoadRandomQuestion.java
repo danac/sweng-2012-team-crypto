@@ -11,44 +11,39 @@ import org.json.JSONException;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
-import epfl.sweng.showquestions.ShowQuestionsActivity;
-
-
-import android.os.AsyncTask;
 
 /**
- * Class used to create a Asynchronous Task that will load a random question and display it on a ShowQuestionsActivity
- *
+ * QuizServerTask realization that fetches a random Question
  */
-public class LoadRandomQuestion extends AsyncTask<String, Void, QuizQuestion> {
+public class LoadRandomQuestion extends QuizServerTask {
     
-	private ShowQuestionsActivity mShowQuestionsActivity;
 	
 	/**
-	 * Constructor. Create a LoadRandomQuestion object. The loading process can 
-	 * be launched by invoking the inherited execute() method. 
-	 * @param ShowQuestionsActivity _showQuestionsActivity Reference to the ShowQuestionsActivity
-	 * the question will be displayed in.
+	 * Constructor
+	 * @param IQuizServerCallback callback interface defining the methods to be called
+	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
-	public LoadRandomQuestion(ShowQuestionsActivity showQuestionsActivity) {
-		mShowQuestionsActivity = showQuestionsActivity;
+	public LoadRandomQuestion(IQuizServerCallback callback) {
+		super(callback);
 	}
 	
 	/**
 	 * Method fetching the random question
+	 * @param String url (optional) an alternative url for the QuizServer "fetch random question location
 	 */
 	@Override
-	protected QuizQuestion doInBackground(String... urls) {
-    	String url;
+	protected QuizQuestion doInBackground(Object... urls) {
+    	String url = "";
     	try {
     		if (urls.length == 0) {
     			url = Globals.RANDOM_QUESTION_URL;
     		} else {
-    			url = urls[0];
+    			url = (String) urls[0];
     		}
     		HttpGet request = new HttpGet(url);
     		ResponseHandler<String> response = new BasicResponseHandler();
     		String responseText = SwengHttpClientFactory.getInstance().execute(request, response);
+    		
 			return new QuizQuestion(responseText);
 			
     	} catch (JSONException e) {
@@ -60,26 +55,6 @@ public class LoadRandomQuestion extends AsyncTask<String, Void, QuizQuestion> {
     	}
     	
 		return null;
-	}
-	
-	
-	/**
-	 * Calls back the displayQuestion Method of the ShowQuestionsActivity once 
-	 * the background process loading the random message completed
-	 * @param QuizQuestion question The random question to be displayed as received from the server.
-	 */
-	@Override
-	protected void onPostExecute(QuizQuestion question) {
-		if (question != null) {
-			mShowQuestionsActivity.displayQuestion(question);
-		} else {
-			mShowQuestionsActivity.displayError();
-		}
-	}
-
-	@Override
-	protected void onCancelled() {
-		mShowQuestionsActivity.displayError();
 	}
 	
 }

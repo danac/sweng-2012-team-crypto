@@ -6,7 +6,9 @@ import java.util.List;
 
 import epfl.sweng.R;
 import epfl.sweng.globals.Globals;
+import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
+import epfl.sweng.tasks.IQuizServerCallback;
 import epfl.sweng.tasks.SubmitQuestion;
 import android.content.Intent;
 import android.view.View;
@@ -21,8 +23,16 @@ import android.widget.EditText;
  */
 public class ButtonListener implements OnClickListener {
 
+	
+	/**
+	 * Reference to the EditQuestionActivity
+	 */
 	private EditQuestionActivity mActivity;
 	
+	/**
+	 * Constructor
+	 * @param EditQuestionActivity activity reference to the EditQuestionActivity
+	 */
 	public ButtonListener(EditQuestionActivity activity) {
 		super();
 		mActivity = activity;
@@ -30,6 +40,7 @@ public class ButtonListener implements OnClickListener {
 
 	/**
 	 * A generic onClick method to manage the different buttons of the activity
+	 * @param View v the button clicked
 	 */
 	@Override
 	public void onClick(View v) {
@@ -111,7 +122,16 @@ public class ButtonListener implements OnClickListener {
 		
 		// On click 'Submit' button
 		} else if (buttonTag == mActivity.getResources().getText(R.string.edit_button_submit)) {
-			new SubmitQuestion(mActivity).execute(mActivity.getQuestion());
+			
+			new SubmitQuestion(new IQuizServerCallback() {
+				public void onSuccess(QuizQuestion question) {
+					mActivity.displaySuccess(question);
+				}
+				public void onError() {
+					mActivity.displaySubmitError();
+				}
+			}).execute(mActivity.getQuestion());
+			
 			if (mActivity.getQuestion().auditErrors(0) != 0) {
 			} else {
 				Intent intent = new Intent(mActivity, EditQuestionActivity.class);
@@ -124,7 +144,7 @@ public class ButtonListener implements OnClickListener {
 	
     /**
      * Finds recursively all the buttons inside a ViewGroup
-     * @param v ViewGroup in which to search
+     * @param ViewGroup v ViewGroup in which to search
      * @return List<Button> The list of all the Buttons
      */
     public List<Button> findAllButtons(ViewGroup v) {
@@ -142,8 +162,8 @@ public class ButtonListener implements OnClickListener {
     
     /**
      * Finds recursively all the tagged buttons inside a ViewGroup
-     * @param v ViewGroup in which to search
-     * @param tag The tag that buttons must have
+     * @param ViewGroup v ViewGroup in which to search
+     * @param Object tag The tag that buttons must have
      * @return List<Button> The list of all the Buttons
      */
     public List<Button> findAllButtons(ViewGroup v, Object tag) {

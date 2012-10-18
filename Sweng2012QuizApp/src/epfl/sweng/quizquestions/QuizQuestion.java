@@ -379,6 +379,12 @@ public class QuizQuestion {
     	mId = id;
     }
 
+    
+    /**
+     * 
+     * @return String the question json string as understood by the Sweng Quiz Server
+     * @throws JSONException
+     */
     public String getJSONString() throws JSONException {
 
     	JSONObject json = new JSONObject();

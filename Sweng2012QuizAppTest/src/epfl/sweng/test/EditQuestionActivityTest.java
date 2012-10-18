@@ -8,6 +8,7 @@ import com.jayway.android.robotium.solo.Solo;
 
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
+import epfl.sweng.tasks.IQuizServerCallback;
 import epfl.sweng.tasks.SubmitQuestion;
 /**
  * First test case...
@@ -77,13 +78,23 @@ public class EditQuestionActivityTest extends
 	
 	public void testNoNetwork() {
 		
+		IQuizServerCallback callback = new IQuizServerCallback() {
+        	public void onSuccess(QuizQuestion question) {
+        		getActivity().displaySuccess(question);
+        	}
+        	public void onError() {
+        		getActivity().displaySubmitError();
+        	}
+        };
+		
+		
 		solo.assertCurrentActivity("Edit question form is being displayed",
                 EditQuestionActivity.class);
-    	new SubmitQuestion(getActivity()).execute(new QuizQuestion(), "http://www.google.com");
+    	new SubmitQuestion(callback).execute(new QuizQuestion(), "http://www.google.com");
     	assertTrue(solo.waitForText("\u2718 An error occured while submitting the Question"));
     	solo.sleep(WAIT_TIME);
     	try {
-			new SubmitQuestion(getActivity()).execute(new QuizQuestion(QuizQuestionTest.VALID_QUESTION_JSON), 
+			new SubmitQuestion(callback).execute(new QuizQuestion(QuizQuestionTest.VALID_QUESTION_JSON), 
 					"http://0.0.0.0");
 		} catch (JSONException e) {
 			fail();

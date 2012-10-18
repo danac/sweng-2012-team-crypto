@@ -23,8 +23,15 @@ import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
  */
 public class EditQuestionActivity extends Activity {
 
+	/**
+	 * private variable holding the the question to be edited
+	 */
 	private QuizQuestion mEditedQuestion;
 	
+	/**
+	 * Method invoked at the creation of the Activity. 
+	 * @param Bundle savedInstanceState the saved instance
+	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +60,10 @@ public class EditQuestionActivity extends Activity {
     /**
      * Add a field to mEditedQuestion from the user input in a View
      * Calls EditText.setError() if invalid param
-     * @param view The View from which value comes from
-     * @param param enum of the parameters
-     * @param value value of the field to add
-     * @return true if mEditedQuestion is valid according to mEditedQuestion.auditErrors()
+     * @param View view The View from which value comes from
+     * @param QuizQuestionParam param enum of the parameters
+     * @param String value value of the field to add
+     * @return boolean true if mEditedQuestion is valid according to mEditedQuestion.auditErrors()
      */
     public boolean buildQuestionFromView(View view, QuizQuestionParam param, String value) {
     	
@@ -138,17 +145,26 @@ public class EditQuestionActivity extends Activity {
     	return mEditedQuestion.auditErrors(0) == 0;
     }
     
-
+    /**
+     * Return the final edited question
+     * @return QuizQuestion the edited QuizQuestion
+     */
 	public QuizQuestion getQuestion() {
 		return mEditedQuestion;
 	}
 
-	
+	/**
+	 * Display an error in case the submission to the server failed
+	 */
     public void displaySubmitError() {
     	Toast.makeText(this, getString(R.string.submit_question_error_text), Toast.LENGTH_LONG).show();
 		
     }
     
+    /**
+     * Display a success message if the submission succeded
+     * @param QuizQuestion question
+     */
 	public void displaySuccess(QuizQuestion question) {
 		finish();
 		startActivity(getIntent());
