@@ -1,16 +1,12 @@
 package epfl.sweng.tasks;
 
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.json.JSONException;
 
 import epfl.sweng.globals.Globals;
-import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.quizquestions.QuizQuestion;
 
 /**
@@ -36,36 +32,24 @@ public class SubmitQuestion extends QuizServerTask {
 	 */
 	@Override
 	protected QuizQuestion doInBackground(Object... args) {
-    	try {
-    		String url;
-    		QuizQuestion question = (QuizQuestion) args[0];
-    		if (args.length == 1) {
-    			url = Globals.SUBMIT_QUESTION_URL;
-    		} else {
-    			url = (String) args[1];
-    		}
-    		
-
-    		HttpPost post = new HttpPost(url);
-    		post.setEntity(new StringEntity(question.getJSONString()));
-    		post.setHeader("Content-type", "application/json");
-    		ResponseHandler<String> handler = new BasicResponseHandler();
-    		String response = SwengHttpClientFactory.getInstance().execute(post, handler);
-    		System.out.println("Response from server: " + response);
-    		return new QuizQuestion(response);
+		String url = "";
+		QuizQuestion question = (QuizQuestion) args[0];
+		if (args.length == 1) {
+			url = Globals.SUBMIT_QUESTION_URL;
+		} else {
+			url = (String) args[1];
+		}
+		
+		HttpPost post = new HttpPost(url);
+		try {
+			post.setEntity(new StringEntity(question.getJSONString()));
+		} catch (UnsupportedEncodingException e) {
+			cancel(true);
 		} catch (JSONException e) {
-			System.out.println(e.getMessage());
-			cancel(true);
-		} catch (ClientProtocolException e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.toString());
-			cancel(true);
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
 			cancel(true);
 		}
-    	
-		return null;
+		post.setHeader("Content-type", "application/json");
+		return handleQuizServerRequest(post);
 	}
 	
 }
