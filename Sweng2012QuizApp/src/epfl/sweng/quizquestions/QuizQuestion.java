@@ -25,7 +25,7 @@ public class QuizQuestion {
     private int mSolutionIndex;
     private Set<String> mTags;
     private String mOwner;
-    private String mId;
+    private int mId;
     
     /**
      * Possible QuizQuestion Parameters
@@ -66,7 +66,7 @@ public class QuizQuestion {
         mTags = new HashSet<String>();
         mSolutionIndex = -1;
         mOwner = "anonymous";
-        mId = "1";
+        mId = 1;
     	
     }
 	
@@ -123,9 +123,11 @@ public class QuizQuestion {
 		if (!checkString(mOwner)) {
 			errorCount++;
 		}
-		if (!checkString(mId)) {
-			errorCount++;
-		}
+		
+//		NOT NEEDED ANYMORE SINCE ID IS AN INT /DANA		
+//		if (!checkString(mId)) {
+//			errorCount++;
+//		}
 		
 		
 		// Check the number of answers
@@ -162,15 +164,15 @@ public class QuizQuestion {
     	}
 		
 	    // Check the ID
-    	boolean idOK = true;
-	    for (int i = 0; i < mId.length(); i++) {
-    	    if (!Character.isLetterOrDigit(mId.charAt(i))) {
-    	    	idOK = false;
-    	    	break;
-    	    }
-    	}
-	    
-	    if (!idOK) {
+//    	boolean idOK = true;
+//	    for (int i = 0; i < mId.length(); i++) {
+//    	    if (!Character.isLetterOrDigit(mId.charAt(i))) {
+//    	    	idOK = false;
+//    	    	break;
+//    	    }
+//    	}
+//		NOT NEEDED ANYMORE SINCE ID IS AN INT /DANA	    	    
+	    if (mId<=0) {
     		errorCount++;
     	}
 		
@@ -282,7 +284,7 @@ public class QuizQuestion {
      * Get id of the question-answer dataset
      * @return
      */
-    public String getId() {
+    public int getId() {
     	return mId;
     }
     
@@ -373,12 +375,19 @@ public class QuizQuestion {
     
     /**
      * Set the id of the question-answers dataset
-     * @param int id the id of the dataset
+     * @param String id the id of the dataset
      */
     public void setId(String id) {
-    	mId = id;
+    	mId = Integer.parseInt(id);
     }
 
+    /**
+     * Set the id of the question-answers dataset
+     * @param int id the id of the dataset
+     */
+    public void setId(int id) {
+    	mId = id;
+    }
     
     /**
      * 
