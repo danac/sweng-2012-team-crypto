@@ -46,7 +46,7 @@ public class QuizQuestion {
 	* @param id The id of the question
 	* @param owner The owner of the question
 	*/
-	public QuizQuestion(String txt, List<String> answers, int solutionIdx, Set<String> tags, String id, String owner) {
+	public QuizQuestion(String txt, List<String> answers, int solutionIdx, Set<String> tags, int id, String owner) {
 		setQuestion(txt);
 		setId(id);
 		setSolutionIndex(solutionIdx);
