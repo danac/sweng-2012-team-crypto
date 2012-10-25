@@ -6,7 +6,6 @@ import android.widget.ListView;
 
 import com.jayway.android.robotium.solo.Solo;
 
-import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.tasks.IQuizServerCallback;

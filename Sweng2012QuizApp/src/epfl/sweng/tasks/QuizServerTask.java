@@ -18,6 +18,7 @@ import epfl.sweng.servercomm.SwengHttpClientFactory;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 /**
  * AsyncTask for communication between the App and the Sweng Quiz question server
@@ -61,14 +62,14 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	final protected QuizQuestion handleQuizServerRequest(HttpUriRequest request) {
 		try {
 			if (Globals.LOG_QUESTIONSERVER_REQUESTS) {				
-				System.out.println("==== Sweng QuizQuestion Server Request ====");
-				System.out.println(request.getRequestLine());
+				Log.i("SERVER", "==== Sweng QuizQuestion Server Request ====");
+				Log.i("SERVER", request.getRequestLine().toString());
 				for (Header header : request.getAllHeaders()) {
-					System.out.println(header.toString());
+					Log.i("SERVER", header.toString());
 				}
 				
 				if (request instanceof HttpPost) {
-					System.out.println(EntityUtils.toString(((HttpPost) request).getEntity()));
+					Log.i("SERVER", EntityUtils.toString(((HttpPost) request).getEntity()));
 				}
 			}
 			
@@ -78,22 +79,22 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 			String body = responseHandler.handleResponse(response);
 			
 			if (Globals.LOG_QUESTIONSERVER_REQUESTS) {
-				System.out.println("==== Sweng QuizQuestion Server Response ====");
-				System.out.println(response.getStatusLine().getStatusCode() + " "
+				Log.i("SERVER", "==== Sweng QuizQuestion Server Response ====");
+				Log.i("SERVER", response.getStatusLine().getStatusCode() + " "
 						+ response.getStatusLine().getReasonPhrase());
 				for (Header header : response.getAllHeaders()) {
-					System.out.println(header.toString());
+					Log.i("SERVER", header.toString());
 				}
-				System.out.println(body);
+				Log.i("SERVER", body);
 			}
 			
 			return new QuizQuestion(body);
     	} catch (JSONException e) {
-    		cancel(true);
+    		cancel(false);
     	} catch (ClientProtocolException e) {
-    		cancel(true);
+    		cancel(false);
     	} catch (IOException e) {
-    		cancel(true);
+    		cancel(false);
     	}
 		return null;
 	}
