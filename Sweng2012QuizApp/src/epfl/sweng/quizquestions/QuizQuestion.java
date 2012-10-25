@@ -364,6 +364,14 @@ public class QuizQuestion {
     public void setSolutionIndex(int solutionIndex) {
     	mSolutionIndex = solutionIndex;
     }
+    
+    /**
+     * Set the id of the question-answers dataset
+     * @param String id the id of the dataset
+     */
+    public void setId(String id) {
+    	mId = Integer.parseInt(id);
+    }
 
     /**
      * Set the id of the question-answers dataset
