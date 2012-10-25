@@ -41,7 +41,6 @@ public class EditQuestionActivityTest extends
 		solo.assertCurrentActivity("Edit Question Form is being displayed",
                 EditQuestionActivity.class);
 
-		assertTrue(solo.searchText("Submit"));
 
 		solo.clickOnButton("\\+");
 		solo.clickOnButton("\\-");
@@ -77,19 +76,23 @@ public class EditQuestionActivityTest extends
 
 	
 	public void testNoNetwork() {
+		solo.assertCurrentActivity("Edit question form is being displayed",
+                EditQuestionActivity.class);
+		
+		
+		final EditQuestionActivity activity = getActivity();
 		
 		IQuizServerCallback callback = new IQuizServerCallback() {
         	public void onSuccess(QuizQuestion question) {
-        		getActivity().displaySuccess(question);
+        		activity.displaySuccess(question);
         	}
         	public void onError() {
-        		getActivity().displaySubmitError();
+        		activity.displaySubmitError();
         	}
         };
 		
 		
-		solo.assertCurrentActivity("Edit question form is being displayed",
-                EditQuestionActivity.class);
+		
     	new SubmitQuestion(callback).execute(new QuizQuestion(), "http://www.google.com");
     	assertTrue(solo.waitForText("\u2718 An error occured while submitting the Question"));
     	solo.sleep(WAIT_TIME);
