@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 import com.jayway.android.robotium.solo.Solo;
 
+import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.tasks.IQuizServerCallback;
@@ -64,18 +65,23 @@ public class ShowQuestionsActivityTest extends
 	}
 	
 	public void testNoNetwork() {
-		IQuizServerCallback callback = new IQuizServerCallback() {
-        	public void onSuccess(QuizQuestion question) {
-        		getActivity().displayQuestion(question);
-        	}
-        	public void onError() {
-        		getActivity().displayError();
-        	}
-        };
+
 		
 		
 		solo.assertCurrentActivity("A question is being displayed",
                 ShowQuestionsActivity.class);
+		
+		final ShowQuestionsActivity activity = getActivity();
+		
+		IQuizServerCallback callback = new IQuizServerCallback() {
+        	public void onSuccess(QuizQuestion question) {
+        		activity.displayQuestion(question);
+        	}
+        	public void onError() {
+        		activity.displayError();
+        	}
+        };
+
     	new LoadRandomQuestion(callback).execute("http://www.google.com");
     	assertTrue(solo.searchText("There was an error retrieving the question"));
     	new LoadRandomQuestion(callback).execute("http://0.0.0.0");
