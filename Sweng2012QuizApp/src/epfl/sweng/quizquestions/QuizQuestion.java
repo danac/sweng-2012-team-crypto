@@ -290,14 +290,6 @@ public class QuizQuestion {
     
     /**
      * Set the possible answers
-     * @param String[] answers the answers to be set
-     */
-   /* public void setAnswers(String[] answers) {
-    	mAnswers = Arrays.asList(answers);	
-    }*/
-    
-    /**
-     * Set the possible answers
      * @param List<String> answers the answers to be set
      */
     public void setAnswers(List<String> answers) {
@@ -371,14 +363,6 @@ public class QuizQuestion {
      */
     public void setSolutionIndex(int solutionIndex) {
     	mSolutionIndex = solutionIndex;
-    }
-    
-    /**
-     * Set the id of the question-answers dataset
-     * @param String id the id of the dataset
-     */
-    public void setId(String id) {
-    	mId = Integer.parseInt(id);
     }
 
     /**
