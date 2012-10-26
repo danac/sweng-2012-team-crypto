@@ -44,10 +44,12 @@ public class ShowQuestionsActivityTest extends
 		assertTrue("No items in list view!", l.getChildCount()>0);
 		
 		for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
+			solo.sleep(SLEEP_CHARACTERSCHECK);
 			for (int childIndex = 0; childIndex < l.getAdapter().getCount(); childIndex++) {
+				solo.sleep(SLEEP_CHARACTERSCHECK);				
 				View childView = l.getChildAt(childIndex);
-				
 				if (childView != null) {
+					System.out.println("Answer number: " + childIndex);
 					solo.clickOnView(childView);
 				}
 			}
