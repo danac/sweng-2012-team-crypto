@@ -45,10 +45,14 @@ public class ShowQuestionsActivityTest extends
 		
 		for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
 			for (int childIndex = 0; childIndex < l.getAdapter().getCount(); childIndex++) {
+				solo.sleep(SLEEP_CHARACTERSCHECK);
+				System.out.println("Number of answers: " + l.getAdapter().getCount());
+				System.out.println("Index of current answer: " + childIndex);
 				View childView = l.getChildAt(childIndex);
 				
 				if (childView != null) {
 					solo.clickOnView(childView);
+					System.out.println("Index of answer having been clicked: " + childIndex);
 				}
 			}
 			
