@@ -30,6 +30,8 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	 */
 	private IQuizServerCallback mCallback;
 	
+	private static String mSessionId = "";
+	
 	/**
 	 * Constructor
 	 * @param IQuizServerCallback callback interface defining the methods to be called
@@ -61,31 +63,37 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	 */
 	final protected QuizQuestion handleQuizServerRequest(HttpUriRequest request) {
 		try {
-			if (Globals.LOG_QUESTIONSERVER_REQUESTS) {				
-				Log.i("SERVER", "==== Sweng QuizQuestion Server Request ====");
-				Log.i("SERVER", request.getRequestLine().toString());
+			if (!mSessionId.equals("")) {
+				request.addHeader("Authentication", "Tequila " + mSessionId);
+			}
+			
+			if (Globals.LOG_QUIZSERVER_REQUESTS) {				
+				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, "==== Sweng QuizQuestion Server Request ====");
+				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, request.getRequestLine().toString());
 				for (Header header : request.getAllHeaders()) {
-					Log.i("SERVER", header.toString());
+					Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, header.toString());
 				}
 				
 				if (request instanceof HttpPost) {
-					Log.i("SERVER", EntityUtils.toString(((HttpPost) request).getEntity()));
+					Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, 
+							EntityUtils.toString(((HttpPost) request).getEntity()));
 				}
 			}
 			
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
 			
 			HttpResponse response = SwengHttpClientFactory.getInstance().execute(request);
-			String body = responseHandler.handleResponse(response);
 			
-			if (Globals.LOG_QUESTIONSERVER_REQUESTS) {
-				Log.i("SERVER", "==== Sweng QuizQuestion Server Response ====");
-				Log.i("SERVER", response.getStatusLine().getStatusCode() + " "
+			Log.i("SERVER", "Replied with status code " + response.getStatusLine().getStatusCode());
+			String body = responseHandler.handleResponse(response);
+			if (Globals.LOG_QUIZSERVER_REQUESTS) {
+				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, "==== Sweng QuizQuestion Server Response ====");
+				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, response.getStatusLine().getStatusCode() + " "
 						+ response.getStatusLine().getReasonPhrase());
 				for (Header header : response.getAllHeaders()) {
-					Log.i("SERVER", header.toString());
+					Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, header.toString());
 				}
-				Log.i("SERVER", body);
+				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, body);
 			}
 			
 			return new QuizQuestion(body);
@@ -97,5 +105,9 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
     		cancel(false);
     	}
 		return null;
+	}
+	
+	public static void setSessionId(String sessionId) {
+		mSessionId = sessionId;
 	}
 }
