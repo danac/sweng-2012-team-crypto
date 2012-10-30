@@ -16,6 +16,7 @@ import android.widget.Toast;
 import epfl.sweng.R;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
+import epfl.sweng.tools.GUITools;
 
 /**
  * Activity enabling the user to edit a question
@@ -42,15 +43,13 @@ public class EditQuestionActivity extends Activity {
         Button submitButton = (Button) findViewById(R.id.edit_button_submit);
         submitButton.setEnabled(false);
         
-        ButtonListener buttonListener = new ButtonListener(this);
-        List<Button> listButtons = buttonListener.findAllButtons(
+        List<Button> listButtons = GUITools.findAllButtons(
         		(ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content));
         for (Button button : listButtons) {
         	button.setOnClickListener(new ButtonListener(this));
         }
         
-        EditTextWatcher editTextWatcher = new EditTextWatcher(this);
-        List<EditText> listEditTexts = editTextWatcher.findAllEditTexts(
+        List<EditText> listEditTexts = GUITools.findAllEditTexts(
         		(ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content));
         for (EditText editText : listEditTexts) {
         	editText.addTextChangedListener(new EditTextWatcher(this, editText));

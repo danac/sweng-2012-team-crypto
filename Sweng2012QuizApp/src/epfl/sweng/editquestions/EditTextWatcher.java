@@ -1,13 +1,9 @@
 package epfl.sweng.editquestions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import epfl.sweng.R;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.ViewGroup;
 import android.widget.EditText;
 
 /**
@@ -73,25 +69,6 @@ public class EditTextWatcher implements TextWatcher {
 					mEditText.getText().toString());
 		}
 
-    }
-
-
-	/**
-     * Finds recursively all the EditTexts inside a ViewGroup
-     * @param v ViewGroup in which to search
-     * @return List<EditText> The list of all the Buttons
-     */
-    public List<EditText> findAllEditTexts(ViewGroup v) {
-    	List<EditText> list = new ArrayList<EditText>();
-    	int nbChildren = v.getChildCount();
-    	for (int i=0; i<nbChildren; i++) {
-    		if (v.getChildAt(i) instanceof EditText) {
-    			list.add((EditText) v.getChildAt(i));
-    		} else if (v.getChildAt(i) instanceof ViewGroup) {
-    			list.addAll(findAllEditTexts((ViewGroup) v.getChildAt(i)));
-    		}
-    	}
-    	return list;
     }
 
 }

@@ -1,15 +1,13 @@
 package epfl.sweng.editquestions;
 
-import java.util.ArrayList;
 import java.util.List;
-
-
 import epfl.sweng.R;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
 import epfl.sweng.tasks.IQuizServerCallback;
 import epfl.sweng.tasks.SubmitQuestion;
+import epfl.sweng.tools.GUITools;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,15 +52,14 @@ public class ButtonListener implements OnClickListener {
 			mActivity.getLayoutInflater().inflate(R.layout.edit_new_answer, answersContainer);
 			
 			// Set OnClickListeners
-			List<Button> listNewButton = findAllButtons(
+			List<Button> listNewButton = GUITools.findAllButtons(
 					(ViewGroup) answersContainer.getChildAt(answersContainer.getChildCount()-1));
 			for (Button button : listNewButton) {
 				button.setOnClickListener(new ButtonListener(mActivity));
 			}
 			
 			// Set EditTextWatcher
-			EditTextWatcher editTextWatcher = new EditTextWatcher(mActivity);
-			List<EditText> listNewEditTexts= editTextWatcher.findAllEditTexts(
+			List<EditText> listNewEditTexts= GUITools.findAllEditTexts(
 					(ViewGroup) answersContainer.getChildAt(answersContainer.getChildCount()-1));
 			for (EditText editText : listNewEditTexts) {
 				editText.addTextChangedListener(new EditTextWatcher(mActivity, editText));
@@ -100,7 +97,7 @@ public class ButtonListener implements OnClickListener {
 		
 		// On click 'X' button: mark all other right answers as wrong and this one as right and update question
 		} else if (buttonTag == mActivity.getResources().getText(R.string.heavy_ballot_x)) {
-			List<Button> listWrongButton = findAllButtons(
+			List<Button> listWrongButton = GUITools.findAllButtons(
 					(ViewGroup) answersContainer, mActivity.getResources().getText(R.string.heavy_check_mark));
 			for (Button button : listWrongButton) {
 				button.setText(mActivity.getResources().getText(R.string.heavy_ballot_x));
@@ -141,42 +138,6 @@ public class ButtonListener implements OnClickListener {
 
 		}
 	}
-	
-    /**
-     * Finds recursively all the buttons inside a ViewGroup
-     * @param ViewGroup v ViewGroup in which to search
-     * @return List<Button> The list of all the Buttons
-     */
-    public List<Button> findAllButtons(ViewGroup v) {
-    	List<Button> list = new ArrayList<Button>();
-    	int nbChildren = v.getChildCount();
-    	for (int i=0; i<nbChildren; i++) {
-    		if (v.getChildAt(i) instanceof Button) {
-    			list.add((Button) v.getChildAt(i));
-    		} else if (v.getChildAt(i) instanceof ViewGroup) {
-    			list.addAll(findAllButtons((ViewGroup) v.getChildAt(i)));
-    		}
-    	}
-    	return list;
-    }
-    
-    /**
-     * Finds recursively all the tagged buttons inside a ViewGroup
-     * @param ViewGroup v ViewGroup in which to search
-     * @param Object tag The tag that buttons must have
-     * @return List<Button> The list of all the Buttons
-     */
-    public List<Button> findAllButtons(ViewGroup v, Object tag) {
-    	List<Button> list = new ArrayList<Button>();
-    	int nbChildren = v.getChildCount();
-    	for (int i=0; i<nbChildren; i++) {
-    		if (v.getChildAt(i) instanceof Button && v.getChildAt(i).getTag() == tag) {
-    			list.add((Button) v.getChildAt(i));
-    		} else if (v.getChildAt(i) instanceof ViewGroup) {
-    			list.addAll(findAllButtons((ViewGroup) v.getChildAt(i), tag));
-    		}
-    	}
-    	return list;
-    }
+
 
 }
