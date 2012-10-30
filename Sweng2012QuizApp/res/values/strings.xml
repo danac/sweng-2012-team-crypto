@@ -31,5 +31,6 @@
     <string name="button_logout">Log out</string>
     <string name="auth_error_text">Authentication failed!</string>
     <string name="auth_success_text">Authentication successful! =D</string>
+    <string name="tequila">tequila</string>
 
 </resources>
