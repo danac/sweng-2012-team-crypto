@@ -1,11 +1,14 @@
 package epfl.sweng.entry;
 
 import epfl.sweng.R;
+import epfl.sweng.authentication.AuthenticationActivity;
 import epfl.sweng.editquestions.EditQuestionActivity;
+import epfl.sweng.globals.Globals;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.View;
 
@@ -23,6 +26,13 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        SharedPreferences settings = getSharedPreferences(Globals.PREFS_NAME, 0);
+        if (settings.getString("SESSION_ID", "") == "") {
+        	finish();
+        	Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
+        	startActivity(authenticationActivityIntent);
+        }
     }
     
 	/**
@@ -40,8 +50,8 @@ public class MainActivity extends Activity {
      * @param View view reference to the menu button
      */
     public void goToDisplayActivity(View view) {
-    	Intent displayActivityIntent = new Intent(this, ShowQuestionsActivity.class);
-    	startActivity(displayActivityIntent);
+    	Intent showQuestionsActivityIntent = new Intent(this, ShowQuestionsActivity.class);
+    	startActivity(showQuestionsActivityIntent);
     }
 
     /**
@@ -49,8 +59,8 @@ public class MainActivity extends Activity {
      * @param View view reference to the menu button
      */
     public void goToSubmitActivity(View view) {
-    	Intent displayActivityIntent = new Intent(this, EditQuestionActivity.class);
-    	startActivity(displayActivityIntent);
+    	Intent editQuestionActivityIntent = new Intent(this, EditQuestionActivity.class);
+    	startActivity(editQuestionActivityIntent);
     }
     
     /**
@@ -58,6 +68,11 @@ public class MainActivity extends Activity {
      * @param View view reference to the menu button
      */
     public void logout(View view) {
-    	// TODO Implement when Dana has created the SessionManager
+    	SharedPreferences settings = getSharedPreferences(Globals.PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("SESSION_ID", "");
+        editor.commit();
+        Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
+    	startActivity(authenticationActivityIntent);
     }
 }
