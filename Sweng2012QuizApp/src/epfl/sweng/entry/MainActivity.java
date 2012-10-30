@@ -52,4 +52,12 @@ public class MainActivity extends Activity {
     	Intent displayActivityIntent = new Intent(this, EditQuestionActivity.class);
     	startActivity(displayActivityIntent);
     }
+    
+    /**
+     * Log out the user
+     * @param View view reference to the menu button
+     */
+    public void logout(View view) {
+    	// TODO Implement when Dana has created the SessionManager
+    }
 }

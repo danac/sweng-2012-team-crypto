@@ -28,6 +28,7 @@
     <string name="auth_login_hint">GASPAR Username</string>
     <string name="auth_pass_hint">GASPAR Password</string>
     <string name="auth_submit_text">Log in using Tequila</string>
+    <string name="button_logout">Log out</string>
         
 
 </resources>
