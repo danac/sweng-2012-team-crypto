@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         SharedPreferences settings = getSharedPreferences(Globals.PREFS_NAME, 0);
-        if (settings.getString("SESSION_ID", "") == "") {
+        if (settings.getString("SESSION_ID", "").equals("")) {
         	finish();
         	Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
         	startActivity(authenticationActivityIntent);
