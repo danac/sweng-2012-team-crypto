@@ -12,6 +12,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 
+import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
@@ -30,7 +31,6 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	 */
 	private IQuizServerCallback mCallback;
 	
-	private static String mSessionId = "";
 	
 	/**
 	 * Constructor
@@ -63,8 +63,8 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	 */
 	final protected QuizQuestion handleQuizServerRequest(HttpUriRequest request) {
 		try {
-			if (!mSessionId.equals("")) {
-				request.addHeader("Authentication", "Tequila " + mSessionId);
+			if (SessionManager.getInstance().isAuthenticated()) {
+				request.addHeader("Authorization", "Tequila " + SessionManager.getInstance().getSessionId());
 			}
 			
 			if (Globals.LOG_QUIZSERVER_REQUESTS) {				
@@ -108,7 +108,4 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 		return null;
 	}
 	
-	public static void setSessionId(String sessionId) {
-		mSessionId = sessionId;
-	}
 }

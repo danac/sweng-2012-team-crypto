@@ -2,6 +2,7 @@ package epfl.sweng.entry;
 
 import epfl.sweng.R;
 import epfl.sweng.authentication.AuthenticationActivity;
+import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
@@ -27,8 +28,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
-        SharedPreferences settings = getSharedPreferences(Globals.PREFS_NAME, 0);
-        if (settings.getString("SESSION_ID", "").equals("")) {
+        if (!SessionManager.getInstance().isAuthenticated()) {
         	finish();
         	Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
         	startActivity(authenticationActivityIntent);

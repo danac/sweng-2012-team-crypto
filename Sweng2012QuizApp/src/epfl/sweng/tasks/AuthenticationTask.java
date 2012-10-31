@@ -17,7 +17,6 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,7 +29,7 @@ import android.util.Log;
 
 /**
  */
-class AuthenticationTask extends AsyncTask<String, Void, String> {
+public class AuthenticationTask extends AsyncTask<String, Void, String> {
     
 	
 	private int mLastStatusCode=0;
@@ -59,10 +58,6 @@ class AuthenticationTask extends AsyncTask<String, Void, String> {
 					Log.i(Globals.LOGTAG_AUTH_COMMUNICATION, header.toString());
 				}
 				
-				if (request instanceof HttpPost) {
-					Log.i(Globals.LOGTAG_AUTH_COMMUNICATION, 
-							EntityUtils.toString(((HttpPost) request).getEntity()));
-				}
 			}
 			
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
@@ -84,11 +79,12 @@ class AuthenticationTask extends AsyncTask<String, Void, String> {
 			
 			return body;
     	} catch (ClientProtocolException e) {
-    		cancel(false);
+    		Log.i(Globals.LOGTAG_AUTH_COMMUNICATION, e.getMessage().toString());
     	} catch (IOException e) {
+    		System.out.println("IOException");
     		cancel(false);
     	}
-		return null;
+		return "";
 	}
 
 	@Override
@@ -130,7 +126,6 @@ class AuthenticationTask extends AsyncTask<String, Void, String> {
 			}
 			
 			handleServerRequest(authRequest);
-			
 			if (mLastStatusCode!=Globals.STATUSCODE_AUTHSUCCESSFUL) {
 				cancel(false);
 			}
@@ -162,8 +157,7 @@ class AuthenticationTask extends AsyncTask<String, Void, String> {
 	
 	@Override
 	protected void onPostExecute(String sessionId) {
-		QuizServerTask.setSessionId(sessionId);
-		mCallback.onSuccess();
+		mCallback.onSuccess(sessionId);
 	}
 	
 	@Override

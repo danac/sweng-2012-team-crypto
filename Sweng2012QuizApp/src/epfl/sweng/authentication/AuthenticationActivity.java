@@ -44,7 +44,7 @@ public class AuthenticationActivity extends Activity {
      * Method starting the authentication process
      */
     public void doAuthentication(View view) {
-    	SessionManager.authenticate(this);
+    	SessionManager.getInstance().authenticate(this);
     }
 
 }
