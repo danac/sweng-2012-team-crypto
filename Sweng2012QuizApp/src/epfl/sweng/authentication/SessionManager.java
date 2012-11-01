@@ -34,14 +34,19 @@ final public class SessionManager {
 			public void onSuccess(String sessionId) {
 				SharedPreferences settings = activity.getSharedPreferences(Globals.PREFS_NAME, 0);
 				settings.edit().putString("SESSION_ID", sessionId).commit();
-				mActivity.displayAuthSuccess();
+				mActivity.onAuthSuccess();
 			}
 
 			@Override
 			public void onError() {
-				mActivity.displayAuthError();
+				mActivity.onAuthError();
 			}
 		}).execute(usernameText.getText().toString(), passwordText.getText().toString());
+	}
+	
+	public void destroySession() {
+		SharedPreferences settings = mActivity.getSharedPreferences(Globals.PREFS_NAME, 0);
+		settings.edit().putString("SESSION_ID", "").commit();
 	}
 
 	public String getSessionId() {
