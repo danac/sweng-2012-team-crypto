@@ -77,8 +77,7 @@ public class MainActivity extends Activity {
      */
     public void logout(View view) {
     	SessionManager.getInstance().destroySession();
-    	finish();
-        Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
-    	startActivity(authenticationActivityIntent);
+    	Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
+    	startActivityForResult(authenticationActivityIntent, Globals.AUTHENTICATION_REQUEST_CODE);
     }
 }
