@@ -4,6 +4,7 @@ package epfl.sweng.showquestions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import epfl.sweng.R;
+import epfl.sweng.authentication.AuthenticationActivity;
+import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.tasks.LoadRandomQuestion;
 import epfl.sweng.tasks.IQuizServerCallback;
@@ -33,6 +36,13 @@ public class ShowQuestionsActivity extends Activity {
 	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_questions);
+        
+        if (!SessionManager.getInstance().isAuthenticated()) {
+        	finish();
+        	Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
+        	startActivity(authenticationActivityIntent);
+        }
+        
         new LoadRandomQuestion(new IQuizServerCallback() {
         	public void onSuccess(QuizQuestion question) {
         		displayQuestion(question);

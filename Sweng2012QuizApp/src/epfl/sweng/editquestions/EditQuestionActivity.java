@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import epfl.sweng.R;
+import epfl.sweng.authentication.AuthenticationActivity;
+import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
 import epfl.sweng.tools.GUITools;
@@ -37,6 +40,12 @@ public class EditQuestionActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_question);
+        
+        if (!SessionManager.getInstance().isAuthenticated()) {
+        	finish();
+        	Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
+        	startActivity(authenticationActivityIntent);
+        }
         
         mEditedQuestion = new QuizQuestion();
         
