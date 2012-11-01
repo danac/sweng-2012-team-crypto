@@ -14,8 +14,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import epfl.sweng.R;
-import epfl.sweng.authentication.AuthenticationActivity;
 import epfl.sweng.authentication.SessionManager;
+import epfl.sweng.entry.MainActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.tasks.LoadRandomQuestion;
 import epfl.sweng.tasks.IQuizServerCallback;
@@ -39,8 +39,8 @@ public class ShowQuestionsActivity extends Activity {
         
         if (!SessionManager.getInstance().isAuthenticated()) {
         	finish();
-        	Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
-        	startActivity(authenticationActivityIntent);
+        	Intent mainActivityIntent = new Intent(this, MainActivity.class);
+        	startActivity(mainActivityIntent);
         }
         
         new LoadRandomQuestion(new IQuizServerCallback() {

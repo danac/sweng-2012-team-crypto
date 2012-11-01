@@ -4,6 +4,7 @@ import epfl.sweng.R;
 import epfl.sweng.authentication.AuthenticationActivity;
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.editquestions.EditQuestionActivity;
+import epfl.sweng.globals.Globals;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 import android.os.Bundle;
 import android.app.Activity;
@@ -27,9 +28,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         if (!SessionManager.getInstance().isAuthenticated()) {
-        	finish();
         	Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
-        	startActivity(authenticationActivityIntent);
+        	startActivityForResult(authenticationActivityIntent, Globals.AUTHENTICATION_REQUEST_CODE);
         }
     }
     
@@ -41,6 +41,16 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	if (requestCode == Globals.AUTHENTICATION_REQUEST_CODE) {
+    		if (resultCode != RESULT_OK) {
+    			System.out.println("Finish MainActivity with result code from AuthenticationActivity: " + resultCode);
+    			finish();
+    		}
+    	}
     }
     
     /**

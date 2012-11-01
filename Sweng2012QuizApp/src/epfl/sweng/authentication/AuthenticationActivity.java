@@ -1,10 +1,8 @@
 package epfl.sweng.authentication;
 
 import epfl.sweng.R;
-import epfl.sweng.entry.MainActivity;
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -27,6 +25,8 @@ public class AuthenticationActivity extends Activity {
         return true;
     }
     
+    
+    
 	/**
 	 * Display an error in case the authentication failed and clears the EditTexts
 	 */
@@ -42,10 +42,9 @@ public class AuthenticationActivity extends Activity {
 	 * Display a confirmation when the authentication was successful
 	 */    
     public void onAuthSuccess() {
+    	setResult(RESULT_OK);
+    	Toast.makeText(this, getString(R.string.auth_success_text), Toast.LENGTH_LONG).show();
 		finish();
-		Toast.makeText(this, getString(R.string.auth_success_text), Toast.LENGTH_LONG).show();	
-		Intent mainActivityIntent = new Intent(this, MainActivity.class);
-		startActivity(mainActivityIntent);
 	}
     
     /**

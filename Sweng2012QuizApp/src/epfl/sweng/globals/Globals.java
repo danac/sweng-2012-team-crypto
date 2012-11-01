@@ -15,8 +15,9 @@ public final class Globals {
 	public static final String LOGTAG_QUIZSERVER_COMMUNICATION = "QuizServer";
 	public static final boolean LOG_AUTH_REQUESTS = true;
 	public static final String LOGTAG_AUTH_COMMUNICATION = "Auth";
-	public static final int STATUSCODE_AUTHSUCCESSFUL =302;
+	public static final int STATUSCODE_AUTHSUCCESSFUL = 302;
 	public static final String PREFS_NAME = "user_session	";
+	public final static int AUTHENTICATION_REQUEST_CODE = 1;
 	
 		
 }
