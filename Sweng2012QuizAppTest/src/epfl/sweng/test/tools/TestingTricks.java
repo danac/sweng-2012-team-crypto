@@ -11,7 +11,7 @@ import android.widget.EditText;
 public class TestingTricks {
 	private final static String TEST_USERNAME = "valid";
 	private final static String TEST_PASSWORD = "tutu";
-	private final static String TEST_BAD_USERNAME = "valid";
+	private final static String TEST_BAD_USERNAME = "tatutata";
 	
 	public static void authenticateMe(Solo solo) {
 		Activity activity = solo.getCurrentActivity();
@@ -43,5 +43,6 @@ public class TestingTricks {
 				solo.enterText(et, TEST_PASSWORD);
 			}
 		}	
+		solo.clickOnButton("Log in using Tequila");
 	}
 }

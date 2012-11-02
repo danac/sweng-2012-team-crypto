@@ -33,13 +33,19 @@ public class AuthenticationActivityTest extends
 				AuthenticationActivity.class);
 
 		assertTrue(solo.searchText("Please login"));
-
-		TestingTricks.authenticateMeBadly(solo);
-		assertTrue(solo.waitForText("Authentication failed"));
 		
 		TestingTricks.authenticateMe(solo);
 		assertTrue(solo.waitForText("Authentication successful"));
 	}
+	
+	public void testFailedAuthentication() {
+
+		assertTrue(solo.searchText("Please login"));
+
+		TestingTricks.authenticateMeBadly(solo);
+		assertTrue(solo.waitForText("Authentication failed"));
+	}
+	
 
 	/* End list of the different tests to be performed */
 	
