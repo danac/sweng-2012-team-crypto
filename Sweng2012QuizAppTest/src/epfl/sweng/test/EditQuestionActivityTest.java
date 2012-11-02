@@ -42,7 +42,7 @@ public class EditQuestionActivityTest extends
 
 	public void testEditQuestion() {
 		TestingTricks.authenticateMe(solo);
-		if(solo.searchText("Submit quiz question")) {
+		if (solo.searchText("Submit quiz question")) {
 			solo.clickOnButton("Submit quiz question");
 		}
 		
