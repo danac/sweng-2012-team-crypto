@@ -18,7 +18,7 @@ import org.apache.http.protocol.HttpRequestExecutor;
 /**
      * The Mocking HTTPClient class that will fake the vanilla one.
      */
-class MockHttpClient extends DefaultHttpClient {
+public class MockHttpClient extends DefaultHttpClient {
     @Override
     protected RequestDirector createClientRequestDirector(
             final HttpRequestExecutor requestExec,

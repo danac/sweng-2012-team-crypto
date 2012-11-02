@@ -8,8 +8,10 @@ import com.jayway.android.robotium.solo.Solo;
 
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
+import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.tasks.IQuizServerCallback;
 import epfl.sweng.tasks.SubmitQuestion;
+import epfl.sweng.test.mocking.MockHttpClient;
 /**
  * First test case...
  */
@@ -31,6 +33,7 @@ public class EditQuestionActivityTest extends
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+        SwengHttpClientFactory.setInstance(new MockHttpClient());
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
 

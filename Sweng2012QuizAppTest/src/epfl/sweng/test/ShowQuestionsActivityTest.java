@@ -3,14 +3,13 @@ package epfl.sweng.test;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.ListView;
-
 import com.jayway.android.robotium.solo.Solo;
-
 import epfl.sweng.quizquestions.QuizQuestion;
+import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.tasks.IQuizServerCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
-
+import epfl.sweng.test.mocking.MockHttpClient;
 /**
  * First test case...
  */
@@ -29,6 +28,7 @@ public class ShowQuestionsActivityTest extends
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+        SwengHttpClientFactory.setInstance(new MockHttpClient());
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
 

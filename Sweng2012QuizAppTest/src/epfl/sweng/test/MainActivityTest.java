@@ -5,7 +5,9 @@ import com.jayway.android.robotium.solo.Solo;
 
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.entry.MainActivity;
+import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
+import epfl.sweng.test.mocking.MockHttpClient;
 /**
  * First test case...
  */
@@ -21,6 +23,7 @@ public class MainActivityTest extends
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+        SwengHttpClientFactory.setInstance(new MockHttpClient());
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
 

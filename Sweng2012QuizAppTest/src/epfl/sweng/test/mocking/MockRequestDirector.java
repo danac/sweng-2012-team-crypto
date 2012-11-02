@@ -13,6 +13,8 @@ import org.apache.http.HttpVersion;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.protocol.HttpContext;
 
+import epfl.sweng.globals.Globals;
+
 import android.util.Log;
 
 /**
@@ -22,8 +24,6 @@ import android.util.Log;
  * @see http://tools.ietf.org/html/rfc2324
  */
 class MockRequestDirector implements RequestDirector {
-    private final static int SC_TEAPOT = 418;
-    private final static String SM_TEAPOT = "I'm a teapot";
 
     @Override
     public HttpResponse execute(HttpHost target, HttpRequest request,
@@ -35,29 +35,40 @@ class MockRequestDirector implements RequestDirector {
         Log.i("TEAPOT", "Teapot received request: "
                 + request.getRequestLine().toString());
 
-        // Since we're a teapot, we will answer with an error message. In
-        // your code, you'll probably want to set the content type to
-        // application/json, the return code to 200 (with message OK), and
-        // create a StringEntity containing a JSON string. Consider using
-        // http://developer.android.com/reference/org/apache/http/impl/EnglishReasonPhraseCatalog.html#INSTANCE
-        // if you don't want to specify the reason text.
-        BasicHttpResponse resp = new BasicHttpResponse(
-                HttpVersion.HTTP_1_1, SC_TEAPOT, SM_TEAPOT);
-        resp.addHeader("Content-Type", "text/html; charset=utf-8");
+        if (target.toURI().equals(Globals.RANDOM_QUESTION_URL)) {
+        	return quizServer();
+        } else if (target.toURI().equals(Globals.AUTHSERVER_LOGIN_URL)) {
+        	return tequilaServer(request);
+        }
+    }
+
+	private final static int STATUSCODE_OK = 200;
+	private final static String STATUSMESSAGE_OK = "OK";
+	
+    private HttpResponse quizServer() {
+    	
+    	BasicHttpResponse resp = new BasicHttpResponse(
+                HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
+        resp.addHeader("Content-Type", "application/json; charset=utf-8");
         try {
-            resp.setEntity(new StringEntity(
-                    "<!DOCTYPE html>"
-                            + "<html>"
-                            + "<title>"
-                            + SC_TEAPOT
-                            + " "
-                            + SM_TEAPOT
-                            + "</title>"
-                            + "<img src=http://farm8.staticflickr.com/7006/6508102407_4daeef6529_o.jpg> "
-                            + "</html>", "utf-8"));
+            resp.setEntity(new StringEntity("{"
+            		+ "\"tags\": ["
+            		+ "\"capitals\", "
+            		+ "\"geography\", "
+            		+ "\"countries\" ], "
+            		+ "\"solutionIndex\": 3, "
+            		+ "\"question\": \"What is the capital of Niger?\", "
+            		+ "\"answers\": ["
+            		+ "\"Riga\", "
+            		+ "\"Madrid\", "
+            		+ "\"Vienna\", "
+            		+ "\"Niamey\" ], "
+            		+ "\"owner\": \"sehaag\"," 
+            		+ "\"id\": 16026 }", "utf-8"));
         } catch (UnsupportedEncodingException uee) {
             resp = null;
         }
         return resp;
     }
+    
 }

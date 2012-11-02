@@ -5,6 +5,8 @@ import android.widget.EditText;
 import com.jayway.android.robotium.solo.Solo;
 
 import epfl.sweng.authentication.AuthenticationActivity;
+import epfl.sweng.servercomm.SwengHttpClientFactory;
+import epfl.sweng.test.mocking.MockHttpClient;
 /**
  * Testing the authentication activity
  */
@@ -23,6 +25,7 @@ public class AuthenticationActivityTest extends
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+        SwengHttpClientFactory.setInstance(new MockHttpClient());
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
 
