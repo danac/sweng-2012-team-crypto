@@ -51,7 +51,22 @@ public class AuthenticationActivity extends Activity {
      * Method starting the authentication process
      */
     public void doAuthentication(View view) {
-    	SessionManager.getInstance().authenticate(this);
+    	final TextView usernameText = (TextView) findViewById(R.id.auth_login);
+		final TextView passwordText = (TextView) findViewById(R.id.auth_pass);
+		
+		SessionManager.getInstance().authenticate(new ISessionCreationCallback() {
+
+			@Override
+			public void onAuthSuccess() {
+				onAuthSuccess();
+			}
+
+			@Override
+			public void onAuthError() {
+				onAuthError();
+			}
+    		
+    	}, usernameText.getText().toString(), passwordText.getText().toString());
     }
 
 }

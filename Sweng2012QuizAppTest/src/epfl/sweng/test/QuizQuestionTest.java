@@ -3,6 +3,7 @@ package epfl.sweng.test;
 import org.json.JSONException;
 
 import epfl.sweng.quizquestions.QuizQuestion;
+import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.tasks.IQuizServerCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
 
@@ -25,6 +26,7 @@ public class QuizQuestionTest extends TestCase {
         String json = VALID_QUESTION_JSON;
         assertNotNull(new QuizQuestion(json));
         
+        SwengHttpClientFactory.setInstance(null);
         new LoadRandomQuestion(new IQuizServerCallback() {
         	public void onSuccess(QuizQuestion question) {
         	}
