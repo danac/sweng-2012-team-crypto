@@ -18,7 +18,7 @@ public class ShowQuestionsActivityTest extends
 		ActivityInstrumentationTestCase2<ShowQuestionsActivity> {
 	
 	private Solo solo;
-	private static final int NUMBER_OF_QUESTIONS = 5;
+	private static final int NUMBER_OF_QUESTIONS = 1;
 	private static final int SLEEP_LISTCHECK = 2000;
 	private static final int SLEEP_CHARACTERSCHECK = 500;
 	
@@ -64,14 +64,10 @@ public class ShowQuestionsActivityTest extends
 			assertFalse(solo.searchText("\u2718") && solo.searchText("\u2714"));
 		}
 
-		
-		
 	}
 	
 	public void testNoNetwork() {
 
-		
-		
 		solo.assertCurrentActivity("A question is being displayed",
                 ShowQuestionsActivity.class);
 		
