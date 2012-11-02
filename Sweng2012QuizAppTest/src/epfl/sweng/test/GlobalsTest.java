@@ -2,6 +2,7 @@ package epfl.sweng.test;
 
 
 import epfl.sweng.globals.Globals;
+import epfl.sweng.tools.GUITools;
 
 import junit.framework.TestCase;
 
@@ -13,5 +14,6 @@ public class GlobalsTest extends TestCase {
 
     public void testGlobals() {
         assertNotNull(new Globals());
+        assertNotNull(new GUITools());
     }
 }
