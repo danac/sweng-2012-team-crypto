@@ -43,5 +43,7 @@ public class TestingTricks {
 				solo.enterText(et, TEST_PASSWORD);
 			}
 		}	
+		
+		solo.clickOnButton("Log in using Tequila");
 	}
 }
