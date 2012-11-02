@@ -41,14 +41,17 @@ class MockRequestDirector implements RequestDirector {
         // response.
 
         // You could, for example, log the request
-        Log.i("TEAPOT", "Teapot received request: "
+        
+    	String requestUri = request.getRequestLine().getUri();
+    	
+    	Log.i("TEAPOT", "Teapot received request: "
                 + request.getRequestLine().toString());
         HttpResponse resp = null;
-        if (target.toURI().equals(Globals.RANDOM_QUESTION_URL)) {
+        if (requestUri.equals(Globals.RANDOM_QUESTION_URL)) {
         	resp = quizServer();
-        } else if (target.toURI().equals(Globals.AUTHSERVER_LOGIN_URL)) {
+        } else if (requestUri.equals(Globals.AUTHSERVER_LOGIN_URL)) {
         	resp = tequilaServer(request);
-        } else if (target.toURI().equals(Globals.QUIZSERVER_LOGIN_URL)) {
+        } else if (requestUri.equals(Globals.QUIZSERVER_LOGIN_URL)) {
         	resp = quizServerLogin(request);
         }
         return resp;
