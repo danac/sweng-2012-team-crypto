@@ -37,12 +37,12 @@ public class ShowQuestionsActivityTest extends
 
 	public void testDisplayQuestion() {
 		TestingTricks.authenticateMe(solo);
-		solo.clickOnButton("Show a random question");
-		
+		if(solo.searchText("Show a random question")) {
+			solo.clickOnButton("Show a random question");
+		}
 		solo.assertCurrentActivity("A question is being displayed",
                 ShowQuestionsActivity.class);
 		ListView l = solo.getCurrentListViews().get(0);
-		
 		assertNotNull("No list views!", l);
 		solo.sleep(SLEEP_LISTCHECK);
 		assertTrue("No items in list view!", l.getChildCount()>0);

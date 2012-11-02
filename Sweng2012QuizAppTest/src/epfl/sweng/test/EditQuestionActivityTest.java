@@ -42,7 +42,9 @@ public class EditQuestionActivityTest extends
 
 	public void testEditQuestion() {
 		TestingTricks.authenticateMe(solo);
-		solo.clickOnButton("Submit quiz question");
+		if(solo.searchText("Submit quiz question")) {
+			solo.clickOnButton("Submit quiz question");
+		}
 		
 		solo.assertCurrentActivity("Edit Question Form is being displayed",
                 EditQuestionActivity.class);
