@@ -35,7 +35,7 @@ public class ShowQuestionsActivityTest extends
 
 	/* Begin list of the different tests to be performed */
 
-	public void testDisplayQuestion() {
+	public void testDisplayQuestionMocked() {
 		TestingTricks.authenticateMe(solo);
 		if (solo.searchText("Show a random question")) {
 			solo.clickOnButton("Show a random question");
@@ -69,7 +69,7 @@ public class ShowQuestionsActivityTest extends
 		}
 
 	}
-	
+		
 	public void testNoNetwork() {
 
 		solo.assertCurrentActivity("A question is being displayed",
