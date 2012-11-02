@@ -7,9 +7,9 @@ public interface ISessionCreationCallback {
 	/**
 	 * 
 	 */
-	void onAuthSuccess();
+	void onSessionCreateSuccess();
 	/**
 	 * 
 	 */
-	void onAuthError();
+	void onSessionCreateError();
 }

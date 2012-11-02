@@ -57,12 +57,12 @@ public class AuthenticationActivity extends Activity {
 		SessionManager.getInstance().authenticate(new ISessionCreationCallback() {
 
 			@Override
-			public void onAuthSuccess() {
+			public void onSessionCreateSuccess() {
 				onAuthSuccess();
 			}
 
 			@Override
-			public void onAuthError() {
+			public void onSessionCreateError() {
 				onAuthError();
 			}
     		

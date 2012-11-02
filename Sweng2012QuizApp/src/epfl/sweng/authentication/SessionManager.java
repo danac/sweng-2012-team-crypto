@@ -33,14 +33,15 @@ final public class SessionManager {
 			@Override
 			public void onSuccess(String sessionId) {
 				mSettings.edit().putString("SESSION_ID", sessionId).commit();
-				callback.onAuthSuccess();
+				callback.onSessionCreateSuccess();
 			}
 
 			@Override
 			public void onError() {
-				callback.onAuthError();
+				callback.onSessionCreateError();
 			}
 		}).execute(username, password);
+		
 	}
 	
 	public void destroySession() {
