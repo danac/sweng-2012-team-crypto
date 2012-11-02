@@ -34,7 +34,7 @@ public class AuthenticationActivityTest extends
 
 		assertTrue(solo.searchText("Please login"));
 		
-		TestingTricks.authenticateMe(getActivity(), solo);
+		TestingTricks.authenticateMe(solo);
 		
 		assertTrue(solo.waitForText("Authentication successful"));
 	}

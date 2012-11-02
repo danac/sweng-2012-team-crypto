@@ -31,7 +31,7 @@ public class MainActivityTest extends
 	/* Begin list of the different tests to be performed */
 
 	public void testMenu() {
-		TestingTricks.authenticateMe(getActivity(), solo);
+		TestingTricks.authenticateMe(solo);
 		solo.assertCurrentActivity("Main menu is being displayed",
                 MainActivity.class);
 

@@ -10,6 +10,7 @@ import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.tasks.IQuizServerCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
 import epfl.sweng.test.mocking.MockHttpClient;
+import epfl.sweng.test.tools.TestingTricks;
 /**
  * First test case...
  */
@@ -35,6 +36,9 @@ public class ShowQuestionsActivityTest extends
 	/* Begin list of the different tests to be performed */
 
 	public void testDisplayQuestion() {
+		TestingTricks.authenticateMe(solo);
+		solo.clickOnButton("Show a random question");
+		
 		solo.assertCurrentActivity("A question is being displayed",
                 ShowQuestionsActivity.class);
 		ListView l = solo.getCurrentListViews().get(0);

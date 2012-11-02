@@ -12,6 +12,7 @@ import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.tasks.IQuizServerCallback;
 import epfl.sweng.tasks.SubmitQuestion;
 import epfl.sweng.test.mocking.MockHttpClient;
+import epfl.sweng.test.tools.TestingTricks;
 /**
  * First test case...
  */
@@ -40,7 +41,9 @@ public class EditQuestionActivityTest extends
 	/* Begin list of the different tests to be performed */
 
 	public void testEditQuestion() {
-
+		TestingTricks.authenticateMe(solo);
+		solo.clickOnButton("Submit quiz question");
+		
 		solo.assertCurrentActivity("Edit Question Form is being displayed",
                 EditQuestionActivity.class);
 
@@ -73,6 +76,7 @@ public class EditQuestionActivityTest extends
 			}
 		}
 		solo.clickOnButton("\u2718");
+		solo.sleep(WAIT_TIME);
 		solo.clickOnButton("Submit");
 		assertTrue(solo.waitForText("\u2714 Question successfully submitted"));
 	}
