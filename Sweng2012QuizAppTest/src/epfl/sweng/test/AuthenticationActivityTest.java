@@ -1,20 +1,17 @@
 package epfl.sweng.test;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.EditText;
-
 import com.jayway.android.robotium.solo.Solo;
-
 import epfl.sweng.authentication.AuthenticationActivity;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.test.mocking.MockHttpClient;
+import epfl.sweng.test.tools.TestingTricks;
+
 /**
  * Testing the authentication activity
  */
 public class AuthenticationActivityTest extends
 		ActivityInstrumentationTestCase2<AuthenticationActivity> {
 
-	private final static String TEST_USERNAME = "Toto";
-	private final static String TEST_PASSWORD = "tutu";
 	
 	private Solo solo;
 	
@@ -31,24 +28,16 @@ public class AuthenticationActivityTest extends
 
 	/* Begin list of the different tests to be performed */
 
-	public void testMenu() {
+	public void testSuccessfulAuthentication() {
 		solo.assertCurrentActivity("Authentication form is being displayed",
 				AuthenticationActivity.class);
 
-		for (EditText et: solo.getCurrentEditTexts()) {
-			if (et.getTag().toString() 
-				== getActivity().getResources().getText(epfl.sweng.R.string.auth_login_hint)) {
-				solo.enterText(et, TEST_USERNAME);
-			} else if (et.getTag().toString() 
-				== getActivity().getResources().getText(epfl.sweng.R.string.auth_pass_hint)) {
-				solo.enterText(et, TEST_PASSWORD);
-			}				
-		}
+		assertTrue(solo.searchText("Please login"));
 		
-		solo.clickOnButton("Log in using Tequila");
+		TestingTricks.authenticateMe(getActivity(), solo);
 		
+		assertTrue(solo.waitForText("Authentication successful"));
 	}
-
 
 	/* End list of the different tests to be performed */
 	

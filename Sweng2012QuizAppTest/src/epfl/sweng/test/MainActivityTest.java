@@ -8,6 +8,7 @@ import epfl.sweng.entry.MainActivity;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.test.mocking.MockHttpClient;
+import epfl.sweng.test.tools.TestingTricks;
 /**
  * First test case...
  */
@@ -23,13 +24,14 @@ public class MainActivityTest extends
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-        SwengHttpClientFactory.setInstance(new MockHttpClient());
+        SwengHttpClientFactory.setInstance(new MockHttpClient());		
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
 
 	/* Begin list of the different tests to be performed */
 
 	public void testMenu() {
+		TestingTricks.authenticateMe(getActivity(), solo);
 		solo.assertCurrentActivity("Main menu is being displayed",
                 MainActivity.class);
 
