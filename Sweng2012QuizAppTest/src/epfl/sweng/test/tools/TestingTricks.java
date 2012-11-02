@@ -14,18 +14,19 @@ public class TestingTricks {
 	
 	public static void authenticateMe(Solo solo) {
 		Activity activity = solo.getCurrentActivity();
-		System.out.println(activity.getClass().getName());
-		if (activity.getClass().getName().equals("AuthenticationActivity")) {
-			
-			for (EditText et: solo.getCurrentEditTexts()) {
-				if (et.getTag().toString() 
-					== activity.getResources().getText(epfl.sweng.R.string.auth_login_hint)) {
-					solo.enterText(et, TEST_USERNAME);
-				} else if (et.getTag().toString()
-					== activity.getResources().getText(epfl.sweng.R.string.auth_pass_hint)) {
-					solo.enterText(et, TEST_PASSWORD);
-				}
-			}				
+		boolean needsAuth = false;
+		for (EditText et: solo.getCurrentEditTexts()) {
+			if (et.getTag().toString() 
+				== activity.getResources().getText(epfl.sweng.R.string.auth_login_hint)) {
+				solo.enterText(et, TEST_USERNAME);
+				needsAuth = true;
+			} else if (et.getTag().toString()
+				== activity.getResources().getText(epfl.sweng.R.string.auth_pass_hint)) {
+				solo.enterText(et, TEST_PASSWORD);
+			}
+		}				
+		
+		if (needsAuth) {
 			solo.clickOnButton("Log in using Tequila");
 		}
 	}
