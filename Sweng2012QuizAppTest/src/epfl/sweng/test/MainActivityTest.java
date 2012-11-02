@@ -3,6 +3,7 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.jayway.android.robotium.solo.Solo;
 
+import epfl.sweng.authentication.AuthenticationActivity;
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.entry.MainActivity;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
@@ -49,6 +50,13 @@ public class MainActivityTest extends
 
 		
 		assertTrue(solo.searchText("Submit"));
+		
+		solo.goBack();
+		solo.goBack();
+		
+		solo.clickOnButton("Log out");
+		solo.assertCurrentActivity("Authentication Form is being displayed",
+                AuthenticationActivity.class);
 
 		
 	}
