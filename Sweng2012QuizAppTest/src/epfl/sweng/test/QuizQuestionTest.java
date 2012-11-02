@@ -3,6 +3,8 @@ package epfl.sweng.test;
 import org.json.JSONException;
 
 import epfl.sweng.quizquestions.QuizQuestion;
+import epfl.sweng.tasks.IQuizServerCallback;
+import epfl.sweng.tasks.LoadRandomQuestion;
 
 import junit.framework.TestCase;
 
@@ -22,5 +24,12 @@ public class QuizQuestionTest extends TestCase {
     public void testQuestionOK() throws JSONException {
         String json = VALID_QUESTION_JSON;
         assertNotNull(new QuizQuestion(json));
+        
+        new LoadRandomQuestion(new IQuizServerCallback() {
+        	public void onSuccess(QuizQuestion question) {
+        	}
+        	public void onError() {
+        	}
+        }).execute();
     }
 }
