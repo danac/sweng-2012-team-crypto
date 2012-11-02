@@ -16,6 +16,8 @@ public class AuthenticationActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SessionManager.getInstance().setSettingsFromActivity(this);
         setContentView(R.layout.activity_authentication);
     }
 

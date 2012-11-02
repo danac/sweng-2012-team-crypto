@@ -36,7 +36,8 @@ public class ShowQuestionsActivity extends Activity {
 	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_questions);
-        
+
+        SessionManager.getInstance().setSettingsFromActivity(this);
         if (!SessionManager.getInstance().isAuthenticated()) {
         	finish();
         	Intent mainActivityIntent = new Intent(this, MainActivity.class);

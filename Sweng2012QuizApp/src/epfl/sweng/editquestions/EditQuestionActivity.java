@@ -40,7 +40,8 @@ public class EditQuestionActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_question);
-        
+
+        SessionManager.getInstance().setSettingsFromActivity(this);
         if (!SessionManager.getInstance().isAuthenticated()) {
         	finish();
         	Intent mainActivityIntent = new Intent(this, MainActivity.class);
