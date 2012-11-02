@@ -20,13 +20,12 @@ public class MainActivity extends Activity {
 
 	/**
 	 * Method invoked at the creation of the Activity. 
-	 * @param Bundle savedInstanceState the saved instance
+	 * @param savedInstanceState the saved instance
 	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SessionManager.getInstance().setSettingsFromActivity(this);
         if (!SessionManager.getInstance().isAuthenticated()) {
         	Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
         	startActivityForResult(authenticationActivityIntent, Globals.AUTHENTICATION_REQUEST_CODE);
@@ -35,7 +34,7 @@ public class MainActivity extends Activity {
     
 	/**
 	 * Method invoked at the creation of the Options Menu. 
-	 * @param Menu menu the created menu
+	 * @param menu the created menu
 	 */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,7 +54,7 @@ public class MainActivity extends Activity {
     
     /**
      * Change view to the ShowQuestionsActivity
-     * @param View view reference to the menu button
+     * @param view reference to the menu button
      */
     public void goToDisplayActivity(View view) {
     	Intent showQuestionsActivityIntent = new Intent(this, ShowQuestionsActivity.class);
@@ -64,7 +63,7 @@ public class MainActivity extends Activity {
 
     /**
      * Change view to the EditQuestionActivity
-     * @param View view reference to the menu button
+     * @param view reference to the menu button
      */
     public void goToSubmitActivity(View view) {
     	Intent editQuestionActivityIntent = new Intent(this, EditQuestionActivity.class);
@@ -73,7 +72,7 @@ public class MainActivity extends Activity {
     
     /**
      * Log out the user
-     * @param View view reference to the menu button
+     * @param view reference to the menu button
      */
     public void logout(View view) {
     	SessionManager.getInstance().destroySession();

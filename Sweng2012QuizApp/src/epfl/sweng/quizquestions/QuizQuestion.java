@@ -234,7 +234,7 @@ public class QuizQuestion {
 	
     /**
      * Get multiple choice question
-     * @return String The question
+     * @return The question
      */
     public String getQuestion() {
     	return mQuestion;
@@ -242,7 +242,7 @@ public class QuizQuestion {
     
     /**
      * Get owner of the dataset
-     * @return String The owner
+     * @return The owner
      */
     public String getOwner() {
     	return mOwner;
@@ -250,7 +250,7 @@ public class QuizQuestion {
     
     /**
      * Set owner of the dataset
-     * @param String owner
+     * @param owner
      */
     public void setOwner(String owner) {
     	mOwner = owner;
@@ -258,7 +258,7 @@ public class QuizQuestion {
     
     /**
      * Get an array of possible answers
-     * @return String[] string holding the possible answers
+     * @return string holding the possible answers
      */
     public String[] getAnswers() {
     	return mAnswers.toArray(new String[mAnswers.size()]);
@@ -266,7 +266,7 @@ public class QuizQuestion {
 
     /**
      * Get an array of tags
-     * @return String[] string holding the possible answers
+     * @return string holding the possible answers
      */
     public String[] getTags() {
     	return mTags.toArray(new String[mTags.size()]);
@@ -351,7 +351,7 @@ public class QuizQuestion {
 
     /**
      * Set the question
-     * @param String question the question to be set
+     * @param question the question to be set
      */
     public void setQuestion(String question) {
     	mQuestion = question;
@@ -359,7 +359,7 @@ public class QuizQuestion {
     
     /**
      * Set the index of the right solution in the given array of the possible answers
-     * @param int solutionIndex the index of the correct answer
+     * @param solutionIndex the index of the correct answer
      */
     public void setSolutionIndex(int solutionIndex) {
     	mSolutionIndex = solutionIndex;
@@ -367,7 +367,7 @@ public class QuizQuestion {
     
     /**
      * Set the id of the question-answers dataset
-     * @param String id the id of the dataset
+     * @param id the id of the dataset
      */
     public void setId(String id) {
     	mId = Integer.parseInt(id);
@@ -375,15 +375,15 @@ public class QuizQuestion {
 
     /**
      * Set the id of the question-answers dataset
-     * @param int id the id of the dataset
+     * @param id the id of the dataset
      */
     public void setId(int id) {
     	mId = id;
     }
     
     /**
-     * 
-     * @return String the question json string as understood by the Sweng Quiz Server
+     * Get the contents of the QuizQuestion in json string format
+     * @return the question json string as understood by the Sweng Quiz Server
      * @throws JSONException
      */
     public String getJSONString() throws JSONException {

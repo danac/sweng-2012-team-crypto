@@ -34,14 +34,13 @@ public class EditQuestionActivity extends Activity {
 	
 	/**
 	 * Method invoked at the creation of the Activity. 
-	 * @param Bundle savedInstanceState the saved instance
+	 * @param savedInstanceState the saved instance
 	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_question);
 
-        SessionManager.getInstance().setSettingsFromActivity(this);
         if (!SessionManager.getInstance().isAuthenticated()) {
         	finish();
         	Intent mainActivityIntent = new Intent(this, MainActivity.class);
@@ -69,10 +68,10 @@ public class EditQuestionActivity extends Activity {
     /**
      * Add a field to mEditedQuestion from the user input in a View
      * Calls EditText.setError() if invalid param
-     * @param View view The View from which value comes from
-     * @param QuizQuestionParam param enum of the parameters
-     * @param String value value of the field to add
-     * @return boolean true if mEditedQuestion is valid according to mEditedQuestion.auditErrors()
+     * @param view The View from which value comes from
+     * @param param enum of the parameters
+     * @param value value of the field to add
+     * @return true if mEditedQuestion is valid according to mEditedQuestion.auditErrors()
      */
     public boolean buildQuestionFromView(View view, QuizQuestionParam param, String value) {
     	
@@ -156,7 +155,7 @@ public class EditQuestionActivity extends Activity {
     
     /**
      * Return the final edited question
-     * @return QuizQuestion the edited QuizQuestion
+     * @return the edited QuizQuestion
      */
 	public QuizQuestion getQuestion() {
 		return mEditedQuestion;
@@ -172,7 +171,7 @@ public class EditQuestionActivity extends Activity {
     
     /**
      * Display a success message if the submission succeeded
-     * @param QuizQuestion question
+     * @param question
      */
 	public void displaySuccess(QuizQuestion question) {
 		finish();

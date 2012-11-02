@@ -1,8 +1,7 @@
 package epfl.sweng.authentication;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
-import epfl.sweng.globals.Globals;
+import epfl.sweng.entry.MainApplication;
 import epfl.sweng.tasks.AuthenticationTask;
 import epfl.sweng.tasks.IAuthenticationCallback;
 
@@ -12,21 +11,39 @@ import epfl.sweng.tasks.IAuthenticationCallback;
  */
 final public class SessionManager {
 	
-	private static SessionManager instance  = new SessionManager();
+	private static SessionManager mInstance  = new SessionManager();
 	private SharedPreferences mSettings;
 	
+	/**
+	 * Single constructor declared private to ensure Singleton behaviour
+	 */
 	private SessionManager() {
-		
 	}
-	
+
+	/**
+	 * Accessor method giving access to the single instance of the SessionManager
+	 * @return
+	 */
 	public static SessionManager getInstance() {
-		return instance;
+		mInstance.setSettings();
+		return mInstance;
 	}
 	
-	public void setSettingsFromActivity(Activity activity) {
-		mSettings = activity.getSharedPreferences(Globals.PREFS_NAME, 0);
+	/**
+	 * Private method fetching the settings from the shared preferences database of the application
+	 */
+	private void setSettings() {
+		if (mSettings == null) {			
+			mSettings = MainApplication.getSettings();
+		}
 	}
 	
+	/**
+	 * Create a session by authenticating a user towards Tequila
+	 * @param callback specifies the methods to be invoked after the authentication process
+	 * @param username the Tequila user name to authenticate
+	 * @param password the password of the Tequila user
+	 */
 	public void authenticate(final ISessionCreationCallback callback, String username, String password) {
 		
 		new AuthenticationTask(new IAuthenticationCallback() {
@@ -44,15 +61,25 @@ final public class SessionManager {
 		
 	}
 	
+	/**
+	 * Log out user by destroying the session
+	 */
 	public void destroySession() {
 		mSettings.edit().putString("SESSION_ID", "").commit();
 	}
 
+	/**
+	 * Accessor method to get the current session id 
+	 * @return the session id
+	 */
 	public String getSessionId() {
-		System.out.println(mSettings.getString("SESSION_ID", ""));
 		return mSettings.getString("SESSION_ID", "");
 	}
 	
+	/**
+	 * Test whether the user is authenticated or not
+	 * @return true if authenticated, false if not
+	 */
 	public boolean isAuthenticated() {
 		return !getSessionId().equals("");
 	}

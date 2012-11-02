@@ -28,6 +28,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 /**
+ * AsyncTask for authentication towards the Authentication Server
+ * @author Cyril Misev <cyril.misev@epfl.ch>
  */
 public class AuthenticationTask extends AsyncTask<String, Void, String> {
     
@@ -44,8 +46,11 @@ public class AuthenticationTask extends AsyncTask<String, Void, String> {
 	public AuthenticationTask(IAuthenticationCallback callback) {
 		mCallback = callback;
 	}
-	
+
 	/**
+	 * Handle a HTTP request, store status code in mLastStatusCode class variable
+	 * @param request the request
+	 * @return the body of the response
 	 */
 	private String handleServerRequest(HttpUriRequest request) {
 		mLastStatusCode = 0;
@@ -87,6 +92,12 @@ public class AuthenticationTask extends AsyncTask<String, Void, String> {
 		return "";
 	}
 
+	/**
+	 * The main process of the AsyncTask, does communication with the authentication server and the quiz server
+	 * @param username user name to authenticate
+	 * @param password the password of the user to authenticate
+	 * @return the session id as received from the quiz server
+	 */
 	@Override
 	protected String doInBackground(String... argv) {
 		
@@ -155,11 +166,17 @@ public class AuthenticationTask extends AsyncTask<String, Void, String> {
 		return "";
 	}
 	
+	/**
+	 * Handle the received session id if the authentication was successful
+	 */
 	@Override
 	protected void onPostExecute(String sessionId) {
 		mCallback.onSuccess(sessionId);
 	}
 	
+	/**
+	 * Handle a authentication error
+	 */
 	@Override
 	protected void onCancelled() {
 		mCallback.onError();

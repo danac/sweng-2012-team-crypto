@@ -13,14 +13,21 @@ import android.widget.Toast;
  */
 public class AuthenticationActivity extends Activity {
 
+	/**
+	 * Method invoked at the creation of the Activity. 
+	 * @param savedInstanceState the saved instance
+	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SessionManager.getInstance().setSettingsFromActivity(this);
         setContentView(R.layout.activity_authentication);
     }
 
+	/**
+	 * Method invoked at the creation of the Options Menu. 
+	 * @param menu the created menu
+	 */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_authentication, menu);
@@ -51,6 +58,7 @@ public class AuthenticationActivity extends Activity {
     
     /**
      * Method starting the authentication process
+     * @param view reference to the submit button
      */
     public void doAuthentication(View view) {
     	final TextView usernameText = (TextView) findViewById(R.id.auth_login);

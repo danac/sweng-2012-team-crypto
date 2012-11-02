@@ -23,8 +23,8 @@ public class EditTextWatcher implements TextWatcher {
 	
 	/**
 	 * Constructor
-	 * @param EditQuestionActivity activity the activity the editText to be watched is placed in
-	 * @param EditText editText the editText to be watched
+	 * @param activity the activity the editText to be watched is placed in
+	 * @param editText the editText to be watched
 	 */
 	public EditTextWatcher(EditQuestionActivity activity, EditText editText) {
 		super();
@@ -34,7 +34,7 @@ public class EditTextWatcher implements TextWatcher {
 	
 	/**
 	 * Constructor
-	 * @param EditQuestionActivity activity the activity the editText to be watched is placed in
+	 * @param activity the activity the editText to be watched is placed in
 	 */	
 	public EditTextWatcher(EditQuestionActivity activity) {
 		super();

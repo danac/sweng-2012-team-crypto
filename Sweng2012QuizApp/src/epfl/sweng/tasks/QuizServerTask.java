@@ -34,7 +34,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	
 	/**
 	 * Constructor
-	 * @param IQuizServerCallback callback interface defining the methods to be called
+	 * @param callback interface defining the methods to be called
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
 	public QuizServerTask(IQuizServerCallback callback) {
@@ -43,7 +43,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	
 	/**
 	 * Calls back the onSuccess method of the interface defined when creating the task
-	 * @param QuizQuestion question the question returned by the server
+	 * @param question the question returned by the server
 	 */
 	@Override
 	protected void onPostExecute(QuizQuestion question) {
@@ -60,6 +60,9 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	}
 	
 	/**
+	 * Handle a HTTP request towards quiz server. Always send session id if the user is authenticated
+	 * @param request the request
+	 * @return the QuizQuestion as received from the server
 	 */
 	final protected QuizQuestion handleQuizServerRequest(HttpUriRequest request) {
 		try {

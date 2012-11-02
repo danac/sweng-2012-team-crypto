@@ -29,7 +29,7 @@ public class ShowQuestionsActivity extends Activity {
 	/**
 	 * Method invoked at the creation of the Activity. 
 	 * Triggers the display of a random question fetched from the server.
-	 * @param Bundle savedInstanceState the saved instance
+	 * @param savedInstanceState the saved instance
 	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,6 @@ public class ShowQuestionsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_questions);
 
-        SessionManager.getInstance().setSettingsFromActivity(this);
         if (!SessionManager.getInstance().isAuthenticated()) {
         	finish();
         	Intent mainActivityIntent = new Intent(this, MainActivity.class);
@@ -69,7 +68,7 @@ public class ShowQuestionsActivity extends Activity {
     
     /**
      * Display a question on the screen
-     * @param QuizQuestion question The question to be displayed
+     * @param question The question to be displayed
      */
     public void displayQuestion(final QuizQuestion question) {
 
@@ -122,7 +121,7 @@ public class ShowQuestionsActivity extends Activity {
     
     /**
      * Handle the "Next Question" button. Loads a new random question
-     * @param View currentView
+     * @param currentView
      */
     public void nextQuestion(View currentView) {
         new LoadRandomQuestion(new IQuizServerCallback() {

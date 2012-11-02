@@ -14,7 +14,7 @@ public class LoadRandomQuestion extends QuizServerTask {
 	
 	/**
 	 * Constructor
-	 * @param IQuizServerCallback callback interface defining the methods to be called
+	 * @param callback interface defining the methods to be called
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
 	public LoadRandomQuestion(IQuizServerCallback callback) {
@@ -23,7 +23,7 @@ public class LoadRandomQuestion extends QuizServerTask {
 	
 	/**
 	 * Method fetching the random question
-	 * @param String url (optional) an alternative url for the QuizServer "fetch random question location
+	 * @param url (optional) an alternative url for the QuizServer "fetch random question location
 	 */
 	@Override
 	protected QuizQuestion doInBackground(Object... urls) {

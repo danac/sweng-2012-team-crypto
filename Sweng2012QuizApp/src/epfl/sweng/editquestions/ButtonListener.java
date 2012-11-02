@@ -29,7 +29,7 @@ public class ButtonListener implements OnClickListener {
 	
 	/**
 	 * Constructor
-	 * @param EditQuestionActivity activity reference to the EditQuestionActivity
+	 * @param activity reference to the EditQuestionActivity
 	 */
 	public ButtonListener(EditQuestionActivity activity) {
 		super();
@@ -38,7 +38,7 @@ public class ButtonListener implements OnClickListener {
 
 	/**
 	 * A generic onClick method to manage the different buttons of the activity
-	 * @param View v the button clicked
+	 * @param v the button clicked
 	 */
 	@Override
 	public void onClick(View v) {

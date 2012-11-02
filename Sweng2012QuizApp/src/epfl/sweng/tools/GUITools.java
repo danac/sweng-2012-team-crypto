@@ -15,7 +15,7 @@ public class GUITools {
 	/**
      * Finds recursively all the EditTexts inside a ViewGroup
      * @param v ViewGroup in which to search
-     * @return List<EditText> The list of all the Buttons
+     * @return The list of all the Buttons
      */
     static public List<EditText> findAllEditTexts(ViewGroup v) {
     	List<EditText> list = new ArrayList<EditText>();
@@ -32,9 +32,9 @@ public class GUITools {
 
     /**
      * Finds recursively all the tagged buttons inside a ViewGroup
-     * @param ViewGroup v ViewGroup in which to search
-     * @param Object tag The tag that buttons must have
-     * @return List<Button> The list of all the Buttons
+     * @param v ViewGroup in which to search
+     * @param tag The tag that buttons must have
+     * @return The list of all the Buttons
      */
     public static List<Button> findAllButtons(ViewGroup v, Object tag) {
     	List<Button> list = new ArrayList<Button>();
@@ -51,8 +51,8 @@ public class GUITools {
 	
     /**
      * Finds recursively all the buttons inside a ViewGroup
-     * @param ViewGroup v ViewGroup in which to search
-     * @return List<Button> The list of all the Buttons
+     * @param v ViewGroup in which to search
+     * @return The list of all the Buttons
      */
     public static List<Button> findAllButtons(ViewGroup v) {
     	List<Button> list = new ArrayList<Button>();
