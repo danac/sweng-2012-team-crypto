@@ -3,7 +3,6 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.jayway.android.robotium.solo.Solo;
 
-import epfl.sweng.authentication.AuthenticationActivity;
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.entry.MainActivity;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
@@ -17,6 +16,8 @@ public class MainActivityTest extends
 		ActivityInstrumentationTestCase2<MainActivity> {
 	
 	private Solo solo;
+
+	private static final int SLEEP_TIME = 2000;
 	
 	public MainActivityTest() {
 		super(MainActivity.class);
@@ -31,18 +32,17 @@ public class MainActivityTest extends
 
 	/* Begin list of the different tests to be performed */
 
-	public void testMenu() {
+	public void testShowRandom() {
 		TestingTricks.authenticateMe(solo);
-		solo.assertCurrentActivity("Main menu is being displayed",
-                MainActivity.class);
-
+		
 		solo.clickOnButton("Show a random question");
 
 		solo.assertCurrentActivity("Random Question is being displayed",
-                ShowQuestionsActivity.class);
-		
-		solo.goBack();
-		
+                ShowQuestionsActivity.class);		
+	}
+
+	public void testSubmit() {
+		TestingTricks.authenticateMe(solo);
 		
 		solo.clickOnButton("Submit quiz question");
 		solo.assertCurrentActivity("Edit Question Form is being displayed",
@@ -51,16 +51,15 @@ public class MainActivityTest extends
 		
 		assertTrue(solo.searchText("Submit"));
 		
-		solo.goBack();
-		solo.goBack();
+	}
+	
+	public void testLogOut() {
+		TestingTricks.authenticateMe(solo);
 		
 		solo.clickOnButton("Log out");
-		solo.assertCurrentActivity("Authentication Form is being displayed",
-                AuthenticationActivity.class);
-
-		
+		solo.sleep(SLEEP_TIME);
+		assertTrue(solo.searchText("Please login"));
 	}
-
 
 	/* End list of the different tests to be performed */
 	
