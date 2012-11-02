@@ -2,7 +2,6 @@ package epfl.sweng.authentication;
 
 import epfl.sweng.R;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.TextView;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.tasks.AuthenticationTask;
