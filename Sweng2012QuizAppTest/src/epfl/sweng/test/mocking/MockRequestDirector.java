@@ -3,12 +3,8 @@ package epfl.sweng.test.mocking;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-
 import org.apache.http.client.RequestDirector;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
@@ -18,14 +14,10 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
-import org.apache.http.ReasonPhraseCatalog;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import epfl.sweng.globals.Globals;
 
 import epfl.sweng.globals.Globals;
 
@@ -38,8 +30,6 @@ import android.util.Log;
  * @see http://tools.ietf.org/html/rfc2324
  */
 class MockRequestDirector implements RequestDirector {
-    private final static int SC_TEAPOT = 418;
-    private final static String SM_TEAPOT = "I'm a teapot";
     private static final int STATUSCODE_INVALIDCREDENTIALS = 400;
     private static final int STATUSCODE_OK = 200;
     private static final String STATUSMESSAGE_OK = "OK";
@@ -53,12 +43,15 @@ class MockRequestDirector implements RequestDirector {
         // You could, for example, log the request
         Log.i("TEAPOT", "Teapot received request: "
                 + request.getRequestLine().toString());
-
+        HttpResponse resp = null;
         if (target.toURI().equals(Globals.RANDOM_QUESTION_URL)) {
-        	return quizServer();
+        	resp = quizServer();
         } else if (target.toURI().equals(Globals.AUTHSERVER_LOGIN_URL)) {
-        	return tequilaServer(request);
+        	resp = tequilaServer(request);
+        } else if (target.toURI().equals(Globals.QUIZSERVER_LOGIN_URL)) {
+        	resp = quizServerLogin(request);
         }
+        return resp;
     }
 
 	
