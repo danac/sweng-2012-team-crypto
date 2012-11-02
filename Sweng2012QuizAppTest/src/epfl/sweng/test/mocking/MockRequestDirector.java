@@ -33,6 +33,9 @@ class MockRequestDirector implements RequestDirector {
     private static final int STATUSCODE_INVALIDCREDENTIALS = 400;
     private static final int STATUSCODE_OK = 200;
     private static final String STATUSMESSAGE_OK = "OK";
+    private static final int STATUSCODE_NOTFOUND = 404;
+    private static final String STATUSMESSAGE_NOTFOUND = "OK";
+    
 	
     @Override
     public HttpResponse execute(HttpHost target, HttpRequest request,
@@ -46,8 +49,8 @@ class MockRequestDirector implements RequestDirector {
     	
     	Log.i("TEAPOT", "Teapot received request: "
                 + request.getRequestLine().toString());
-        HttpResponse resp = null;
-        if (requestUri.equals(Globals.RANDOM_QUESTION_URL)) {
+        HttpResponse resp = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_NOTFOUND, STATUSMESSAGE_NOTFOUND);
+        if (requestUri.equals(Globals.RANDOM_QUESTION_URL) || requestUri.equals(Globals.SUBMIT_QUESTION_URL)) {
         	resp = quizServer();
         } else if (requestUri.equals(Globals.AUTHSERVER_LOGIN_URL)) {
         	resp = tequilaServer(request);

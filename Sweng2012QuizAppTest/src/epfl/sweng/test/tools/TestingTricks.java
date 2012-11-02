@@ -13,7 +13,7 @@ public class TestingTricks {
 	private final static String TEST_PASSWORD = "tutu";
 	
 	public static void authenticateMe(Activity activity, Solo solo) {
-
+		
 		for (EditText et: solo.getCurrentEditTexts()) {
 			if (et.getTag().toString() 
 				== activity.getResources().getText(epfl.sweng.R.string.auth_login_hint)) {
