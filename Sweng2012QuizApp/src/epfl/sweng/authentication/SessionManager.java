@@ -65,7 +65,7 @@ final public class SessionManager {
 	 * Log out user by destroying the session
 	 */
 	public void destroySession() {
-		mSettings.edit().putString("SESSION_ID", "").commit();
+		mSettings.edit().remove("SESSION_ID").commit();
 	}
 
 	/**
