@@ -1,0 +1,136 @@
+Checking out revision 9637d9ba4ebd7a8c6bffb137a7f68c0ccd3173b9
+Installing the grading project
+Compiling your project with the grading tests
+Executing epfl.sweng.test.homework3.ApplicationStateTest#testAuthenticationSucceeds...
+PASSED: epfl.sweng.test.homework3.ApplicationStateTest#testAuthenticationSucceeds
+Executing epfl.sweng.test.homework3.ApplicationStateTest#testMainActivityStartsAuthentication...
+PASSED: epfl.sweng.test.homework3.ApplicationStateTest#testMainActivityStartsAuthentication
+Executing epfl.sweng.test.homework3.AuthenticatedRequestsTest#testEditQuestionIsAuthenticated...
+Test crashed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework3.AuthenticatedRequestsTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework3.AuthenticatedRequestsTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testEditQuestionIsAuthenticated
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_RESULT: shortMsg=java.util.ConcurrentModificationException
+INSTRUMENTATION_RESULT: longMsg=java.util.ConcurrentModificationException
+INSTRUMENTATION_CODE: 0
+FAILED: epfl.sweng.test.homework3.AuthenticatedRequestsTest#testEditQuestionIsAuthenticated
+Executing epfl.sweng.test.homework3.AuthenticatedRequestsTest#testFetchQuestionIsAuthenticated...
+PASSED: epfl.sweng.test.homework3.AuthenticatedRequestsTest#testFetchQuestionIsAuthenticated
+Executing epfl.sweng.test.homework3.AuthenticationActivityGUITest#testAuthenticationFails...
+PASSED: epfl.sweng.test.homework3.AuthenticationActivityGUITest#testAuthenticationFails
+Executing epfl.sweng.test.homework3.AuthenticationActivityGUITest#testLoginButtonExists...
+PASSED: epfl.sweng.test.homework3.AuthenticationActivityGUITest#testLoginButtonExists
+Executing epfl.sweng.test.homework3.AuthenticationActivityGUITest#testPasswordFieldExists...
+PASSED: epfl.sweng.test.homework3.AuthenticationActivityGUITest#testPasswordFieldExists
+Executing epfl.sweng.test.homework3.AuthenticationActivityGUITest#testUsernameFieldExists...
+PASSED: epfl.sweng.test.homework3.AuthenticationActivityGUITest#testUsernameFieldExists
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationSucceedsStep7...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationSucceedsStep7
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnSuccessfulExceptionGetFromServer...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnSuccessfulExceptionGetFromServer
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnSuccessfulExceptionSendToServer...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnSuccessfulExceptionSendToServer
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnSuccessfulForbidden...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnSuccessfulForbidden
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnSuccessfulNoTequilaToken...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnSuccessfulNoTequilaToken
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnsuccessfulTequilaRepliesWith200...
+Test crashed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework3.AuthenticationProcessTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework3.AuthenticationProcessTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testAuthenticationUnsuccessfulTequilaRepliesWith200
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_RESULT: shortMsg=java.lang.NullPointerException
+INSTRUMENTATION_RESULT: longMsg=java.lang.NullPointerException: println needs a message
+INSTRUMENTATION_CODE: 0
+FAILED: epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnsuccessfulTequilaRepliesWith200
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnsuccessfulTequilaRepliesWith400...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnsuccessfulTequilaRepliesWith400
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnsuccessfulTequilaRepliesWith400AuthenticationIsRestarted...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnsuccessfulTequilaRepliesWith400AuthenticationIsRestarted
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnsuccessfulTequilaRepliesWith500...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testAuthenticationUnsuccessfulTequilaRepliesWith500
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testStep1...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testStep1
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testStep1_2_3...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testStep1_2_3
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testStep1_2_3_4_5...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testStep1_2_3_4_5
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testStep1_2_3_correctParams...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testStep1_2_3_correctParams
+Executing epfl.sweng.test.homework3.AuthenticationProcessTest#testZLogHTTPServerCode...
+PASSED: epfl.sweng.test.homework3.AuthenticationProcessTest#testZLogHTTPServerCode
+Executing epfl.sweng.test.homework3.MainActivityTest#testLogout...
+PASSED: epfl.sweng.test.homework3.MainActivityTest#testLogout
+Executing epfl.sweng.test.homework3.MainActivityTest#testMainActivityUserInterface...
+PASSED: epfl.sweng.test.homework3.MainActivityTest#testMainActivityUserInterface
+Executing epfl.sweng.test.homework3.UserCredentialsTest#testAppAuthenticatedIfSessionIDExists...
+PASSED: epfl.sweng.test.homework3.UserCredentialsTest#testAppAuthenticatedIfSessionIDExists
+Executing epfl.sweng.test.homework3.UserCredentialsTest#testAuthenticationFailsSessionIDDoesNotExist...
+PASSED: epfl.sweng.test.homework3.UserCredentialsTest#testAuthenticationFailsSessionIDDoesNotExist
+Executing epfl.sweng.test.homework3.UserCredentialsTest#testAuthenticationSucceedsSessionIDExists...
+PASSED: epfl.sweng.test.homework3.UserCredentialsTest#testAuthenticationSucceedsSessionIDExists
+Executing epfl.sweng.test.homework3.UserCredentialsTest#testLogoutSessionIDDoesNotExist...
+Test failed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework3.UserCredentialsTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework3.UserCredentialsTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testLogoutSessionIDDoesNotExist
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework3.UserCredentialsTest
+INSTRUMENTATION_STATUS: stream=
+Failure in testLogoutSessionIDDoesNotExist:
+junit.framework.ComparisonFailure: There was a session ID expected:<[UNDEFINED]> but was:<[]>
+	at epfl.sweng.test.homework3.UserCredentialsTest.testLogoutSessionIDDoesNotExist(UserCredentialsTest.java:39)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=junit.framework.ComparisonFailure: There was a session ID expected:<[UNDEFINED]> but was:<[]>
+	at epfl.sweng.test.homework3.UserCredentialsTest.testLogoutSessionIDDoesNotExist(UserCredentialsTest.java:39)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: test=testLogoutSessionIDDoesNotExist
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+Test results for InstrumentationTestRunner=.F
+Time: 15.753
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+
+
+INSTRUMENTATION_CODE: -1
+FAILED: epfl.sweng.test.homework3.UserCredentialsTest#testLogoutSessionIDDoesNotExist
+Total: 25 / 28 tests passed
+Testing took 462 seconds
+If you feel that there is an error in the testing process,
+please write a private note on Piazza, titled
+homework3 test results: 63f86fd3e99ac24581312aac952e565b
