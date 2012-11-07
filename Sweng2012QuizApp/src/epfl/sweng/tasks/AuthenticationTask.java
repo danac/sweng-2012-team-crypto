@@ -72,6 +72,9 @@ public class AuthenticationTask extends AsyncTask<String, Void, String> {
 			Log.i("SERVER", "Replied with status code " + response.getStatusLine().getStatusCode());
 			mLastStatusCode = response.getStatusLine().getStatusCode();
 			String body = responseHandler.handleResponse(response);
+			if (body == null) {
+				body = "";
+			}
 			if (Globals.LOG_AUTH_REQUESTS) {
 				Log.i(Globals.LOGTAG_AUTH_COMMUNICATION, "==== Sweng Authentication Response ====");
 				Log.i(Globals.LOGTAG_AUTH_COMMUNICATION, response.getStatusLine().getStatusCode() + " "

@@ -90,6 +90,9 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 			// TODO next line: if unexpected status code: call Log.e instead of Log.i
 			Log.i("SERVER", "Replied with status code " + response.getStatusLine().getStatusCode());
 			String body = responseHandler.handleResponse(response);
+			if (body == null) {
+				body = "";
+			}
 			if (Globals.LOG_QUIZSERVER_REQUESTS) {
 				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, "==== Sweng QuizQuestion Server Response ====");
 				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, response.getStatusLine().getStatusCode() + " "
