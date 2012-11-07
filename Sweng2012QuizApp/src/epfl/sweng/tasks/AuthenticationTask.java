@@ -86,7 +86,6 @@ public class AuthenticationTask extends AsyncTask<String, Void, String> {
     	} catch (ClientProtocolException e) {
     		Log.i(Globals.LOGTAG_AUTH_COMMUNICATION, e.getMessage().toString());
     	} catch (IOException e) {
-    		System.out.println("IOException");
     		cancel(false);
     	}
 		return "";
