@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -341,11 +342,18 @@ public class QuizQuestion {
      * @param Set<String> tags the tags to be set
      */
     public void setTags(Set<String> tags) {
+    	
     	mTags = tags;
+    	// Avoid ConcurrentModificationException by storing tags to be removed first
+    	Stack<String> toBeRemoved = new Stack<String>();
     	for (String tag : mTags) {
     		if (tag.equals("")) {
-    			mTags.remove(tag);
+    			toBeRemoved.push(tag);
     		}
+    	}
+    	
+    	while (!toBeRemoved.isEmpty()) {
+    		mTags.remove(toBeRemoved.pop());
     	}
     }
 
