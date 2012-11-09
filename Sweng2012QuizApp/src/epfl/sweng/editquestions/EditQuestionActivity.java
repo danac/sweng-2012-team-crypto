@@ -179,4 +179,346 @@ public class EditQuestionActivity extends Activity {
 		Toast.makeText(this, String.format(getString(R.string.submit_question_success_text), question.getId()), 
 				Toast.LENGTH_SHORT).show();		
 	}
+	
+
+	/**
+	 * Checks that there is an EditText displaying the question and that it is visible.
+	 *
+	 * @param listEditTexts list of all EditTexts
+	 * @return true if no problem, else false
+	 */
+	private boolean checkEditTextsQuestion(List<EditText> listEditTexts) {
+		
+		boolean editQuestionOK = true;
+		boolean editQuestionExists = false;
+		for (EditText e : listEditTexts) {
+			if (e.getId() == R.id.edit_question_text) {
+				editQuestionExists = true;
+				if (e.getHint() != getText(R.string.edit_question_hint)) {
+					editQuestionOK = false;
+				}
+				if (e.getVisibility() != View.VISIBLE) {
+					editQuestionOK = false;
+				}
+				break;
+			}
+		}
+		if (!editQuestionExists || !editQuestionOK) {
+			System.out.println("Error in verifying question EditText");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * Checks that there is an EditText to type in an answer and that it is visible.
+	 *
+	 * @param listEditTexts list of all EditTexts
+	 * @return true if no problem, else false
+	 */
+	private boolean checkEditTextsAnswers(List<EditText> listEditTexts) {
+	
+		boolean answerOK = true;
+		for (EditText e : listEditTexts) {
+			if (e.getTag() == getText(R.string.edit_answer_hint)) {
+				if (e.getHint() != getText(R.string.edit_answer_hint)) {
+					answerOK = false;
+				}
+				if (e.getVisibility() != View.VISIBLE) {
+					answerOK = false;
+				}
+			}			
+		}
+		if (!answerOK) {
+			System.out.println("Error in verifying answers EditText");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	
+	/**
+	 * Checks that there is an EditText to type in tags and that it is visible.
+	 *
+	 * @param listEditTexts list of all EditTexts
+	 * @return true if no problem, else false
+	 */
+	private boolean checkEditTextsTags(List<EditText> listEditTexts) {
+		
+		boolean editTagOK = true;
+		boolean editTagExists = false;
+		for (EditText e : listEditTexts) {
+			if (e.getId() == R.id.edit_tags) {
+				editTagExists = true;
+				if (e.getHint() != getText(R.string.edit_tags_hint)) {
+					editTagOK = false;
+				}
+				if (e.getVisibility() != View.VISIBLE) {
+					editTagOK = false;
+				}
+				break;
+			}
+		}
+		if (!editTagExists || !editTagOK) {
+			System.out.println("Error in verifying tags EditText");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * Checks that there is a Button to add a new answer that it is visible.
+	 *
+	 * @param listButtons list of all EditTexts
+	 * @return true if no problem, else false
+	 */
+	private boolean checkButtonsNewAnswer(List<Button> listButtons) {
+	
+		boolean newAnswerButtonOK = true;
+		boolean newAnswerButtonExists = false;
+		for (Button b : listButtons) {
+			if (b.getId() == R.id.edit_button_new_answer) {
+				newAnswerButtonExists = true;
+				if (b.getText() != getText(R.string.plus_sign)) {
+					newAnswerButtonOK = false;
+				}
+				if (b.getVisibility() != View.VISIBLE) {
+					newAnswerButtonOK = false;
+				}
+				break;
+			}
+		}
+		if (!newAnswerButtonExists || !newAnswerButtonOK) {
+			System.out.println("Error in verifying new Answer Button");
+			return false;
+		} else {
+			return true;
+		}	
+	}
+	
+	/**
+	 * Checks that there is a submit Button and that it is visible.
+	 *
+	 * @param listButtons list of all Buttons
+	 * @return true if no problem, else false
+	 */
+	private boolean checkButtonsSubmit(List<Button> listButtons) {
+		
+		boolean submitButtonOK = true;
+		boolean submitButtonExists = false;
+		for (Button b : listButtons) {
+			if (b.getId() == R.id.edit_button_submit) {
+				submitButtonExists = true;
+				if (b.getText() != getText(R.string.edit_button_submit)) {
+					submitButtonOK = false;
+				}
+				if (b.getVisibility() != View.VISIBLE) {
+					submitButtonOK = false;
+				}
+				break;
+			}
+		}
+		if (!submitButtonExists || !submitButtonOK) {
+			System.out.println("Error in verifying submit Button");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * Checks that there the remove answer Buttons are there and that they are visible.
+	 *
+	 * @param listEditText list of all EditTexts
+	 * @return true if no problem, else false
+	 */
+	private boolean checkButtonsRemove(List<EditText> listEditTexts) {
+		boolean removeAnswerButtonsOK = true;
+		boolean removeAnswerButtonsExist = true;
+		for (EditText e : listEditTexts) {
+			if (e.getTag() == getText(R.string.edit_answer_hint)) {
+				List<Button> listAnswerButtons = GUITools.findAllButtons(
+		        		(ViewGroup) e.getParent());
+				boolean removeAnswerButtonExists = false;
+				for (Button b : listAnswerButtons) {
+					if (b.getTag() == getText(R.string.hyphen_minus)) {
+						removeAnswerButtonExists = true;
+						if (b.getText() != getText(R.string.hyphen_minus)) {
+							removeAnswerButtonsOK = false;
+						}
+						if (b.getVisibility() != View.VISIBLE) {
+							removeAnswerButtonsOK = false;
+						}
+						break;
+					}
+				}
+				removeAnswerButtonsExist = removeAnswerButtonsExist && removeAnswerButtonExists;
+			}
+		}
+		if (!removeAnswerButtonsExist || !removeAnswerButtonsOK) {
+			System.out.println("Error in verifying remove answer Buttons");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	
+	/**
+	 * Checks that there for each answer there is a toggle answer Buttons with the right text and visibility.
+	 *
+	 * @param listEditText list of all EditTexts
+	 * @return true if no problem, else false
+	 */
+	private boolean checkButtonsToggleAnswer(List<EditText> listEditTexts) {
+		boolean toggleButtonsOK = true;
+		boolean toggleButtonsExist = true;
+		for (EditText e : listEditTexts) {
+			if (e.getTag() == getText(R.string.edit_answer_hint)) {
+				List<Button> listAnswerButtons = GUITools.findAllButtons(
+		        		(ViewGroup) e.getParent());
+				boolean toggleButtonExists = false;
+				for (Button b : listAnswerButtons) {
+					if (b.getTag() == getText(R.string.heavy_check_mark)
+						|| b.getTag() == getText(R.string.heavy_ballot_x)) {
+						toggleButtonExists = true;
+						if (!b.getText().equals(getText(R.string.heavy_check_mark))
+							&& !b.getText().equals(getText(R.string.heavy_ballot_x))) {
+							System.out.println("Button text: " + b.getText());
+							toggleButtonsOK = false;
+						}
+						if (b.getVisibility() != View.VISIBLE) {
+							toggleButtonsOK = false;
+						}
+					}
+				}
+				toggleButtonsExist = toggleButtonsExist && toggleButtonExists;
+			}
+		}
+		if (!toggleButtonsExist || !toggleButtonsOK) {
+			if (!toggleButtonsExist) {
+				System.out.println("Error in verifying toggle answer Buttons: missing Button");
+			}
+			if (!toggleButtonsOK) {
+				System.out.println("Error in verifying toggle answer Buttons: Button text not OK");
+			}
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+
+	/**
+	 * Checks that there is at most one correct answer
+	 *
+	 * @param listButtons list of all Buttons
+	 * @return true if no problem, else false
+	 */
+	private boolean checkUniqueCorrectAnswer(List<Button> listButtons) {
+		int correctAnswerCount = 0;
+		for (Button b : listButtons) {
+			if (b.getText().equals(getText(R.string.heavy_check_mark))) {
+				correctAnswerCount++;
+			}
+		}
+		if (correctAnswerCount > 1) {
+			System.out.println("Error in verifying that at most one answer is correct");
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+
+	/**
+	 * Checks the state of the submit button
+	 *
+	 * @return true if no problem, else false
+	 */
+	private boolean checkSubmitButtonState() {
+		boolean submitButtonStateOK = true;
+		Button submitButton = (Button) findViewById(R.id.edit_button_submit);
+	   	if (mEditedQuestion.auditErrors(0) == 0 && !submitButton.isEnabled()) {
+	   		submitButtonStateOK = false;
+	   	} else if (mEditedQuestion.auditErrors(0) > 0 && submitButton.isEnabled()) {
+	   		submitButtonStateOK = false;
+	   	}
+	   	if (!submitButtonStateOK) {
+	   		System.out.println("Error in verifying the state of the Submit Button");
+			return false;
+	   	} else {
+	   		return true;
+		}
+	}
+	
+	/**
+	 * Checks the consistency of the graphical user interface.
+	 *
+	 * @return the number of inconsistencies found.
+	 */
+	public int auditErrors() {
+		
+		int errCount = 0;
+		
+		// Verifying EditTexts
+		List<EditText> listEditTexts = GUITools.findAllEditTexts(
+       		(ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content));
+
+		// Verifying question EditText
+		if (!checkEditTextsQuestion(listEditTexts)) {
+			errCount++;
+		}
+		
+		// Verifying answers EditText
+		if (!checkEditTextsAnswers(listEditTexts)) {
+			errCount++;
+		}
+
+		// Verifying tags EditText
+		if (!checkEditTextsTags(listEditTexts)) {
+			errCount++;
+		}
+		
+		// Verifying Buttons
+		List<Button> listButtons = GUITools.findAllButtons(
+       		(ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content));
+		
+		// Verifying new answer Button
+		if (!checkButtonsNewAnswer(listButtons)) {
+			errCount++;
+		}
+		
+		// Verifying submit Button
+		if (!checkButtonsSubmit(listButtons)) {
+			errCount++;
+		}
+
+		// Verifying the remove answer Buttons
+		if (!checkButtonsRemove(listEditTexts)) {
+			errCount++;
+		}
+
+		
+		// Verifying the toggle answer Buttons
+		if (!checkButtonsToggleAnswer(listEditTexts)) {
+			errCount++;
+		}
+		
+		// Verifying that there is at most one correct answer
+		if (!checkUniqueCorrectAnswer(listButtons)) {
+			errCount++;
+		}
+
+		// Verifying the state of the Submit Button
+		if (!checkSubmitButtonState()) {
+			errCount++;
+		}
+		
+	    return errCount;
+	}
+
 }
