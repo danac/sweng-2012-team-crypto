@@ -81,6 +81,7 @@ public class EditQuestionActivityTest extends
 		solo.sleep(WAIT_TIME);
 		solo.clickOnButton("Submit");
 		assertTrue(solo.waitForText("\u2714 Question successfully submitted"));
+		assertEquals("AuditError has to return 0 here...", 0, getActivity().auditErrors());
 	}
 
 	
@@ -101,7 +102,6 @@ public class EditQuestionActivityTest extends
         };
 		
 		
-		
     	new SubmitQuestion(callback).execute(new QuizQuestion(), "http://www.google.com");
     	assertTrue(solo.waitForText("\u2718 An error occured while submitting the Question"));
     	solo.sleep(WAIT_TIME);
@@ -115,6 +115,7 @@ public class EditQuestionActivityTest extends
 	}
 	
 	/* End list of the different tests to be performed */
+	
 	
 	
 	@Override
