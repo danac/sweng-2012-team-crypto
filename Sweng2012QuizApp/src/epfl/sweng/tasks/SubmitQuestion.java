@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
@@ -51,7 +52,13 @@ public class SubmitQuestion extends QuizServerTask {
 		post.setHeader("Content-type", "application/json");
 		
 		try {
-			question = new QuizQuestion(handleQuizServerRequest(post));
+			JSONObject responseJSON = handleQuizServerRequest(post);
+			if (responseJSON != null) {
+				question = new QuizQuestion(responseJSON);
+			} else {
+				question = null;
+				cancel(false);
+			}
 		} catch (JSONException e) {
 			cancel(false);
 		}

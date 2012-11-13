@@ -3,6 +3,7 @@ package epfl.sweng.tasks;
 
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
@@ -36,7 +37,14 @@ public class LoadRandomQuestion extends QuizServerTask {
 		}
 		
 		try {
-			QuizQuestion question = new QuizQuestion(handleQuizServerRequest(new HttpGet(url)));
+			JSONObject responseJSON = handleQuizServerRequest(new HttpGet(url));
+			QuizQuestion question = new QuizQuestion();
+			if (responseJSON != null) {
+				question = new QuizQuestion(responseJSON);
+			} else {
+				question = null;
+				cancel(false);
+			}
 			if (!isCancelled()) {				
 				updateRating(question);
 			}

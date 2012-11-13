@@ -39,7 +39,6 @@ public class EditQuestionActivityTest extends
 	}
 
 	/* Begin list of the different tests to be performed */
-
 	public void testEditQuestion() {
 		TestingTricks.authenticateMe(solo);
 		if (solo.searchText("Submit quiz question")) {
@@ -83,7 +82,6 @@ public class EditQuestionActivityTest extends
 		assertTrue(solo.waitForText("\u2714 Question successfully submitted"));
 		assertEquals("AuditError has to return 0 here...", 0, getActivity().auditErrors());
 	}
-
 	
 	public void testNoNetwork() {
 		solo.assertCurrentActivity("Edit question form is being displayed",

@@ -56,12 +56,49 @@ class MockRequestDirector implements RequestDirector {
         	resp = tequilaServer(request);
         } else if (requestUri.equals(Globals.QUIZSERVER_LOGIN_URL)) {
         	resp = quizServerLogin(request);
+        } else if (requestUri.endsWith("rating")) {
+        	resp = quizServerRating(request);
+        } else if (requestUri.endsWith("ratings")) {
+        	resp = quizServerRatings(request);
         }
         return resp;
     }
 
 	
-    private HttpResponse quizServer() {
+    private HttpResponse quizServerRatings(HttpRequest request) {
+		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
+		response.setHeader("Content-type", "application/json");
+		JSONObject jsonResponse = new JSONObject();
+
+		try {
+			jsonResponse.put("likeCount", 4);
+			jsonResponse.put("dislikeCount", 3);
+			jsonResponse.put("incorrectCount", 2);
+			
+			response.setEntity(new StringEntity(jsonResponse.toString()));
+		} catch (UnsupportedEncodingException e) {
+		} catch (JSONException e) {					
+		}
+		return response;
+	}
+
+
+	private HttpResponse quizServerRating(HttpRequest request) {
+		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
+		response.setHeader("Content-type", "application/json");
+		JSONObject jsonResponse = new JSONObject();
+
+		try {
+			jsonResponse.put("verdict", "like");
+			response.setEntity(new StringEntity(jsonResponse.toString()));
+		} catch (UnsupportedEncodingException e) {
+		} catch (JSONException e) {					
+		}
+		return response;
+	}
+
+
+	private HttpResponse quizServer() {
     	
     	BasicHttpResponse resp = new BasicHttpResponse(
                 HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
