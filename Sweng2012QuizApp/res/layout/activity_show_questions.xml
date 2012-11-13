@@ -13,14 +13,44 @@
         android:textColor="#FFFFFF"
         android:textSize="22dp"
         android:textStyle="bold" />
-
+	
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:choiceMode="singleChoice" >
     </ListView>
-
+	<LinearLayout
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal">
+	    <Button 
+	        android:id="@+id/buttonLike"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:onClick="clickedLike"
+        	android:text="@string/button_like"
+	    	/>
+	    <Button 
+	        android:id="@+id/buttonDislike"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:onClick="clickedDislike"
+        	android:text="@string/button_dislike"
+	    	/>
+	    <Button 
+	        android:id="@+id/buttonIncorrect"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:onClick="clickedIncorrect"
+        	android:text="@string/button_incorrect"
+	    	/>
+	</LinearLayout>
+	<TextView 
+	    android:id="@+id/textRatingStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rating_notrated"/>
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"

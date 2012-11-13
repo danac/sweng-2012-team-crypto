@@ -135,5 +135,28 @@ public class ShowQuestionsActivity extends Activity {
     }
 
     
+    /**
+     * Handle the "Like" Button
+     * @param likeButton the like button
+     */
+    public void clickedLike(View likeButton) {
+    	
+    }
     
+    
+    /**
+     * Handle the "Dislike" Button
+     * @param dislikeButton the like button
+     */
+    public void clickedDislike(View dislikeButton) {
+    	
+    }
+    
+    /**
+     * Handle the "Incorrect" Button
+     * @param incorrectButton the like button
+     */
+    public void clickedIncorrect(View incorrectButton) {
+    	
+    }
 }
