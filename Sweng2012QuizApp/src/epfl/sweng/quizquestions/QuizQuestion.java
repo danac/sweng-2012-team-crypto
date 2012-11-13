@@ -78,31 +78,38 @@ public class QuizQuestion {
     	
     }
 	
-	/** The constructor for a quiz questions received as a JSON strings.
-	* @param json The JSON string received from the Sweng2012QuizApp server
-	*/
+	/** 
+	 * The constructor for a quiz questions received as a JSON strings.
+     * @param json The JSON string received from the Sweng2012QuizApp server
+     */
 	public QuizQuestion(String json) throws JSONException {
-		JSONObject responseJson = new JSONObject(json);
+		this(new JSONObject(json));
+	}
+
+	/** 
+	 * The constructor for a quiz questions received as a JSON Object.
+     * @param json The JSON string received from the Sweng2012QuizApp server
+     */
+	public QuizQuestion(JSONObject json) throws JSONException {
 		
-		JSONArray answersJSON = responseJson.getJSONArray("answers");
+		JSONArray answersJSON = json.getJSONArray("answers");
 		List<String> answers = new ArrayList<String>();
 		for (int i=0; i<answersJSON.length(); i++) {
 			answers.add(answersJSON.getString(i));
 		}
 
-		JSONArray tagsJSON = responseJson.getJSONArray("tags");
+		JSONArray tagsJSON = json.getJSONArray("tags");
 		Set<String> tags = new HashSet<String>();
 		for (int i=0; i<tagsJSON.length(); i++) {
 			tags.add(tagsJSON.getString(i));
 		}
 		
-		setQuestion(responseJson.getString("question"));
-		setId(responseJson.getString("id"));
-		setSolutionIndex(responseJson.getInt("solutionIndex"));
+		setQuestion(json.getString("question"));
+		setId(json.getString("id"));
+		setSolutionIndex(json.getInt("solutionIndex"));
 		setAnswers(answers);
 		setTags(tags);
-		setOwner(responseJson.getString("owner"));
-	
+		setOwner(json.getString("owner"));
 	}
 	
 	/** Returns the number of rep invariant violations*/
