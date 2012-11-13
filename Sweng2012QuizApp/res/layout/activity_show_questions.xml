@@ -25,29 +25,32 @@
     	android:layout_height="wrap_content"
     	android:orientation="horizontal">
 	    <Button 
-	        android:id="@+id/buttonLike"
+	        android:id="@+id/button_like"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:onClick="clickedLike"
-        	android:text="@string/button_like"
+        	android:text=""
+        	android:visibility="gone"
 	    	/>
 	    <Button 
-	        android:id="@+id/buttonDislike"
+	        android:id="@+id/button_dislike"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:onClick="clickedDislike"
-        	android:text="@string/button_dislike"
+        	android:text=""
+	    	android:visibility="gone"
 	    	/>
 	    <Button 
-	        android:id="@+id/buttonIncorrect"
+	        android:id="@+id/button_incorrect"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:onClick="clickedIncorrect"
-        	android:text="@string/button_incorrect"
+        	android:text=""
+	    	android:visibility="gone"
 	    	/>
 	</LinearLayout>
 	<TextView 
-	    android:id="@+id/textRatingStatus"
+	    android:id="@+id/text_rating_verdict"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/rating_notrated"/>

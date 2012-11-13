@@ -19,12 +19,15 @@ import epfl.sweng.entry.MainActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.tasks.LoadRandomQuestion;
 import epfl.sweng.tasks.IQuizServerCallback;
+import epfl.sweng.tasks.SubmitQuestionVerdict;
 
 
 /**
  * Activity showing a question
  */
 public class ShowQuestionsActivity extends Activity {
+	
+	private QuizQuestion mQuestionDisplayed = new QuizQuestion();
 	
 	/**
 	 * Method invoked at the creation of the Activity. 
@@ -76,7 +79,7 @@ public class ShowQuestionsActivity extends Activity {
         final TextView questionTxt = (TextView) findViewById(R.id.question);
         final Button button = (Button) findViewById(R.id.button);
         listView.setVisibility(View.VISIBLE);
-        
+        mQuestionDisplayed = question;
         questionTxt.setText(question.getQuestion());
                        
         // Instantiating array adapter to populate the listView
@@ -117,9 +120,41 @@ public class ShowQuestionsActivity extends Activity {
         		adapter.notifyDataSetChanged();
         	}
         });
+        
+        updateQuestionRating(question);
     } 
     
-    /**
+    private void updateQuestionRating(QuizQuestion question) {
+    	final TextView textRatingVerdict = (TextView) findViewById(R.id.text_rating_verdict);
+    	final Button buttonLike = (Button) findViewById(R.id.button_like);
+    	final Button buttonDislike = (Button) findViewById(R.id.button_dislike);
+    	final Button buttonIncorrect = (Button) findViewById(R.id.button_incorrect);
+		
+    	if (question.getVerdict().equals("like")) {
+    		textRatingVerdict.setText(R.string.rating_like);
+        } else if (question.getVerdict().equals("dislike")) {
+        	textRatingVerdict.setText(R.string.rating_dislike);
+    	} else if (question.getVerdict().equals("incorrect")) {
+    		textRatingVerdict.setText(R.string.rating_incorrect);
+    	} else {
+    		textRatingVerdict.setText(R.string.rating_notrated);
+    	}
+    	
+    	buttonLike.setText(String.format(getResources().getString(R.string.button_like),
+    			question.getLikeCount()));
+    	buttonDislike.setText(String.format(getResources().getString(R.string.button_dislike),
+    			question.getDislikeCount()));
+    	buttonIncorrect.setText(String.format(getResources().getString(R.string.button_incorrect),
+    			question.getIncorrectCount()));
+    	
+    	buttonLike.setVisibility(View.VISIBLE);
+    	buttonDislike.setVisibility(View.VISIBLE);
+    	buttonIncorrect.setVisibility(View.VISIBLE);
+    	
+    	
+	}
+
+	/**
      * Handle the "Next Question" button. Loads a new random question
      * @param currentView
      */
@@ -140,16 +175,19 @@ public class ShowQuestionsActivity extends Activity {
      * @param likeButton the like button
      */
     public void clickedLike(View likeButton) {
-    	
+    	mQuestionDisplayed.setVerdict("like");
+    	submitQuizQuestionVerdict();
     }
     
     
-    /**
+
+	/**
      * Handle the "Dislike" Button
      * @param dislikeButton the like button
      */
     public void clickedDislike(View dislikeButton) {
-    	
+    	mQuestionDisplayed.setVerdict("dislike");
+    	submitQuizQuestionVerdict();    	
     }
     
     /**
@@ -157,6 +195,19 @@ public class ShowQuestionsActivity extends Activity {
      * @param incorrectButton the like button
      */
     public void clickedIncorrect(View incorrectButton) {
-    	
+    	mQuestionDisplayed.setVerdict("incorrect");
+    	submitQuizQuestionVerdict();
     }
+    
+    private void submitQuizQuestionVerdict() {
+        new SubmitQuestionVerdict(new IQuizServerCallback() {
+        	public void onSuccess(QuizQuestion question) {
+        		updateQuestionRating(question);
+        	}
+        	public void onError() {
+        		displayError();
+        	}
+        }).execute(mQuestionDisplayed);
+	}
+
 }

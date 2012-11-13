@@ -28,10 +28,10 @@ public class QuizQuestion {
     private String mOwner;
     private int mId;
     
-    private int mLikeCount;
-    private int mDislikeCount;
-    private int mIncorrectCount;
-    private String mVerdict;
+    private int mLikeCount = 0;
+    private int mDislikeCount = 0;
+    private int mIncorrectCount =0;
+    private String mVerdict = "";
     
     
     
@@ -484,7 +484,11 @@ public class QuizQuestion {
      * @param json JSON response from Quiz Server
      */
     public void setVerdict(JSONObject json) throws JSONException {
-    	mVerdict = json.getString("verdict");
+    	if (json.has("verdict")) {    		
+    		mVerdict = json.getString("verdict");
+    	} else {
+    		mVerdict = "";
+    	}
     }
     
     /**

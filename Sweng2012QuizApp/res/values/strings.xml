@@ -19,11 +19,13 @@
     <string name="heavy_check_mark">\u2714</string>
     <string name="edit_answer_hint">Type in the answer</string>
     <string name="main_message">What do you want to do?</string>
-    <string name="button_like">Like (0)</string>
-    <string name="button_dislike">Dislike (0)</string>
-    <string name="button_incorrect">Incorrect (0)</string>
+    <string name="button_like">Like (%d)</string>
+    <string name="button_dislike">Dislike (%d)</string>
+    <string name="button_incorrect">Incorrect (%d)</string>
     <string name="rating_notrated">You have not rated this question</string>
-    
+    <string name="rating_like">You like the question</string>
+    <string name="rating_dislike">You dislike the question</string>
+    <string name="rating_incorrect">You think the question is incorrect</string>
     
     <string name="button_choose_submit_text">Submit quiz question</string>
     <string name="button_choose_display_text">Show a random question</string>

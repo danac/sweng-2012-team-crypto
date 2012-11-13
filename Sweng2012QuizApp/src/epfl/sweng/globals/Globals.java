@@ -7,6 +7,8 @@ public final class Globals {
 
 	public final static String RANDOM_QUESTION_URL = "https://sweng-quiz.appspot.com/quizquestions/random";
 	public final static String SUBMIT_QUESTION_URL = "https://sweng-quiz.appspot.com/quizquestions/";
+	public final static String QUESTION_BY_ID_URL = "https://sweng-quiz.appspot.com/quizquestions/";
+	
 	public final static String QUIZSERVER_LOGIN_URL = "https://sweng-quiz.appspot.com/login";
 	public final static String AUTHSERVER_LOGIN_URL = "https://tequila.epfl.ch/cgi-bin/tequila/login";
 	

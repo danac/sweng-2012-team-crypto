@@ -6,11 +6,13 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.globals.Globals;
@@ -30,7 +32,6 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	 * Local Variable holding the callback interface passed through the constructor 
 	 */
 	private IQuizServerCallback mCallback;
-	
 	
 	/**
 	 * Constructor
@@ -62,9 +63,9 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	/**
 	 * Handle a HTTP request towards quiz server. Always send session id if the user is authenticated
 	 * @param request the request
-	 * @return the QuizQuestion as received from the server
+	 * @return the JSONObject as received from the server
 	 */
-	final protected QuizQuestion handleQuizServerRequest(HttpUriRequest request) {
+	final protected JSONObject handleQuizServerRequest(HttpUriRequest request) {
 		try {
 			if (SessionManager.getInstance().isAuthenticated()) {
 				request.addHeader("Authorization", "Tequila " + SessionManager.getInstance().getSessionId());
@@ -90,8 +91,8 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 			// TODO next line: if unexpected status code: call Log.e instead of Log.i
 			Log.i("SERVER", "Replied with status code " + response.getStatusLine().getStatusCode());
 			String body = responseHandler.handleResponse(response);
-			if (body == null) {
-				body = "";
+			if (body == null || body.equals("")) {
+				body = "{}";
 			}
 			if (Globals.LOG_QUIZSERVER_REQUESTS) {
 				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, "==== Sweng QuizQuestion Server Response ====");
@@ -103,15 +104,21 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, body);
 			}
 			
-			return new QuizQuestion(body);
+			return new JSONObject(body);
     	} catch (JSONException e) {
     		cancel(false);
     	} catch (ClientProtocolException e) {
-    		cancel(false);
+    		
     	} catch (IOException e) {
     		cancel(false);
     	}
 		return null;
 	}
 	
+	protected void updateRating(QuizQuestion question) throws JSONException {
+		question.setVerdict(handleQuizServerRequest(
+				new HttpGet(Globals.QUESTION_BY_ID_URL + question.getId() + "/rating")));
+		question.setVerdictStats(handleQuizServerRequest(
+				new HttpGet(Globals.QUESTION_BY_ID_URL + question.getId() + "/ratings")));
+	}
 }
