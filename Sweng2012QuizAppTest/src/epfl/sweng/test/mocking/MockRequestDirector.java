@@ -35,6 +35,9 @@ class MockRequestDirector implements RequestDirector {
     private static final String STATUSMESSAGE_OK = "OK";
     private static final int STATUSCODE_NOTFOUND = 404;
     private static final String STATUSMESSAGE_NOTFOUND = "OK";
+	private static final int LIKE_COUNT = 4;
+	private static final int DISLIKE_COUNT = 3;
+	private static final int INCORRECT_COUNT = 2;
     
 	
     @Override
@@ -71,9 +74,9 @@ class MockRequestDirector implements RequestDirector {
 		JSONObject jsonResponse = new JSONObject();
 
 		try {
-			jsonResponse.put("likeCount", 4);
-			jsonResponse.put("dislikeCount", 3);
-			jsonResponse.put("incorrectCount", 2);
+			jsonResponse.put("likeCount", LIKE_COUNT);
+			jsonResponse.put("dislikeCount", DISLIKE_COUNT);
+			jsonResponse.put("incorrectCount", INCORRECT_COUNT);
 			
 			response.setEntity(new StringEntity(jsonResponse.toString()));
 		} catch (UnsupportedEncodingException e) {
