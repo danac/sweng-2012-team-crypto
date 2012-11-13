@@ -28,6 +28,13 @@ public class QuizQuestion {
     private String mOwner;
     private int mId;
     
+    private int mLikeCount;
+    private int mDislikeCount;
+    private int mIncorrectCount;
+    private String mVerdict;
+    
+    
+    
     /**
      * Possible QuizQuestion Parameters
      */
@@ -419,6 +426,90 @@ public class QuizQuestion {
     	
     	return json.toString();
 
+    }
+    
+    /**
+     * Set the like count
+     * @param likeCount the like count to be set
+     */
+    public void setLikeCount(int likeCount) {
+    	mLikeCount = likeCount;
+    }
+    
+    /**
+     * Set the dislike count
+     * @param dislikeCount the dislike count to be set
+     */
+    public void setDislikeCount(int dislikeCount) {
+    	mDislikeCount = dislikeCount;
+    }
+    
+    /**
+     * Set the incorrect count
+     * @param incorrectCount the incorrect count to be set
+     */
+    public void setIncorrectCount(int incorrectCount) {
+    	mIncorrectCount = incorrectCount;
+    }
+
+    /**
+     * Set the verdict
+     * @param verdict the verdict to be set
+     */
+    public void setVerdict(String verdict) {
+    	mVerdict = verdict;
+    }
+    
+    /**
+     * Set Verdict stats from JSON
+     * @throws JSONException 
+     * @param json JSON response from Quiz Server
+     */
+    public void setVerdictStats(JSONObject json) throws JSONException {
+    	mLikeCount = json.getInt("likeCount");
+    	mDislikeCount = json.getInt("dislikeCount");
+    	mIncorrectCount = json.getInt("incorrectCount");
+    }
+
+    /**
+     * Set Verdict from JSON
+     * @throws JSONException 
+     * @param json JSON response from Quiz Server
+     */
+    public void setVerdict(JSONObject json) throws JSONException {
+    	mVerdict = json.getString("verdict");
+    }
+    
+    /**
+     * Set the like count
+     * @return the like count
+     */
+    public int getLikeCount() {
+    	return mLikeCount;
+    }
+    
+    /**
+     * Get the dislike count
+     * @return the dislike count
+     */
+    public int getDislikeCount() {
+    	return mDislikeCount;
+    }
+    
+    /**
+     * Get the incorrect count
+     * @return the incorrect count
+     */
+    public int getIncorrectCount() {
+    	return mIncorrectCount;
+    }
+    
+    /**
+     * Get the verdict
+     * @param verdict the verdict to be set
+     */
+    public String getVerdict() {
+    	return mVerdict;
     }
     
 }
