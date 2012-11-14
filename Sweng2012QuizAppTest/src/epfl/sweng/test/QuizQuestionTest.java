@@ -46,12 +46,12 @@ public class QuizQuestionTest extends TestCase {
         final int id=13;
         final int rightAnswer=3;
         String owner = "Anonymous";
-        QuizQuestion result2 = new QuizQuestion("The question...", answers, rightAnswer, tags, id, owner);
+        QuizQuestion result2 = new QuizQuestion(q, answers, rightAnswer, tags, id, owner);
         assertEquals(owner, result2.getOwner());
-        result2.removeAnswerAtIndex(3);
+        result2.removeAnswerAtIndex(rightAnswer);
         assertEquals(result2.getSolutionIndex(), -1);
         result2.setSolutionIndex(2);
-        result2.removeAnswerAtIndex(6);
+        result2.removeAnswerAtIndex(answers.size()-1);
         result2.removeAnswerAtIndex(0);
         assertEquals(result2.getSolutionIndex(), 1);
         

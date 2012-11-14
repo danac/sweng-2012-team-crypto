@@ -67,7 +67,6 @@ public class ShowQuestionsActivityTest extends
 			solo.sleep(SLEEP_CHARACTERSCHECK);
 			assertFalse(solo.searchText("\u2718") && solo.searchText("\u2714"));
 		}
-
 	}
 		
 	public void testNoNetwork() {
@@ -92,6 +91,17 @@ public class ShowQuestionsActivityTest extends
     	assertTrue(solo.searchText("There was an error retrieving the question"));
 	}
 	
+	public void testLikeIt() {
+		
+	}
+	
+	public void testDislikeIt() {
+		
+	}
+	
+	public void testIncorrect() {
+		
+	}
 	/* End list of the different tests to be performed */
 	
 	@Override
