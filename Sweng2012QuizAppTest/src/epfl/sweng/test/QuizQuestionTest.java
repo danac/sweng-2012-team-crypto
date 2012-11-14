@@ -62,7 +62,7 @@ public class QuizQuestionTest extends TestCase {
         
         int currentSize = result2.getAnswers().length;
         result2.addAnswerAtIndex(newAnswer, currentSize+2);
-        assertEquals(currentSize+2, result2.getAnswers().length);
+        assertEquals(currentSize+3, result2.getAnswers().length);
         
         
         SwengHttpClientFactory.setInstance(null);
