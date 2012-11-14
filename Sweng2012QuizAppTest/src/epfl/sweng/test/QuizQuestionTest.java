@@ -61,8 +61,8 @@ public class QuizQuestionTest extends TestCase {
         assertEquals(result2.getSolutionIndex(), 1);
         
         int currentSize = result2.getAnswers().length;
-	final int nbrOfNewAnswers = 3;
-	int newLastIndex = currentSize+nbrOfNewAnswers;
+        final int nbrOfNewAnswers = 3;
+        int newLastIndex = currentSize+nbrOfNewAnswers;
         result2.addAnswerAtIndex(newAnswer, currentSize+2);
         assertEquals(newLastIndex, result2.getAnswers().length);
         
