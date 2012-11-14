@@ -124,7 +124,7 @@ public class ButtonListener implements OnClickListener {
 				public void onSuccess(QuizQuestion question) {
 					mActivity.displaySuccess(question);
 				}
-				public void onError() {
+				public void onError(Exception except) {
 					mActivity.displaySubmitError();
 				}
 			}).execute(mActivity.getQuestion());

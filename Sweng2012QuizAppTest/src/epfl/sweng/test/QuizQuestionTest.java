@@ -30,7 +30,7 @@ public class QuizQuestionTest extends TestCase {
         new LoadRandomQuestion(new IQuizServerCallback() {
         	public void onSuccess(QuizQuestion question) {
         	}
-        	public void onError() {
+        	public void onError(Exception except) {
         	}
         }).execute();
     }

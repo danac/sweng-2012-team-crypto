@@ -81,7 +81,7 @@ public class ShowQuestionsActivityTest extends
         	public void onSuccess(QuizQuestion question) {
         		activity.displayQuestion(question);
         	}
-        	public void onError() {
+        	public void onError(Exception except) {
         		activity.displayError();
         	}
         };

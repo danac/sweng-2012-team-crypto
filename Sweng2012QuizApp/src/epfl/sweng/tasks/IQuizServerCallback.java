@@ -11,6 +11,7 @@ public interface IQuizServerCallback {
 	void onSuccess(QuizQuestion question);
 	/**
 	 * Function called if there was an error
+	 * @param mExcept 
 	 */
-	void onError();
+	void onError(Exception mExcept);
 }

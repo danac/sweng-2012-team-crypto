@@ -32,6 +32,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	 * Local Variable holding the callback interface passed through the constructor 
 	 */
 	private IQuizServerCallback mCallback;
+	private Exception mExcept;
 	
 	/**
 	 * Constructor
@@ -57,7 +58,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	 */
 	@Override
 	protected void onCancelled() {
-		mCallback.onError();
+		mCallback.onError(mExcept);
 	}
 	
 	/**
@@ -106,10 +107,12 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 			
 			return new JSONObject(body);
     	} catch (JSONException e) {
-    		cancel(false);
+    		// SET HERE THE mExcept ATTRIBUTE TO A SUITABLE EXCEPTION
+    		cancel(false);    		
     	} catch (ClientProtocolException e) {
-    		
+    		// WE'RE NOT DOING ANYTHING HERE.. IS IT NORMAL ? /Dana
     	} catch (IOException e) {
+    		// SET HERE THE mExcept ATTRIBUTE TO A SUITABLE EXCEPTION
     		cancel(false);
     	}
 		return null;

@@ -54,7 +54,7 @@ final public class SessionManager {
 			}
 
 			@Override
-			public void onError() {
+			public void onError(Exception except) {
 				callback.onSessionCreateError();
 			}
 		}).execute(username, password);

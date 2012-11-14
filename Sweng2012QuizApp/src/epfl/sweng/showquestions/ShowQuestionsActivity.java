@@ -50,7 +50,7 @@ public class ShowQuestionsActivity extends Activity {
         	public void onSuccess(QuizQuestion question) {
         		displayQuestion(question);
         	}
-        	public void onError() {
+        	public void onError(Exception except) {
         		displayError();
         	}
         }).execute();
@@ -163,7 +163,7 @@ public class ShowQuestionsActivity extends Activity {
         	public void onSuccess(QuizQuestion question) {
         		displayQuestion(question);
         	}
-        	public void onError() {
+        	public void onError(Exception except) {
         		displayError();
         	}
         }).execute();
@@ -204,7 +204,7 @@ public class ShowQuestionsActivity extends Activity {
         	public void onSuccess(QuizQuestion question) {
         		updateQuestionRating(question);
         	}
-        	public void onError() {
+        	public void onError(Exception except) {
         		displayError();
         	}
         }).execute(mQuestionDisplayed);

@@ -94,7 +94,7 @@ public class EditQuestionActivityTest extends
         	public void onSuccess(QuizQuestion question) {
         		activity.displaySuccess(question);
         	}
-        	public void onError() {
+        	public void onError(Exception except) {
         		activity.displaySubmitError();
         	}
         };

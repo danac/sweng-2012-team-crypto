@@ -36,7 +36,7 @@ public class AuthenticationTask extends AsyncTask<String, Void, String> {
 	
 	private int mLastStatusCode=0;
 	private IAuthenticationCallback mCallback;
-	
+	private Exception mExcept;
 	
 	/**
 	 * Constructor
@@ -135,6 +135,7 @@ public class AuthenticationTask extends AsyncTask<String, Void, String> {
 			try {
 				authRequest.setEntity(new UrlEncodedFormEntity(authParams));
 			} catch (UnsupportedEncodingException e) {
+	    		// SET HERE THE mExcept ATTRIBUTE TO A SUITABLE EXCEPTION
 				cancel(false);
 			}
 			
@@ -163,8 +164,6 @@ public class AuthenticationTask extends AsyncTask<String, Void, String> {
 				}
 			}
 		}
-		
-		
 		return "";
 	}
 	
@@ -181,6 +180,6 @@ public class AuthenticationTask extends AsyncTask<String, Void, String> {
 	 */
 	@Override
 	protected void onCancelled() {
-		mCallback.onError();
+		mCallback.onError(mExcept);
 	}
 }

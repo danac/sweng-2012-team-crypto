@@ -10,6 +10,7 @@ public interface IAuthenticationCallback {
 	void onSuccess(String sessionId);
 	/**
 	 * Function called if the Authentication failed
+	 * @param mExcept 
 	 */
-	void onError();
+	void onError(Exception mExcept);
 }
