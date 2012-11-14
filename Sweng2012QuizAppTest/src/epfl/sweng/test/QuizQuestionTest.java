@@ -42,11 +42,11 @@ public class QuizQuestionTest extends TestCase {
         String owner = "Anonymous";
         QuizQuestion result2 = new QuizQuestion(q, answers, rightAnswer, tags, id, owner);
         
-        result2.addAnswerAtIndex("Answer 1", 1);
-        result2.addAnswerAtIndex("Answer 2", 2);
-        result2.addAnswerAtIndex("Answer 3", 3);
-        result2.addAnswerAtIndex("Answer 4", 4);
-        result2.addAnswerAtIndex("Answer 5", 5);
+        result2.addAnswerAtIndex("Answer 1", rightAnswer-2);
+        result2.addAnswerAtIndex("Answer 2", rightAnswer-1);
+        result2.addAnswerAtIndex("Answer 3", rightAnswer);
+        result2.addAnswerAtIndex("Answer 4", rightAnswer+1);
+        result2.addAnswerAtIndex("Answer 5", rightAnswer+2);
         
         String newAnswer = "Modififed Answer";
         result2.addAnswerAtIndex(newAnswer, 2);
