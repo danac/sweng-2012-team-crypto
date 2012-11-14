@@ -35,18 +35,23 @@ public class QuizQuestionTest extends TestCase {
         String q = "The Question...";
         List<String> answers = new ArrayList<String>();
         answers.add("Answer 0");
-        answers.add("Answer 1");
-        answers.add("Answer 2");
-        answers.add("Answer 3");
-        answers.add("Answer 4");
-        answers.add("Answer 5");
-        answers.add("Answer 6");
         Set<String> tags = new HashSet<String>();
         tags.add("Tag");
         final int id=13;
         final int rightAnswer=3;
         String owner = "Anonymous";
         QuizQuestion result2 = new QuizQuestion(q, answers, rightAnswer, tags, id, owner);
+        
+        result2.addAnswerAtIndex("Answer 1", 1);
+        result2.addAnswerAtIndex("Answer 2", 2);
+        result2.addAnswerAtIndex("Answer 3", 3);
+        result2.addAnswerAtIndex("Answer 4", 4);
+        result2.addAnswerAtIndex("Answer 5", 5);
+        
+        String newAnswer = "Modififed Answer";
+        result2.addAnswerAtIndex(newAnswer, 2);
+        assertEquals(newAnswer, result2.getAnswers()[2]);
+        
         assertEquals(owner, result2.getOwner());
         result2.removeAnswerAtIndex(rightAnswer);
         assertEquals(result2.getSolutionIndex(), -1);
@@ -54,6 +59,11 @@ public class QuizQuestionTest extends TestCase {
         result2.removeAnswerAtIndex(answers.size()-1);
         result2.removeAnswerAtIndex(0);
         assertEquals(result2.getSolutionIndex(), 1);
+        
+        int currentSize = result2.getAnswers().length;
+        result2.addAnswerAtIndex(newAnswer, currentSize+2);
+        assertEquals(currentSize+2, result2.getAnswers().length);
+        
         
         SwengHttpClientFactory.setInstance(null);
         new LoadRandomQuestion(new IQuizServerCallback() {
