@@ -13,12 +13,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import epfl.sweng.R;
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.entry.MainActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
+import epfl.sweng.tasks.IQuizQuestionReceivedCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
-import epfl.sweng.tasks.IQuizServerCallback;
 import epfl.sweng.tasks.SubmitQuestionVerdict;
 
 
@@ -28,6 +29,24 @@ import epfl.sweng.tasks.SubmitQuestionVerdict;
 public class ShowQuestionsActivity extends Activity {
 	
 	private QuizQuestion mQuestionDisplayed = new QuizQuestion();
+	
+	private final IQuizQuestionReceivedCallback mQuizQuestionReceivedCallback = new IQuizQuestionReceivedCallback() {
+		
+		@Override
+		public void onSuccess(QuizQuestion question) {
+			displayQuestion(question);
+		}
+		
+		@Override
+		public void onRatingError() {
+			displayUpdateRatingError();
+		}
+		
+		@Override
+		public void onQuestionError() {
+			displayError();
+		}
+	};
 	
 	/**
 	 * Method invoked at the creation of the Activity. 
@@ -46,14 +65,7 @@ public class ShowQuestionsActivity extends Activity {
         	startActivity(mainActivityIntent);
         }
         
-        new LoadRandomQuestion(new IQuizServerCallback() {
-        	public void onSuccess(QuizQuestion question) {
-        		displayQuestion(question);
-        	}
-        	public void onError(Exception except) {
-        		displayError();
-        	}
-        }).execute();
+        new LoadRandomQuestion(mQuizQuestionReceivedCallback).execute();
 
     }
     
@@ -159,14 +171,7 @@ public class ShowQuestionsActivity extends Activity {
      * @param currentView
      */
     public void nextQuestion(View currentView) {
-        new LoadRandomQuestion(new IQuizServerCallback() {
-        	public void onSuccess(QuizQuestion question) {
-        		displayQuestion(question);
-        	}
-        	public void onError(Exception except) {
-        		displayError();
-        	}
-        }).execute();
+        new LoadRandomQuestion(mQuizQuestionReceivedCallback).execute();
     }
 
     
@@ -200,14 +205,38 @@ public class ShowQuestionsActivity extends Activity {
     }
     
     private void submitQuizQuestionVerdict() {
-        new SubmitQuestionVerdict(new IQuizServerCallback() {
-        	public void onSuccess(QuizQuestion question) {
-        		updateQuestionRating(question);
-        	}
-        	public void onError(Exception except) {
-        		displayError();
-        	}
-        }).execute(mQuestionDisplayed);
+        new SubmitQuestionVerdict(new IQuizQuestionReceivedCallback() {
+			
+			@Override
+			public void onSuccess(QuizQuestion question) {
+				updateQuestionRating(question);
+			}
+			
+			@Override
+			public void onRatingError() {
+				displayUpdateRatingError();
+			}
+			
+			@Override
+			public void onQuestionError() {
+				displaySubmitRatingError();
+			}
+		}).execute(mQuestionDisplayed);
 	}
 
+    /**
+     * Display Error message if the rating refresh wasn't successful
+     */
+    public void displayUpdateRatingError() {
+    	Toast.makeText(this, R.string.load_rating_error_text, Toast.LENGTH_LONG).show();
+
+    }
+    
+
+    /**
+     * Display Error message if the rating submission wasn't successful
+     */
+    public void displaySubmitRatingError() {
+    	Toast.makeText(this, R.string.submit_rating_error_text, Toast.LENGTH_LONG).show();
+    }
 }

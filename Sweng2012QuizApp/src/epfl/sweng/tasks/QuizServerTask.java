@@ -32,7 +32,6 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	 * Local Variable holding the callback interface passed through the constructor 
 	 */
 	private IQuizServerCallback mCallback;
-	private Exception mExcept;
 	
 	/**
 	 * Constructor
@@ -58,7 +57,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	 */
 	@Override
 	protected void onCancelled() {
-		mCallback.onError(mExcept);
+		mCallback.onError();
 	}
 	
 	/**
@@ -118,10 +117,5 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 		return null;
 	}
 	
-	protected void updateRating(QuizQuestion question) throws JSONException {
-		question.setVerdict(handleQuizServerRequest(
-				new HttpGet(Globals.QUESTION_BY_ID_URL + question.getId() + "/rating")));
-		question.setVerdictStats(handleQuizServerRequest(
-				new HttpGet(Globals.QUESTION_BY_ID_URL + question.getId() + "/ratings")));
-	}
+
 }

@@ -13,14 +13,37 @@ import epfl.sweng.quizquestions.QuizQuestion;
  */
 public class LoadRandomQuestion extends QuizServerTask {
     
-	
 	/**
 	 * Constructor
 	 * @param callback interface defining the methods to be called
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
-	public LoadRandomQuestion(IQuizServerCallback callback) {
-		super(callback);
+	public LoadRandomQuestion(final IQuizQuestionReceivedCallback callback) {
+		super(new IQuizServerCallback() {
+			
+			@Override
+			public void onSuccess(QuizQuestion question) {
+				callback.onSuccess(question);
+				
+				new UpdateQuestionRating(new IQuizServerCallback() {
+					
+					@Override
+					public void onSuccess(QuizQuestion question) {
+						callback.onSuccess(question);
+					}
+					
+					@Override
+					public void onError() {
+						callback.onRatingError();
+					}
+				}).execute(question);
+			}
+			
+			@Override
+			public void onError() {
+				callback.onQuestionError();
+			}
+		});
 	}
 	
 	/**
@@ -44,9 +67,6 @@ public class LoadRandomQuestion extends QuizServerTask {
 			} else {
 				question = null;
 				cancel(false);
-			}
-			if (!isCancelled()) {				
-				updateRating(question);
 			}
 			return question;
 		} catch (JSONException e) {

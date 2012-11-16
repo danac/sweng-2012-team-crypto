@@ -40,5 +40,8 @@
     <string name="auth_error_text">Authentication failed!</string>
     <string name="auth_success_text">Authentication successful! =D</string>
     <string name="tequila">tequila</string>
+    
+    <string name="submit_rating_error_text">There was an error setting the rating</string>
+    <string name="load_rating_error_text">There was an error retrieving the ratings</string>
 
 </resources>
