@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import org.apache.http.client.RequestDirector;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
@@ -16,11 +17,13 @@ import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.protocol.HttpContext;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import epfl.sweng.globals.Globals;
 
+import android.net.ParseException;
 import android.util.Log;
 
 /**
@@ -34,8 +37,14 @@ class MockRequestDirector implements RequestDirector {
     private static final int STATUSCODE_OK = 200;
     private static final String STATUSMESSAGE_OK = "OK";
     private static final int STATUSCODE_NOTFOUND = 404;
+    private static final int STATUSCODE_NOCONTENT = 204;
+    private static final int STATUSCODE_CREATED = 201;
     private static final String STATUSMESSAGE_NOTFOUND = "OK";
-    
+    private static final String STATUSMESSAGE_NOCONTENT = "NO CONTENT!";
+	private static final int LIKE_COUNT = 1;
+	private static final int DISLIKE_COUNT = 3;
+	private static final int INCORRECT_COUNT = 2;
+    private static int verdict = 1;
 	
     @Override
     public HttpResponse execute(HttpHost target, HttpRequest request,
@@ -60,9 +69,122 @@ class MockRequestDirector implements RequestDirector {
         	resp = quizServerByOwner(request);
         } else if (requestUri.startsWith(Globals.QUESTION_BY_TAG_URL)) {
         	resp = quizServerByTag(request);
+        } else if (requestUri.endsWith("rating") && request instanceof HttpPost) {
+        	resp = quizServerRatingCreated(request);
+        } else if (requestUri.endsWith("rating") && request instanceof HttpGet && verdict == 1) {
+        	resp = quizServerRatingLike(request);
+        } else if (requestUri.endsWith("rating") && request instanceof HttpGet && verdict == 0) {
+        	resp = quizServerRatingDislike(request);
+        } else if (requestUri.endsWith("rating") && request instanceof HttpGet && verdict == -1) {
+        	resp = quizServerRatingIncorrect(request);        	
+        } else if (requestUri.endsWith("rating") && requestUri.matches("newUser")) {
+        	resp = quizServerRatingNoContent(request);
+        } else if (requestUri.endsWith("rating") && requestUri.matches("submittingUser")) {
+        	resp = quizServerRatingCreated(request);
+        } else if (requestUri.endsWith("rating")) {
+        	resp = quizServerRatingLike(request);
+        } else if (requestUri.endsWith("ratings")) {
+        	resp = quizServerRatings(request);
         }
         return resp;
     }
+
+    private HttpResponse quizServerRatings(HttpRequest request) {
+		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
+		response.setHeader("Content-type", "application/json");
+		JSONObject jsonResponse = new JSONObject();
+
+		try {
+			jsonResponse.put("likeCount", LIKE_COUNT);
+			jsonResponse.put("dislikeCount", DISLIKE_COUNT);
+			jsonResponse.put("incorrectCount", INCORRECT_COUNT);
+			
+			response.setEntity(new StringEntity(jsonResponse.toString()));
+		} catch (UnsupportedEncodingException e) {
+		} catch (JSONException e) {					
+		}
+		return response;
+	}
+
+	private HttpResponse quizServerRatingLike(HttpRequest request) {
+		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
+		response.setHeader("Content-type", "application/json");
+		JSONObject jsonResponse = new JSONObject();
+		try {
+			jsonResponse.put("verdict", "like");
+			response.setEntity(new StringEntity(jsonResponse.toString()));
+		} catch (UnsupportedEncodingException e) {
+		} catch (JSONException e) {					
+		}
+		return response;
+	}
+
+	private HttpResponse quizServerRatingDislike(HttpRequest request) {
+		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
+		response.setHeader("Content-type", "application/json");
+		JSONObject jsonResponse = new JSONObject();
+
+		try {
+			jsonResponse.put("verdict", "dislike");
+			response.setEntity(new StringEntity(jsonResponse.toString()));
+		} catch (UnsupportedEncodingException e) {
+		} catch (JSONException e) {					
+		}
+		return response;
+	}
+
+	private HttpResponse quizServerRatingIncorrect(HttpRequest request) {
+		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
+		response.setHeader("Content-type", "application/json");
+		JSONObject jsonResponse = new JSONObject();
+
+		try {
+			jsonResponse.put("verdict", "incorrect");
+			response.setEntity(new StringEntity(jsonResponse.toString()));
+		} catch (UnsupportedEncodingException e) {
+		} catch (JSONException e) {					
+		}
+		return response;
+	}
+
+
+	private HttpResponse quizServerRatingNoContent(HttpRequest request) {
+		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1,
+				STATUSCODE_NOCONTENT,
+				STATUSMESSAGE_NOCONTENT);
+		response.setHeader("Content-type", "application/json");
+		JSONObject jsonResponse = new JSONObject();
+
+		try {
+			jsonResponse.put("message", "Teapot rating =D !");
+			response.setEntity(new StringEntity(jsonResponse.toString()));
+		} catch (UnsupportedEncodingException e) {
+		} catch (JSONException e) {					
+		}
+		return response;
+	}
+	
+
+	private HttpResponse quizServerRatingCreated(HttpRequest request) {
+		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_CREATED, STATUSMESSAGE_OK);
+		JSONObject json;
+		try {
+			json = new JSONObject(EntityUtils.toString(((HttpPost) request).getEntity()));
+			if (json.get("verdict").equals("like")) {
+				verdict=1;
+			} else if (json.get("verdict").equals("dislike")) {
+				verdict=0;
+			} else if (json.get("verdict").equals("incorrect")) {
+				verdict=-1;
+			}
+		} catch (ParseException e) {
+		} catch (JSONException e) {
+		} catch (IOException e) {
+		}
+
+		return response;
+	}
+	
 
 	
     private HttpResponse quizServerByTag(HttpRequest request) {    	
@@ -101,6 +223,7 @@ class MockRequestDirector implements RequestDirector {
         return resp;
 	}
 
+    
 
 	private HttpResponse quizServerByOwner(HttpRequest request) {
     	BasicHttpResponse resp = new BasicHttpResponse(
