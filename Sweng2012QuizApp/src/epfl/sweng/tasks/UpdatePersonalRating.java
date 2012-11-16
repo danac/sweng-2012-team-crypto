@@ -35,7 +35,7 @@ public class UpdatePersonalRating extends QuizServerTask {
 		try {
 			JSONObject json = handleQuizServerRequest(
 					new HttpGet(Globals.QUESTION_BY_ID_URL + question.getId() + "/rating"));
-			if (!isCancelled()) {				
+			if (!isCancelled() && json!=null) {				
 				question.setVerdict(json);
 			}
 			return question;
