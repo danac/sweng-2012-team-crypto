@@ -414,9 +414,6 @@ public class QuizQuestion {
     	JSONArray answersArray = new JSONArray();
     	JSONArray tagsArray = new JSONArray();
     	
-    	
-    	
-
     	for (String answer : mAnswers) {
 	    	answersArray.put(answer);
     	}

@@ -33,9 +33,15 @@ public class ShowQuestionsActivity extends Activity {
 	private final IQuizQuestionReceivedCallback mQuizQuestionReceivedCallback = new IQuizQuestionReceivedCallback() {
 		
 		@Override
-		public void onSuccess(QuizQuestion question) {
+		public void onQuestionSuccess(QuizQuestion question) {
 			displayQuestion(question);
 		}
+		
+		@Override
+		public void onRatingSuccess(QuizQuestion question) {
+			updateQuestionRating(question);
+		}
+		
 		
 		@Override
 		public void onRatingError() {
@@ -136,7 +142,7 @@ public class ShowQuestionsActivity extends Activity {
         updateQuestionRating(question);
     } 
     
-    private void updateQuestionRating(QuizQuestion question) {
+    public void updateQuestionRating(QuizQuestion question) {
     	final TextView textRatingVerdict = (TextView) findViewById(R.id.text_rating_verdict);
     	final Button buttonLike = (Button) findViewById(R.id.button_like);
     	final Button buttonDislike = (Button) findViewById(R.id.button_dislike);
@@ -208,7 +214,11 @@ public class ShowQuestionsActivity extends Activity {
         new SubmitQuestionVerdict(new IQuizQuestionReceivedCallback() {
 			
 			@Override
-			public void onSuccess(QuizQuestion question) {
+			public void onQuestionSuccess(QuizQuestion question) {
+			}
+			
+			@Override
+			public void onRatingSuccess(QuizQuestion question) {
 				updateQuestionRating(question);
 			}
 			
