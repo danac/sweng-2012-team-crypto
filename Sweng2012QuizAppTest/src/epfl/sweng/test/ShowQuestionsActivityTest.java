@@ -78,10 +78,15 @@ public class ShowQuestionsActivityTest extends
 		final ShowQuestionsActivity activity = getActivity();
 		
 		IQuizQuestionReceivedCallback callback = new IQuizQuestionReceivedCallback() {
-        	
+
 			@Override
-			public void onSuccess(QuizQuestion question) {
+			public void onQuestionSuccess(QuizQuestion question) {
         		activity.displayQuestion(question);
+        	}
+			
+			@Override
+			public void onRatingSuccess(QuizQuestion question) {
+        		activity.updateQuestionRating(question);
         	}
 
         	@Override

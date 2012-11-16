@@ -69,9 +69,13 @@ public class QuizQuestionTest extends TestCase {
         
         SwengHttpClientFactory.setInstance(null);
         new LoadRandomQuestion(new IQuizQuestionReceivedCallback() {
-        	
+
 			@Override
-			public void onSuccess(QuizQuestion question) {
+			public void onQuestionSuccess(QuizQuestion question) {
+        	}
+			
+			@Override
+			public void onRatingSuccess(QuizQuestion question) {
         	}
 
         	@Override
