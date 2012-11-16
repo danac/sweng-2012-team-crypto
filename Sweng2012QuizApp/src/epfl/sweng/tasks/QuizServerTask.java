@@ -6,7 +6,6 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -88,7 +87,6 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 			
 			HttpResponse response = SwengHttpClientFactory.getInstance().execute(request);
 			
-			// TODO next line: if unexpected status code: call Log.e instead of Log.i
 			Log.i("SERVER", "Replied with status code " + response.getStatusLine().getStatusCode());
 			String body = responseHandler.handleResponse(response);
 			if (body == null || body.equals("")) {
