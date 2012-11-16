@@ -52,6 +52,8 @@ public class AuthenticationActivityTest extends
 	@Override
 	protected void tearDown() throws Exception {
 		solo.finishOpenedActivities();
+
+        SwengHttpClientFactory.setInstance(null);
 	}
 
 }
