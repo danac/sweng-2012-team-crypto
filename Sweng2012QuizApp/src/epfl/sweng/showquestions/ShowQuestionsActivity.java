@@ -226,6 +226,18 @@ public class ShowQuestionsActivity extends Activity {
 			@Override
 			public void onRatingSuccess(QuizQuestion question) {
 				updatePersonalRating(question);
+				new UpdateQuestionRating(new IQuizServerCallback() {
+					
+					@Override
+					public void onSuccess(QuizQuestion question) {
+						updateQuestionRating(question);
+					}
+					
+					@Override
+					public void onError() {
+						displayUpdateRatingError();
+					}
+				}).execute(mQuestionDisplayed);
 			}
 			
 			@Override
@@ -239,18 +251,7 @@ public class ShowQuestionsActivity extends Activity {
 			}
 		}).execute(mQuestionDisplayed);
         
-        new UpdateQuestionRating(new IQuizServerCallback() {
-			
-			@Override
-			public void onSuccess(QuizQuestion question) {
-				updateQuestionRating(question);
-			}
-			
-			@Override
-			public void onError() {
-				displayUpdateRatingError();
-			}
-		}).execute(mQuestionDisplayed);
+        
 	}
 
     /**
