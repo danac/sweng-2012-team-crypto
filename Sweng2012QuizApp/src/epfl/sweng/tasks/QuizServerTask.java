@@ -87,7 +87,6 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 			
 			HttpResponse response = SwengHttpClientFactory.getInstance().execute(request);
 			
-			// TODO next line: if unexpected status code: call Log.e instead of Log.i
 			Log.i("SERVER", "Replied with status code " + response.getStatusLine().getStatusCode());
 			String body = responseHandler.handleResponse(response);
 			if (body == null || body.equals("")) {
