@@ -50,13 +50,19 @@ public class EditQuestionActivityTest extends
                 EditQuestionActivity.class);
 
 
+		assertTrue(getActivity().auditErrors()==0);
 		solo.clickOnButton("\\+");
+		assertTrue(getActivity().auditErrors()==0);
 		solo.clickOnButton("\\-");
+		assertTrue(getActivity().auditErrors()==0);
 		solo.clickOnButton("\u2718");
+		assertTrue(getActivity().auditErrors()==0);
 		assertTrue(solo.searchText("\u2714"));
 		solo.clickOnButton("\u2714");
+		assertTrue(getActivity().auditErrors()==0);
     	assertTrue(solo.waitForText("One answer should be marked as correct"));		
     	solo.clickOnButton("\\+");
+		assertTrue(getActivity().auditErrors()==0);
     	solo.sleep(WAIT_TIME);
     	boolean rightAnswerEntered = false;
 		for (EditText et: solo.getCurrentEditTexts()) {
@@ -76,8 +82,11 @@ public class EditQuestionActivityTest extends
 					rightAnswerEntered = true;
 				}
 			}
+			assertTrue(getActivity().auditErrors()==0);
 		}
+		assertTrue(getActivity().auditErrors()==0);
 		solo.clickOnButton("\u2718");
+		assertTrue(getActivity().auditErrors()==0);
 		solo.sleep(WAIT_TIME);
 		solo.clickOnButton("Submit");
 		assertTrue(solo.waitForText("\u2714 Question successfully submitted"));
