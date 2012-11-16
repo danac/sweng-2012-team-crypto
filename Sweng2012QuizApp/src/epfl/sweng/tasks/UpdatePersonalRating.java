@@ -10,7 +10,7 @@ import epfl.sweng.quizquestions.QuizQuestion;
 /**
  * QuizServerTask realization that fetches a random Question
  */
-public class UpdateQuestionRating extends QuizServerTask {
+public class UpdatePersonalRating extends QuizServerTask {
     
 	
 	/**
@@ -18,12 +18,12 @@ public class UpdateQuestionRating extends QuizServerTask {
 	 * @param callback interface defining the methods to be called
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
-	public UpdateQuestionRating(IQuizServerCallback callback) {
+	public UpdatePersonalRating(IQuizServerCallback callback) {
 		super(callback);
 	}
 	
 	/**
-	 * Method updating question the rating
+	 * Method updating the personal rating
 	 * @param question the Question to update
 	 */
 	@Override
@@ -32,8 +32,8 @@ public class UpdateQuestionRating extends QuizServerTask {
 
 		
 		try {
-			question.setVerdictStats(handleQuizServerRequest(
-					new HttpGet(Globals.QUESTION_BY_ID_URL + question.getId() + "/ratings")));
+			question.setVerdict(handleQuizServerRequest(
+					new HttpGet(Globals.QUESTION_BY_ID_URL + question.getId() + "/rating")));
 			return question;
 		} catch (JSONException e) {
 			cancel(false);
