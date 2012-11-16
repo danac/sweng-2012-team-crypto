@@ -5,6 +5,11 @@ import epfl.sweng.servercomm.search.QuestionSearchCommunication;
 import epfl.sweng.servercomm.search.QuestionSearchCommunicationFactory;
 import android.test.AndroidTestCase;
 
+/**
+ * 
+ * @author cyril
+ *
+ */
 public class ServerCommunicationSanityTest extends AndroidTestCase {
 	
 	private QuestionSearchCommunication questionSearch;
@@ -13,8 +18,6 @@ public class ServerCommunicationSanityTest extends AndroidTestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		questionSearch = QuestionSearchCommunicationFactory.getInstance();
-		// TODO: Add here the SwengHttpClientFactory instrumentation
-		// to intercept the server communication.
 	}
 	
 	public void testInterfaceImplementation() {

@@ -8,7 +8,11 @@ import epfl.sweng.servercomm.search.CommunicationException;
 import epfl.sweng.servercomm.search.QuestionSearchCommunication;
 import epfl.sweng.servercomm.search.QuestionSearchCommunicationFactory;
 import android.test.AndroidTestCase;
-
+/**
+ * 
+ * @author cyril
+ *
+ */
 public class GetQuestionsByOwnerTest extends AndroidTestCase {
 	
 	private QuestionSearchCommunication questionSearch;
@@ -18,8 +22,6 @@ public class GetQuestionsByOwnerTest extends AndroidTestCase {
 		super.setUp();
 		questionSearch = QuestionSearchCommunicationFactory.getInstance();
         SwengHttpClientFactory.setInstance(null);
-		// TODO: Add here the SwengHttpClientFactory instrumentation
-		// to intercept the server communication.
 	}
 	
 	public void testSearchByOwner() throws CommunicationException {
@@ -34,30 +36,30 @@ public class GetQuestionsByOwnerTest extends AndroidTestCase {
 	
 	public void testThrowsIllegalArgumentException() throws CommunicationException {
 		boolean hasThrown = false;
-		try{
+		try {
 			questionSearch.getQuestionsByOwner("ä$ü[");
-		} catch(IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			hasThrown = true;
-		};
+		}
 		
 		assertTrue(hasThrown);
 		
 
 		hasThrown = false;
-		try{
+		try {
 			questionSearch.getQuestionsByOwner("012345678901234567891");
-		} catch(IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			hasThrown = true;
-		};
+		}
 		
 		assertTrue(hasThrown);
 		
 		hasThrown = false;
-		try{
+		try {
 			questionSearch.getQuestionsByOwner(null);
-		} catch(IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			hasThrown = true;
-		};
+		}
 		
 		assertTrue(hasThrown);
 		
