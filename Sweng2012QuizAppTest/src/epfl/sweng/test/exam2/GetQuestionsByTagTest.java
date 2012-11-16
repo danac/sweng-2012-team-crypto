@@ -1,8 +1,5 @@
 package epfl.sweng.test.exam2;
 
-import java.util.List;
-
-import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.servercomm.search.CommunicationException;
 import epfl.sweng.servercomm.search.QuestionSearchCommunication;
@@ -30,8 +27,7 @@ public class GetQuestionsByTagTest extends AndroidTestCase {
 	}
 	
 	public void testSearchByTag() throws CommunicationException {
-		List<QuizQuestion> questions =
-				questionSearch.getQuestionsByTag("quote");
+		questionSearch.getQuestionsByTag("quote");
 		
 		
 	}
@@ -39,8 +35,7 @@ public class GetQuestionsByTagTest extends AndroidTestCase {
 	public void testThrowsIllegalArgumentException() throws CommunicationException {
 		boolean hasThrown = false;
 		try{
-			List<QuizQuestion> questions = 
-					questionSearch.getQuestionsByTag("ä$ü[");
+			questionSearch.getQuestionsByTag("ä$ü[");
 		} catch(IllegalArgumentException e) {
 			hasThrown = true;
 			
@@ -50,8 +45,7 @@ public class GetQuestionsByTagTest extends AndroidTestCase {
 		
 		hasThrown = false;
 		try{
-			List<QuizQuestion> questions = 
-					questionSearch.getQuestionsByTag("012345678901234567891");
+			questionSearch.getQuestionsByTag("012345678901234567891");
 		} catch(IllegalArgumentException e) {
 			hasThrown = true;
 		};
@@ -60,8 +54,7 @@ public class GetQuestionsByTagTest extends AndroidTestCase {
 		
 		hasThrown = false;
 		try{
-			List<QuizQuestion> questions = 
-					questionSearch.getQuestionsByTag(null);
+			questionSearch.getQuestionsByTag(null);
 		} catch(IllegalArgumentException e) {
 			hasThrown = true;
 		};

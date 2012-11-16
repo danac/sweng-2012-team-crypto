@@ -7,7 +7,6 @@ import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.servercomm.search.CommunicationException;
 import epfl.sweng.servercomm.search.QuestionSearchCommunication;
 import epfl.sweng.servercomm.search.QuestionSearchCommunicationFactory;
-import epfl.sweng.test.mocking.MockHttpClient;
 import android.test.AndroidTestCase;
 
 public class GetQuestionsByOwnerTest extends AndroidTestCase {
@@ -36,8 +35,7 @@ public class GetQuestionsByOwnerTest extends AndroidTestCase {
 	public void testThrowsIllegalArgumentException() throws CommunicationException {
 		boolean hasThrown = false;
 		try{
-			List<QuizQuestion> questions = 
-					questionSearch.getQuestionsByOwner("ä$ü[");
+			questionSearch.getQuestionsByOwner("ä$ü[");
 		} catch(IllegalArgumentException e) {
 			hasThrown = true;
 		};
@@ -47,8 +45,7 @@ public class GetQuestionsByOwnerTest extends AndroidTestCase {
 
 		hasThrown = false;
 		try{
-			List<QuizQuestion> questions = 
-					questionSearch.getQuestionsByOwner("012345678901234567891");
+			questionSearch.getQuestionsByOwner("012345678901234567891");
 		} catch(IllegalArgumentException e) {
 			hasThrown = true;
 		};
@@ -57,8 +54,7 @@ public class GetQuestionsByOwnerTest extends AndroidTestCase {
 		
 		hasThrown = false;
 		try{
-			List<QuizQuestion> questions = 
-					questionSearch.getQuestionsByOwner(null);
+			questionSearch.getQuestionsByOwner(null);
 		} catch(IllegalArgumentException e) {
 			hasThrown = true;
 		};

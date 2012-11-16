@@ -1,8 +1,5 @@
 package epfl.sweng.test.exam2;
 
-import java.util.List;
-
-import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.servercomm.search.CommunicationException;
 import epfl.sweng.servercomm.search.QuestionSearchCommunication;

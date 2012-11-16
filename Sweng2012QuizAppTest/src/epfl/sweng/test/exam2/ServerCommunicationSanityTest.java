@@ -1,8 +1,5 @@
 package epfl.sweng.test.exam2;
 
-import java.util.List;
-
-import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.search.CommunicationException;
 import epfl.sweng.servercomm.search.QuestionSearchCommunication;
 import epfl.sweng.servercomm.search.QuestionSearchCommunicationFactory;
@@ -27,14 +24,12 @@ public class ServerCommunicationSanityTest extends AndroidTestCase {
 	}
 	
 	public void testSearchByOwner() throws CommunicationException {
-		List<QuizQuestion> questions = 
-				questionSearch.getQuestionsByOwner("joe");
+		questionSearch.getQuestionsByOwner("joe");
 		
 	}
 	
 	public void testSearchByTag() throws CommunicationException {
-		List<QuizQuestion> questions =
-				questionSearch.getQuestionsByTag("tag");
+		questionSearch.getQuestionsByTag("tag");
 		
 	}
 }
