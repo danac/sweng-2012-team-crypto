@@ -27,12 +27,12 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 			
 			@Override
 			public void onSuccess(final QuizQuestion question) {
-				callback.onSuccess(question);
+				callback.onQuestionSuccess(question);
 				new UpdateQuestionRating(new IQuizServerCallback() {
 					
 					@Override
 					public void onSuccess(QuizQuestion question) {
-						callback.onSuccess(question);
+						callback.onRatingSuccess(question);
 					}
 					
 					@Override

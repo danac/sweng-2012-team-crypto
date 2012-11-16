@@ -8,7 +8,13 @@ public interface IQuizQuestionReceivedCallback {
 	/**
 	 * Function called if the question was received successfully
 	 */
-	void onSuccess(QuizQuestion question);
+	void onQuestionSuccess(QuizQuestion question);
+	
+	/**
+	 * Function called if the question rating was received successfully
+	 */
+	void onRatingSuccess(QuizQuestion question);
+	
 	/**
 	 * Function called if there was an error receiving the Question
 	 */
