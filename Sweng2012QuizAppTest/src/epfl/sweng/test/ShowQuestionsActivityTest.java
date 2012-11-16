@@ -7,7 +7,7 @@ import com.jayway.android.robotium.solo.Solo;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
-import epfl.sweng.tasks.IQuizServerCallback;
+import epfl.sweng.tasks.IQuizQuestionReceivedCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
 import epfl.sweng.test.mocking.MockHttpClient;
 import epfl.sweng.test.tools.TestingTricks;
@@ -77,13 +77,27 @@ public class ShowQuestionsActivityTest extends
 		
 		final ShowQuestionsActivity activity = getActivity();
 		
-		IQuizServerCallback callback = new IQuizServerCallback() {
-        	public void onSuccess(QuizQuestion question) {
-        		activity.displayQuestion(question);
-        	}
-        	public void onError() {
-        		activity.displayError();
-        	}
+		IQuizQuestionReceivedCallback callback = new IQuizQuestionReceivedCallback() {
+
+			@Override
+			public void onQuestionSuccess(QuizQuestion question) {
+				activity.displayQuestion(question);
+			}
+
+			@Override
+			public void onRatingSuccess(QuizQuestion question) {
+				activity.updateQuestionRating(question);
+			}
+
+			@Override
+			public void onQuestionError() {
+				activity.displayError();
+			}
+
+			@Override
+			public void onRatingError() {
+				activity.displayUpdateRatingError();
+			}
         };
 
     	new LoadRandomQuestion(callback).execute("http://www.google.com");

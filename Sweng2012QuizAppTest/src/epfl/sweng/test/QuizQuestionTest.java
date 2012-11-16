@@ -4,7 +4,7 @@ import org.json.JSONException;
 
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
-import epfl.sweng.tasks.IQuizServerCallback;
+import epfl.sweng.tasks.IQuizQuestionReceivedCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
 
 import junit.framework.TestCase;
@@ -27,11 +27,23 @@ public class QuizQuestionTest extends TestCase {
         assertNotNull(new QuizQuestion(json));
         
         SwengHttpClientFactory.setInstance(null);
-        new LoadRandomQuestion(new IQuizServerCallback() {
-        	public void onSuccess(QuizQuestion question) {
-        	}
-        	public void onError() {
-        	}
-        }).execute();
+        new LoadRandomQuestion(new IQuizQuestionReceivedCallback() {
+			
+			@Override
+			public void onRatingSuccess(QuizQuestion question) {
+			}
+			
+			@Override
+			public void onRatingError() {
+			}
+			
+			@Override
+			public void onQuestionSuccess(QuizQuestion question) {
+			}
+			
+			@Override
+			public void onQuestionError() {
+			}
+		}).execute();
     }
 }
