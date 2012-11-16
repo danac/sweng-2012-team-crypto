@@ -22,7 +22,6 @@ import epfl.sweng.tasks.IQuizQuestionReceivedCallback;
 import epfl.sweng.tasks.IQuizServerCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
 import epfl.sweng.tasks.SubmitQuestionVerdict;
-import epfl.sweng.tasks.UpdatePersonalRating;
 import epfl.sweng.tasks.UpdateQuestionRating;
 
 
