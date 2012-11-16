@@ -19,8 +19,11 @@ import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.entry.MainActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.tasks.IQuizQuestionReceivedCallback;
+import epfl.sweng.tasks.IQuizServerCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
 import epfl.sweng.tasks.SubmitQuestionVerdict;
+import epfl.sweng.tasks.UpdatePersonalRating;
+import epfl.sweng.tasks.UpdateQuestionRating;
 
 
 /**
@@ -143,21 +146,11 @@ public class ShowQuestionsActivity extends Activity {
     } 
     
     public void updateQuestionRating(QuizQuestion question) {
-    	final TextView textRatingVerdict = (TextView) findViewById(R.id.text_rating_verdict);
+    	
     	final Button buttonLike = (Button) findViewById(R.id.button_like);
     	final Button buttonDislike = (Button) findViewById(R.id.button_dislike);
     	final Button buttonIncorrect = (Button) findViewById(R.id.button_incorrect);
 		
-    	if (question.getVerdict().equals("like")) {
-    		textRatingVerdict.setText(R.string.rating_like);
-        } else if (question.getVerdict().equals("dislike")) {
-        	textRatingVerdict.setText(R.string.rating_dislike);
-    	} else if (question.getVerdict().equals("incorrect")) {
-    		textRatingVerdict.setText(R.string.rating_incorrect);
-    	} else {
-    		textRatingVerdict.setText(R.string.rating_notrated);
-    	}
-    	
     	buttonLike.setText(String.format(getResources().getString(R.string.button_like),
     			question.getLikeCount()));
     	buttonDislike.setText(String.format(getResources().getString(R.string.button_dislike),
@@ -171,6 +164,20 @@ public class ShowQuestionsActivity extends Activity {
     	
     	
 	}
+    
+    public void updatePersonalRating(QuizQuestion question) {
+    	final TextView textRatingVerdict = (TextView) findViewById(R.id.text_rating_verdict);
+    	
+    	if (question.getVerdict().equals("like")) {
+    		textRatingVerdict.setText(R.string.rating_like);
+        } else if (question.getVerdict().equals("dislike")) {
+        	textRatingVerdict.setText(R.string.rating_dislike);
+    	} else if (question.getVerdict().equals("incorrect")) {
+    		textRatingVerdict.setText(R.string.rating_incorrect);
+    	} else {
+    		textRatingVerdict.setText(R.string.rating_notrated);
+    	}
+    }
 
 	/**
      * Handle the "Next Question" button. Loads a new random question
@@ -219,17 +226,30 @@ public class ShowQuestionsActivity extends Activity {
 			
 			@Override
 			public void onRatingSuccess(QuizQuestion question) {
-				updateQuestionRating(question);
+				updatePersonalRating(question);
 			}
 			
 			@Override
 			public void onRatingError() {
-				displayUpdateRatingError();
+				displaySubmitRatingError();
 			}
 			
 			@Override
 			public void onQuestionError() {
 				displaySubmitRatingError();
+			}
+		}).execute(mQuestionDisplayed);
+        
+        new UpdateQuestionRating(new IQuizServerCallback() {
+			
+			@Override
+			public void onSuccess(QuizQuestion question) {
+				updateQuestionRating(question);
+			}
+			
+			@Override
+			public void onError() {
+				displayUpdateRatingError();
 			}
 		}).execute(mQuestionDisplayed);
 	}
