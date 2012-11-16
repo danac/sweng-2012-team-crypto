@@ -109,7 +109,6 @@ class MockRequestDirector implements RequestDirector {
 		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
 		response.setHeader("Content-type", "application/json");
 		JSONObject jsonResponse = new JSONObject();
-
 		try {
 			jsonResponse.put("verdict", "like");
 			response.setEntity(new StringEntity(jsonResponse.toString()));

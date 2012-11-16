@@ -22,10 +22,32 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 	 * @param callback interface defining the methods to be called
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
-	public SubmitQuestionVerdict(IQuizServerCallback callback) {
-		super(callback);
+	public SubmitQuestionVerdict(final IQuizQuestionReceivedCallback callback) {
+		super(new IQuizServerCallback() {
+			
+			@Override
+			public void onSuccess(final QuizQuestion question) {
+				callback.onSuccess(question);
+				new UpdateQuestionRating(new IQuizServerCallback() {
+					
+					@Override
+					public void onSuccess(QuizQuestion question) {
+						callback.onSuccess(question);
+					}
+					
+					@Override
+					public void onError() {
+						callback.onRatingError();
+					}
+				}).execute(question);
+			}
+			
+			@Override
+			public void onError() {
+				callback.onQuestionError();
+			}
+		});
 	}
-
 	
 
 	/**
@@ -50,13 +72,6 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 		post.setHeader("Content-type", "application/json");
 		
 		handleQuizServerRequest(post);
-		try {
-			
-			updateRating(question);
-		} catch (JSONException e) {
-			cancel(false);
-		}
-		
 		return question;
 	}
 }
