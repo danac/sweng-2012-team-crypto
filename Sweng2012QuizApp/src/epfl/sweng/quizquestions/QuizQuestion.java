@@ -386,7 +386,7 @@ public class QuizQuestion {
     public void setSolutionIndex(int solutionIndex) {
     	mSolutionIndex = solutionIndex;
     }
-    
+    /*
     /**
      * Set the id of the question-answers dataset
      * @param id the id of the dataset
@@ -432,30 +432,6 @@ public class QuizQuestion {
 
     }
     
-    /**
-     * Set the like count
-     * @param likeCount the like count to be set
-     */
-    public void setLikeCount(int likeCount) {
-    	mLikeCount = likeCount;
-    }
-    
-    /**
-     * Set the dislike count
-     * @param dislikeCount the dislike count to be set
-     */
-    public void setDislikeCount(int dislikeCount) {
-    	mDislikeCount = dislikeCount;
-    }
-    
-    /**
-     * Set the incorrect count
-     * @param incorrectCount the incorrect count to be set
-     */
-    public void setIncorrectCount(int incorrectCount) {
-    	mIncorrectCount = incorrectCount;
-    }
-
     /**
      * Set the verdict
      * @param verdict the verdict to be set
