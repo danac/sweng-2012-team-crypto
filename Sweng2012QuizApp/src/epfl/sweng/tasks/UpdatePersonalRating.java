@@ -3,6 +3,7 @@ package epfl.sweng.tasks;
 
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
@@ -32,8 +33,11 @@ public class UpdatePersonalRating extends QuizServerTask {
 
 		
 		try {
-			question.setVerdict(handleQuizServerRequest(
-					new HttpGet(Globals.QUESTION_BY_ID_URL + question.getId() + "/rating")));
+			JSONObject json = handleQuizServerRequest(
+					new HttpGet(Globals.QUESTION_BY_ID_URL + question.getId() + "/rating"));
+			if (!isCancelled()) {				
+				question.setVerdict(json);
+			}
 			return question;
 		} catch (JSONException e) {
 			cancel(false);

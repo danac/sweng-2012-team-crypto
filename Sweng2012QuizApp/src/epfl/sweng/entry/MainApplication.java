@@ -20,6 +20,7 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mSettings = getSharedPreferences(Globals.PREFS_NAME, 0);
+        
     }
     
     /**

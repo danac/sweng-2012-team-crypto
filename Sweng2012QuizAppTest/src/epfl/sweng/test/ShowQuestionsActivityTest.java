@@ -9,6 +9,7 @@ import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.tasks.IQuizQuestionReceivedCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
+import epfl.sweng.tasks.SubmitQuestionVerdict;
 import epfl.sweng.test.mocking.MockHttpClient;
 import epfl.sweng.test.tools.TestingTricks;
 /**
@@ -104,6 +105,14 @@ public class ShowQuestionsActivityTest extends
     	assertTrue(solo.searchText("There was an error retrieving the question"));
     	new LoadRandomQuestion(callback).execute("http://0.0.0.0");
     	assertTrue(solo.searchText("There was an error retrieving the question"));
+    	
+    	
+    	QuizQuestion question = new QuizQuestion();
+    	
+    	question.setId(-1);
+    	
+    	new SubmitQuestionVerdict(callback).execute(question);
+    	
 	}
 	
 	/* End list of the different tests to be performed */
