@@ -107,7 +107,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
     		// SET HERE THE mExcept ATTRIBUTE TO A SUITABLE EXCEPTION
     		cancel(false);    		
     	} catch (ClientProtocolException e) {
-    		// WE'RE NOT DOING ANYTHING HERE.. IS IT NORMAL ? /Dana
+    		cancel(false);
     	} catch (IOException e) {
     		// SET HERE THE mExcept ATTRIBUTE TO A SUITABLE EXCEPTION
     		cancel(false);
