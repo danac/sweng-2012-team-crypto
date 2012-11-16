@@ -31,7 +31,7 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 	/**
 	 * Method submitting the new question verdict
 	 * 
-	 * @param question the Question containing the new verdict to be sumitted
+	 * @param question the Question containing the new verdict to be submitted
 	 */
 	@Override
 	protected QuizQuestion doInBackground(Object... args) {

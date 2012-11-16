@@ -15,14 +15,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import epfl.sweng.authentication.SessionManager;
+import android.os.AsyncTask;
+import android.util.Log;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
-
-
-import android.os.AsyncTask;
-import android.util.Log;
 
 /**
  * AsyncTask for communication between the App and the Sweng Quiz question server
@@ -104,7 +101,7 @@ abstract class MultipleQuizServerTask extends AsyncTask<Object, Void, List<QuizQ
 			cancel(false);
 		} catch (ClientProtocolException e) {
 			System.out.println("ClientProtocolException" + statusCode);
-			if (statusCode == 404) {
+			if (statusCode == Globals.STATUSCODE_NOTFOUND) {
 				return new ArrayList<QuizQuestion>();
 			}
 			cancel(false);

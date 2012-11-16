@@ -9,24 +9,28 @@ import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.tasks.LoadQuestionsByOwner;
 import epfl.sweng.tasks.LoadQuestionsByTag;
 
-public class DefaultQuestionSearchCommunication implements
-		QuestionSearchCommunication {
+/**
+ * Implementation of the DefaultSearchCommunication interface
+ * @author cyril (from exam 2)
+ *
+ */
+public class DefaultQuestionSearchCommunication implements QuestionSearchCommunication {
 
+	private static final int MAX_OWNER_LENGTH=20;
 	@Override
-	public List<QuizQuestion> getQuestionsByOwner(String owner)
-			throws CommunicationException {
+	public List<QuizQuestion> getQuestionsByOwner(String owner) throws CommunicationException {
 		
 		if (owner == null) {
     		throw new IllegalArgumentException();
 		}
     	boolean validArgument = true;
     	
-    	for(int i=0; i<owner.length(); i++) {
+    	for (int i=0; i<owner.length(); i++) {
     		if (!Character.isLetterOrDigit(owner.charAt(i))) {
     			validArgument = false;
     		}
     	}
-    	if (owner.length()>20) {
+    	if (owner.length()>MAX_OWNER_LENGTH) {
     		validArgument = false;
     	}
     	
@@ -49,19 +53,19 @@ public class DefaultQuestionSearchCommunication implements
 	}
 
 	@Override
-	public List<QuizQuestion> getQuestionsByTag(String tag)
-			throws CommunicationException {
+	public List<QuizQuestion> getQuestionsByTag(String tag) throws CommunicationException {
+			
 		
 		if (tag == null) {
     		throw new IllegalArgumentException();
 		}
     	boolean validArgument = true;
-    	for(int i=0; i<tag.length(); i++) {
+    	for (int i=0; i<tag.length(); i++) {
     		if (!Character.isLetterOrDigit(tag.charAt(i))) {
     			validArgument = false;
     		}
     	}
-    	if (tag.length()>20) {
+    	if (tag.length()>MAX_OWNER_LENGTH) {
     		validArgument = false;
     	}
     	
