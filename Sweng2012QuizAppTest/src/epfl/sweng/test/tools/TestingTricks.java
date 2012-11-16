@@ -30,7 +30,7 @@ public class TestingTricks {
 		for (EditText et: solo.getCurrentEditTexts()) {
 			if (et.getTag().toString() 
 				== activity.getResources().getText(epfl.sweng.R.string.auth_login_hint)) {
-				solo.enterText(et, TEST_USERNAME);
+				solo.enterText(et, username);
 				needsAuth = true;
 			} else if (et.getTag().toString()
 				== activity.getResources().getText(epfl.sweng.R.string.auth_pass_hint)) {
