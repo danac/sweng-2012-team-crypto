@@ -15,7 +15,6 @@ import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
@@ -24,6 +23,7 @@ import org.json.JSONObject;
 
 import epfl.sweng.globals.Globals;
 
+import android.net.ParseException;
 import android.util.Log;
 
 /**
@@ -65,7 +65,10 @@ class MockRequestDirector implements RequestDirector {
         	resp = tequilaServer(request);
         } else if (requestUri.equals(Globals.QUIZSERVER_LOGIN_URL)) {
         	resp = quizServerLogin(request);
-        	
+        } else if (requestUri.startsWith(Globals.QUESTION_BY_OWNER_URL)) {
+        	resp = quizServerByOwner(request);
+        } else if (requestUri.startsWith(Globals.QUESTION_BY_TAG_URL)) {
+        	resp = quizServerByTag(request);
         } else if (requestUri.endsWith("rating") && request instanceof HttpPost) {
         	resp = quizServerRatingCreated(request);
         } else if (requestUri.endsWith("rating") && request instanceof HttpGet && verdict == 1) {
@@ -86,7 +89,6 @@ class MockRequestDirector implements RequestDirector {
         return resp;
     }
 
-	
     private HttpResponse quizServerRatings(HttpRequest request) {
 		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
 		response.setHeader("Content-type", "application/json");
@@ -103,7 +105,6 @@ class MockRequestDirector implements RequestDirector {
 		}
 		return response;
 	}
-
 
 	private HttpResponse quizServerRatingLike(HttpRequest request) {
 		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
@@ -164,7 +165,6 @@ class MockRequestDirector implements RequestDirector {
 	}
 	
 
-
 	private HttpResponse quizServerRatingCreated(HttpRequest request) {
 		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_CREATED, STATUSMESSAGE_OK);
 		JSONObject json;
@@ -184,8 +184,84 @@ class MockRequestDirector implements RequestDirector {
 
 		return response;
 	}
+	
 
 	
+    private HttpResponse quizServerByTag(HttpRequest request) {    	
+    	BasicHttpResponse resp = new BasicHttpResponse(
+                HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
+        resp.addHeader("Content-Type", "application/json; charset=utf-8");
+        String jsonString = "";
+        
+        if (request.getRequestLine().getUri().endsWith("emptywith200")) {
+        	jsonString = "[]";
+        } else if (request.getRequestLine().getUri().endsWith("emptywith404")) {
+        	jsonString = "[]";
+        	resp = new BasicHttpResponse(
+                    HttpVersion.HTTP_1_1, STATUSCODE_NOTFOUND, STATUSMESSAGE_NOTFOUND);
+        } else {
+        	jsonString = "[{"
+            		+ "\"tags\": ["
+            		+ "\"capitals\", "
+            		+ "\"geography\", "
+            		+ "\"countries\" ], "
+            		+ "\"solutionIndex\": 3, "
+            		+ "\"question\": \"What is the capital of Niger?\", "
+            		+ "\"answers\": ["
+            		+ "\"Riga\", "
+            		+ "\"Madrid\", "
+            		+ "\"Vienna\", "
+            		+ "\"Niamey\" ], "
+            		+ "\"owner\": \"sehaag\"," 
+            		+ "\"id\": 16026 }]";
+        }
+        try {
+            resp.setEntity(new StringEntity(jsonString, "utf-8"));
+        } catch (UnsupportedEncodingException uee) {
+            resp = null;
+        }
+        return resp;
+	}
+
+    
+
+	private HttpResponse quizServerByOwner(HttpRequest request) {
+    	BasicHttpResponse resp = new BasicHttpResponse(
+                HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
+        resp.addHeader("Content-Type", "application/json; charset=utf-8");
+        String jsonString = "";
+        
+        if (request.getRequestLine().getUri().endsWith("emptywith200")) {
+        	jsonString = "[]";
+        } else if (request.getRequestLine().getUri().endsWith("emptywith404")) {
+        	jsonString = "[]";
+        	resp = new BasicHttpResponse(
+                    HttpVersion.HTTP_1_1, STATUSCODE_NOTFOUND, STATUSMESSAGE_NOTFOUND);
+        } else {
+        	jsonString = "[{"
+            		+ "\"tags\": ["
+            		+ "\"capitals\", "
+            		+ "\"geography\", "
+            		+ "\"countries\" ], "
+            		+ "\"solutionIndex\": 3, "
+            		+ "\"question\": \"What is the capital of Niger?\", "
+            		+ "\"answers\": ["
+            		+ "\"Riga\", "
+            		+ "\"Madrid\", "
+            		+ "\"Vienna\", "
+            		+ "\"Niamey\" ], "
+            		+ "\"owner\": \"sehaag\"," 
+            		+ "\"id\": 16026 }]";
+        }
+        try {
+            resp.setEntity(new StringEntity(jsonString, "utf-8"));
+        } catch (UnsupportedEncodingException uee) {
+            resp = null;
+        }
+        return resp;
+	}
+
+
 	private HttpResponse quizServer() {
     	
     	BasicHttpResponse resp = new BasicHttpResponse(

@@ -81,24 +81,23 @@ public class ShowQuestionsActivityTest extends
 
 			@Override
 			public void onQuestionSuccess(QuizQuestion question) {
-        		activity.displayQuestion(question);
-        	}
-			
+				activity.displayQuestion(question);
+			}
+
 			@Override
 			public void onRatingSuccess(QuizQuestion question) {
-        		activity.updateQuestionRating(question);
-        	}
+				activity.updateQuestionRating(question);
+			}
 
-        	@Override
+			@Override
 			public void onQuestionError() {
 				activity.displayError();
 			}
-        	
+
 			@Override
 			public void onRatingError() {
 				activity.displayUpdateRatingError();
 			}
-        	
         };
 
     	new LoadRandomQuestion(callback).execute("http://www.google.com");
@@ -112,6 +111,8 @@ public class ShowQuestionsActivityTest extends
 	@Override
 	protected void tearDown() throws Exception {
 		solo.finishOpenedActivities();
+
+        SwengHttpClientFactory.setInstance(null);
 	}
 
 }

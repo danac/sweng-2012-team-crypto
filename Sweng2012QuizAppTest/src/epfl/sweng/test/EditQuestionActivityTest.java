@@ -39,6 +39,7 @@ public class EditQuestionActivityTest extends
 	}
 
 	/* Begin list of the different tests to be performed */
+
 	public void testEditQuestion() {
 		TestingTricks.authenticateMe(solo);
 		if (solo.searchText("Submit quiz question")) {
@@ -49,13 +50,19 @@ public class EditQuestionActivityTest extends
                 EditQuestionActivity.class);
 
 
+		assertTrue(getActivity().auditErrors()==0);
 		solo.clickOnButton("\\+");
+		assertTrue(getActivity().auditErrors()==0);
 		solo.clickOnButton("\\-");
+		assertTrue(getActivity().auditErrors()==0);
 		solo.clickOnButton("\u2718");
+		assertTrue(getActivity().auditErrors()==0);
 		assertTrue(solo.searchText("\u2714"));
 		solo.clickOnButton("\u2714");
+		assertTrue(getActivity().auditErrors()==0);
     	assertTrue(solo.waitForText("One answer should be marked as correct"));		
     	solo.clickOnButton("\\+");
+		assertTrue(getActivity().auditErrors()==0);
     	solo.sleep(WAIT_TIME);
     	boolean rightAnswerEntered = false;
 		for (EditText et: solo.getCurrentEditTexts()) {
@@ -75,13 +82,16 @@ public class EditQuestionActivityTest extends
 					rightAnswerEntered = true;
 				}
 			}
+			assertTrue(getActivity().auditErrors()==0);
 		}
+		assertTrue(getActivity().auditErrors()==0);
 		solo.clickOnButton("\u2718");
+		assertTrue(getActivity().auditErrors()==0);
 		solo.sleep(WAIT_TIME);
 		solo.clickOnButton("Submit");
 		assertTrue(solo.waitForText("\u2714 Question successfully submitted"));
-		assertEquals("AuditError has to return 0 here...", 0, getActivity().auditErrors());
 	}
+
 	
 	public void testNoNetwork() {
 		solo.assertCurrentActivity("Edit question form is being displayed",
@@ -100,6 +110,7 @@ public class EditQuestionActivityTest extends
         };
 		
 		
+		
     	new SubmitQuestion(callback).execute(new QuizQuestion(), "http://www.google.com");
     	assertTrue(solo.waitForText("\u2718 An error occured while submitting the Question"));
     	solo.sleep(WAIT_TIME);
@@ -115,10 +126,11 @@ public class EditQuestionActivityTest extends
 	/* End list of the different tests to be performed */
 	
 	
-	
 	@Override
 	protected void tearDown() throws Exception {
 		solo.finishOpenedActivities();
+
+        SwengHttpClientFactory.setInstance(null);
 	}
 
 }
