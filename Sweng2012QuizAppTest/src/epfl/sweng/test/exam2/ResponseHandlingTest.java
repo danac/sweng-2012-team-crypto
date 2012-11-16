@@ -7,6 +7,11 @@ import epfl.sweng.servercomm.search.QuestionSearchCommunicationFactory;
 import epfl.sweng.test.mocking.MockHttpClient;
 import android.test.AndroidTestCase;
 
+/**
+ * 
+ * @author cyril
+ *
+ */
 public class ResponseHandlingTest extends AndroidTestCase {
 	
 	private QuestionSearchCommunication questionSearch;
