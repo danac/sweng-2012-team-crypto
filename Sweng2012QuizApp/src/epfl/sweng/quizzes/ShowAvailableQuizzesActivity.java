@@ -53,7 +53,7 @@ public class ShowAvailableQuizzesActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
     	Intent intent = new Intent(this, ShowQuizActivity.class);
-    	intent.putExtra("id", ((Quiz) l.getSelectedItem()).getId());
+    	intent.putExtra("id", ((Quiz) l.getItemAtPosition(position)).getId());
     	startActivity(intent);
 	}
 }
