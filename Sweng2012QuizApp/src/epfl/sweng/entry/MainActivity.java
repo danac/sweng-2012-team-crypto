@@ -71,6 +71,15 @@ public class MainActivity extends Activity {
     }
     
     /**
+     * Change view to the EditQuestionActivity
+     * @param view reference to the menu button
+     */
+    public void goToShowAvailableQuizzesActivity(View view) {
+    	Intent showAvailableQuizzesActivityIntent = new Intent(this, ShowAvailableQuizzesActivity.class);
+    	startActivity(showAvailableQuizzesActivityIntent);
+    }
+    
+    /**
      * Log out the user
      * @param view reference to the menu button
      */
