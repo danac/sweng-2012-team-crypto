@@ -3,7 +3,6 @@ package epfl.sweng.quizzes;
 import java.util.List;
 
 import epfl.sweng.R;
-import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.tasks.IQuizzesReceivedCallback;
 import epfl.sweng.tasks.LoadQuizzes;
 import android.os.Bundle;
@@ -48,7 +47,6 @@ public class ShowAvailableQuizzesActivity extends ListActivity {
         setListAdapter(adapter);
         
     }
-    
 
 	private void displayError() {
 	}
