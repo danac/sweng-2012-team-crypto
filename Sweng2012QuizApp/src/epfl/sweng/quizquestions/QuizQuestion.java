@@ -41,10 +41,6 @@ public class QuizQuestion {
     public enum QuizQuestionParam {
     	QUESTION, ANSWER, SOLUTION_INDEX, TAGS, OWNER, ID
     }
-    
-	/** The constructor for quiz questions received as JSON strings from the Sweng2012QuizApp server, as in homework #1
-	* @param json The JSON string received from the Sweng2012QuizApp server, as in homework #1
-	*/
 
 	/** The constructor for quiz questions defined by the user
 	* @param text The body of the question, as input by the user
@@ -67,7 +63,7 @@ public class QuizQuestion {
      * Constructor setting default values for the question and the answers
      */
     public QuizQuestion() {
-        super();
+        //super();  //Is this instruction useful? /Manu
         mQuestion = "";
         mAnswers = new ArrayList<String>();
         mAnswers.add("");
