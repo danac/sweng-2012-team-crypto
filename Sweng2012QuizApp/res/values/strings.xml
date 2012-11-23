@@ -47,5 +47,7 @@
     <string name="title_activity_show_quiz">ShowQuizActivity</string>
     <string name="quiz_score_alert_dialog_title">Current score</string>
     <string name="quiz_score_alert_dialog_button_text">OK</string>
+    <string name="button_previousQuestion">Previous question</string>
+    <string name="button_handin">Hand in quiz</string>
 
 </resources>
