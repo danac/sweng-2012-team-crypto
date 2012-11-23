@@ -3,6 +3,7 @@ package epfl.sweng.test;
 import android.test.ActivityInstrumentationTestCase2;
 import epfl.sweng.quizzes.ShowQuizActivity;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
+import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.test.mocking.MockHttpClient;
 
 import com.jayway.android.robotium.solo.Solo;
@@ -28,7 +29,13 @@ public class QuizTest extends ActivityInstrumentationTestCase2<ShowQuizActivity>
 	}
 	
 	public void testAlertDialog() {
-		getActivity().displayScoreAlertDialog(TEST_SCORE);
+		solo.assertCurrentActivity("A quiz is being displayed",
+				ShowQuizActivity.class);
+	    getActivity().runOnUiThread(new Runnable() {
+	        public void run() {
+	        	getActivity().displayScoreAlertDialog(TEST_SCORE);
+	        }
+	    });
 		assertTrue("Could not find the dialog!", solo.searchText("13.58"));
 	}
 }
