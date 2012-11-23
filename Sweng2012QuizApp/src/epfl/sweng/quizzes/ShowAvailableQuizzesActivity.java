@@ -21,4 +21,6 @@ public class ShowAvailableQuizzesActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_show_available_quizzes, menu);
         return true;
     }
+    
+    
 }

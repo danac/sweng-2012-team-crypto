@@ -41,5 +41,7 @@
     <string name="load_rating_error_text">There was an error retrieving the ratings</string>
     <string name="button_choose_takeQuiz_text">Take a Quiz</string>
     <string name="title_activity_show_available_quizzes">ShowAvailableQuizzesActivity</string>
+    <string name="quiz_hand_in_error">An error occurred while handing in your answers</string>
+    <string name="quiz_score_alert_dialog_text">Your score is </string>
 
 </resources>
