@@ -18,7 +18,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -66,7 +65,9 @@ class MockRequestDirector implements RequestDirector {
         } else if (requestUri.equals(Globals.QUIZSERVER_LOGIN_URL)) {
         	resp = quizServerLogin(request);
         } else if (requestUri.equals(Globals.QUIZZES_LIST_URL)) {
-        	resp = quizQuizzesList(request);
+        	resp = quizServerQuizzesList(request);
+        } else if (requestUri.startsWith(Globals.QUIZ_BY_ID_URL)) {
+        	resp = quizServerQuiz(request);
         } else if (requestUri.startsWith(Globals.QUESTION_BY_OWNER_URL)) {
         	resp = quizServerByOwner(request);
         } else if (requestUri.startsWith(Globals.QUESTION_BY_TAG_URL)) {
@@ -79,24 +80,35 @@ class MockRequestDirector implements RequestDirector {
         return resp;
     }
 
-    private HttpResponse quizQuizzesList(HttpRequest request) {
+    private HttpResponse quizServerQuiz(HttpRequest request) {
     	BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
 		response.setHeader("Content-type", "application/json");
 		try {
-			JSONArray jsonResponse = new JSONArray();
-			JSONObject firstQuiz = new JSONObject();
-			JSONObject secondQuiz = new JSONObject();
-			firstQuiz.put("id", 1);
-			firstQuiz.put("title", "First Quiz");
-			secondQuiz.put("id", 2);
-			secondQuiz.put("title", "Second Quiz");
-			
-			jsonResponse.put(firstQuiz);
-			jsonResponse.put(secondQuiz);
-			
-			response.setEntity(new StringEntity(jsonResponse.toString()));
+			if (request.getRequestLine().getUri().endsWith("125")) {				
+				response.setEntity(new StringEntity("{\"id\": 125,\"title\": \"The hardest quiz ever\","
+						+ "\"questions\": [" 
+						+ "{\"question\": \"How much is 2 + 2 ?\",\"answers\": [" 
+						+	"\"5, for very large values of 2\"," 
+						+	"\"4, if you\'re out of inspiration\"," 
+						+ "\"10, for some carefully chosen base\"" 
+						+ "]}, " 
+						+ "{ \"question\": \"How much is 1 + 1 ?\",\"answers\": [" 
+						+ "\"2\",\"10\",\"11\","
+						+ "\"It all depends on the semantics of the \'+\' operator\""
+						+ "]}]}"));
+			}
 		} catch (UnsupportedEncodingException e) {
-		} catch (JSONException e) {
+		}
+		return response;	
+	}
+
+	private HttpResponse quizServerQuizzesList(HttpRequest request) {
+    	BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
+		response.setHeader("Content-type", "application/json");
+		try {
+			response.setEntity(new StringEntity("[{\"id\": 125,\"title\": \"The hardest quiz ever\"},"
+					+ "{\"id\": 453,\"title\": \"Piece of cake\"}]"));
+		} catch (UnsupportedEncodingException e) {
 		}
 		return response;
 	}

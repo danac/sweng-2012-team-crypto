@@ -25,19 +25,27 @@ public class ShowAvailableQuizzesActivityTest extends
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
 
-	/* Begin list of the different tests to be performed */
 
 	public void testDisplayQuizzes() {
 		TestingTricks.authenticateMe(solo);
 		solo.assertCurrentActivity("Quizzes are being displayed",
 				ShowAvailableQuizzesActivity.class);
 
-		assertTrue(solo.searchText("First Quiz"));
-		assertTrue(solo.searchText("Second Quiz"));
+		assertTrue(solo.searchText("The hardest quiz ever"));
+		assertTrue(solo.searchText("Piece of cake"));
 	}
 	
+
+	public void testNavigateQuiz() {
+		TestingTricks.authenticateMe(solo);
+		solo.assertCurrentActivity("Quizzes are being displayed",
+				ShowAvailableQuizzesActivity.class);
+
+		solo.clickOnText("The hardest quiz ever");
 		
-	
+		assertTrue(solo.searchText("5, for very large values of 2"));
+		
+	}	
 	/* End list of the different tests to be performed */
 	
 	@Override
