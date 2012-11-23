@@ -1,7 +1,5 @@
 <resources>
-
     <string name="app_name">Sweng2012QuizApp</string>
-    <string name="hello_world">Welcome</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Sweng Quiz App</string>
     <string name="title_activity_show_questions">ShowQuestionsActivity</string>
@@ -41,5 +39,5 @@
     <string name="load_rating_error_text">There was an error retrieving the ratings</string>
     <string name="button_choose_takeQuiz_text">Take a Quiz</string>
     <string name="title_activity_show_available_quizzes">ShowAvailableQuizzesActivity</string>
-
+    <string name="no_quizzes_text">There are no quizzes available at the moment.</string>
 </resources>
