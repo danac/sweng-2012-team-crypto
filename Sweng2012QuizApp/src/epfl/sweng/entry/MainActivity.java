@@ -5,6 +5,7 @@ import epfl.sweng.authentication.AuthenticationActivity;
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.globals.Globals;
+import epfl.sweng.quizzes.ShowAvailableQuizzesActivity;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 import android.os.Bundle;
 import android.app.Activity;

@@ -5,8 +5,6 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Sweng Quiz App</string>
     <string name="title_activity_show_questions">ShowQuestionsActivity</string>
-    <string name="tags_heading">Tags of this question:</string>
-    <string name="question_heading">Here is the question:</string>
     <string name="button_nextQuestion">Next question</string>
     <string name="error_message">There was an error retrieving the question</string>
     <string name="title_activity_edit_question">Create here a new question</string>
