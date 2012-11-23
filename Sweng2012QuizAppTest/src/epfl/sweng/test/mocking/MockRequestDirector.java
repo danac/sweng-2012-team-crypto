@@ -18,12 +18,12 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import epfl.sweng.globals.Globals;
 
-import android.net.ParseException;
 import android.util.Log;
 
 /**
@@ -65,31 +65,43 @@ class MockRequestDirector implements RequestDirector {
         	resp = tequilaServer(request);
         } else if (requestUri.equals(Globals.QUIZSERVER_LOGIN_URL)) {
         	resp = quizServerLogin(request);
+        } else if (requestUri.equals(Globals.QUIZZES_LIST_URL)) {
+        	resp = quizQuizzesList(request);
         } else if (requestUri.startsWith(Globals.QUESTION_BY_OWNER_URL)) {
         	resp = quizServerByOwner(request);
         } else if (requestUri.startsWith(Globals.QUESTION_BY_TAG_URL)) {
         	resp = quizServerByTag(request);
-        } else if (requestUri.endsWith("rating") && request instanceof HttpPost) {
-        	resp = quizServerRatingCreated(request);
-        } else if (requestUri.endsWith("rating") && request instanceof HttpGet && verdict == 1) {
-        	resp = quizServerRatingLike(request);
-        } else if (requestUri.endsWith("rating") && request instanceof HttpGet && verdict == 0) {
-        	resp = quizServerRatingDislike(request);
-        } else if (requestUri.endsWith("rating") && request instanceof HttpGet && verdict == -1) {
-        	resp = quizServerRatingIncorrect(request);        	
-        } else if (requestUri.endsWith("rating") && requestUri.matches("newUser")) {
-        	resp = quizServerRatingNoContent(request);
-        } else if (requestUri.endsWith("rating") && requestUri.matches("submittingUser")) {
-        	resp = quizServerRatingCreated(request);
         } else if (requestUri.endsWith("rating")) {
-        	resp = quizServerRatingLike(request);
+        	resp = quizServerRating(request);
         } else if (requestUri.endsWith("ratings")) {
         	resp = quizServerRatings(request);
         }
         return resp;
     }
 
-    private HttpResponse quizServerRatings(HttpRequest request) {
+    private HttpResponse quizQuizzesList(HttpRequest request) {
+    	BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
+		response.setHeader("Content-type", "application/json");
+		try {
+			JSONArray jsonResponse = new JSONArray();
+			JSONObject firstQuiz = new JSONObject();
+			JSONObject secondQuiz = new JSONObject();
+			firstQuiz.put("id", 1);
+			firstQuiz.put("title", "First Quiz");
+			secondQuiz.put("id", 2);
+			secondQuiz.put("title", "Second Quiz");
+			
+			jsonResponse.put(firstQuiz);
+			jsonResponse.put(secondQuiz);
+			
+			response.setEntity(new StringEntity(jsonResponse.toString()));
+		} catch (UnsupportedEncodingException e) {
+		} catch (JSONException e) {
+		}
+		return response;
+	}
+
+	private HttpResponse quizServerRatings(HttpRequest request) {
 		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
 		response.setHeader("Content-type", "application/json");
 		JSONObject jsonResponse = new JSONObject();
@@ -106,85 +118,65 @@ class MockRequestDirector implements RequestDirector {
 		return response;
 	}
 
-	private HttpResponse quizServerRatingLike(HttpRequest request) {
+	private HttpResponse quizServerRating(HttpRequest request) {
 		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
 		response.setHeader("Content-type", "application/json");
-		JSONObject jsonResponse = new JSONObject();
+		JSONObject json = new JSONObject();
 		try {
-			jsonResponse.put("verdict", "like");
-			response.setEntity(new StringEntity(jsonResponse.toString()));
-		} catch (UnsupportedEncodingException e) {
-		} catch (JSONException e) {					
-		}
-		return response;
-	}
 
-	private HttpResponse quizServerRatingDislike(HttpRequest request) {
-		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
-		response.setHeader("Content-type", "application/json");
-		JSONObject jsonResponse = new JSONObject();
-
-		try {
-			jsonResponse.put("verdict", "dislike");
-			response.setEntity(new StringEntity(jsonResponse.toString()));
-		} catch (UnsupportedEncodingException e) {
-		} catch (JSONException e) {					
-		}
-		return response;
-	}
-
-	private HttpResponse quizServerRatingIncorrect(HttpRequest request) {
-		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_OK, STATUSMESSAGE_OK);
-		response.setHeader("Content-type", "application/json");
-		JSONObject jsonResponse = new JSONObject();
-
-		try {
-			jsonResponse.put("verdict", "incorrect");
-			response.setEntity(new StringEntity(jsonResponse.toString()));
-		} catch (UnsupportedEncodingException e) {
-		} catch (JSONException e) {					
-		}
-		return response;
-	}
-
-
-	private HttpResponse quizServerRatingNoContent(HttpRequest request) {
-		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1,
-				STATUSCODE_NOCONTENT,
-				STATUSMESSAGE_NOCONTENT);
-		response.setHeader("Content-type", "application/json");
-		JSONObject jsonResponse = new JSONObject();
-
-		try {
-			jsonResponse.put("message", "Teapot rating =D !");
-			response.setEntity(new StringEntity(jsonResponse.toString()));
-		} catch (UnsupportedEncodingException e) {
-		} catch (JSONException e) {					
-		}
-		return response;
-	}
-	
-
-	private HttpResponse quizServerRatingCreated(HttpRequest request) {
-		BasicHttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_CREATED, STATUSMESSAGE_OK);
-		JSONObject json;
-		try {
-			json = new JSONObject(EntityUtils.toString(((HttpPost) request).getEntity()));
-			if (json.get("verdict").equals("like")) {
-				verdict=1;
-			} else if (json.get("verdict").equals("dislike")) {
-				verdict=0;
-			} else if (json.get("verdict").equals("incorrect")) {
-				verdict=-1;
+			if (request instanceof HttpGet) {
+				if (request.getRequestLine().getUri().matches("newUser")) {
+					response = new BasicHttpResponse(HttpVersion.HTTP_1_1,
+							STATUSCODE_NOCONTENT,
+							STATUSMESSAGE_NOCONTENT);
+					json.put("message", "Teapot rating =D !");
+				} else {
+					switch(verdict) {
+						case 1:
+							json.put("verdict", "like");
+							break;
+						case 0:
+							json.put("verdict", "dislike");
+							break;
+						case -1:
+							json.put("verdict", "incorrect");
+							break;
+						default:
+							break;
+					}
+				}
+				response.setEntity(new StringEntity(json.toString()));
+			} else {
+				if (request.getRequestLine().getUri().matches("submittingUser")) {
+					response = new BasicHttpResponse(HttpVersion.HTTP_1_1, STATUSCODE_CREATED, STATUSMESSAGE_OK);
+					json = new JSONObject(EntityUtils.toString(((HttpPost) request).getEntity()));
+					if (json.get("verdict").equals("like")) {
+						verdict=1;
+					} else if (json.get("verdict").equals("dislike")) {
+						verdict=0;
+					} else if (json.get("verdict").equals("incorrect")) {
+						verdict=-1;
+					}
+				} else {
+					
+					json = new JSONObject(EntityUtils.toString(((HttpPost) request).getEntity()));
+					if (json.get("verdict").equals("like")) {
+						verdict=1;
+					} else if (json.get("verdict").equals("dislike")) {
+						verdict=0;
+					} else if (json.get("verdict").equals("incorrect")) {
+						verdict=-1;
+					}
+				}
 			}
-		} catch (ParseException e) {
-		} catch (JSONException e) {
-		} catch (IOException e) {
+		
+		} catch (UnsupportedEncodingException e) {
+		} catch (JSONException e) {		
+		} catch (IOException e) {		
 		}
-
 		return response;
 	}
-	
+
 
 	
     private HttpResponse quizServerByTag(HttpRequest request) {    	
