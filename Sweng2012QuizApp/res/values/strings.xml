@@ -41,7 +41,7 @@
     <string name="button_choose_takeQuiz_text">Take a Quiz</string>
     <string name="title_activity_show_available_quizzes">ShowAvailableQuizzesActivity</string>
     <string name="quiz_hand_in_error">An error occurred while handing in your answers</string>
-    <string name="quiz_score_alert_dialog_text">Your score is </string>
+    <string name="quiz_score_alert_dialog_text">Your score is</string>
     <string name="no_quizzes_text">There are no quizzes available at the moment.</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_show_quiz">ShowQuizActivity</string>

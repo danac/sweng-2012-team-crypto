@@ -2,6 +2,7 @@ package epfl.sweng.quizzes;
 
 import epfl.sweng.R;
 import android.os.Bundle;
+import android.util.Log;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,8 +20,8 @@ public class ShowQuizActivity extends Activity {
         setContentView(R.layout.activity_show_quiz);
     }
 
-    private void displayScoreAlertDialog(float score) {
-    	String displayedText = new String(getText(R.string.quiz_score_alert_dialog_text).toString() + score);
+    public void displayScoreAlertDialog(double score) {
+    	String displayedText = new String(getText(R.string.quiz_score_alert_dialog_text).toString() + " " + score);
     	AlertDialog.Builder alert=new AlertDialog.Builder(this);
     	alert.setMessage(displayedText);
     	alert.setTitle(R.string.quiz_score_alert_dialog_title);
@@ -30,7 +31,8 @@ public class ShowQuizActivity extends Activity {
                 // Nothing special for the time being... //Dana
             }
         });
-    	
-    	alert.show();
+    	Log.i("ALERT_DIALOG",displayedText);
+    	AlertDialog alertBox = alert.create();
+    	alertBox.show();
     }
 }
