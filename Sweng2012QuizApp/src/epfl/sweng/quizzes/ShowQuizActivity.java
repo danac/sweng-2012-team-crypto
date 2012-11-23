@@ -1,6 +1,8 @@
 package epfl.sweng.quizzes;
 
 import epfl.sweng.R;
+import epfl.sweng.authentication.SessionManager;
+import epfl.sweng.entry.MainActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,6 +22,13 @@ public class ShowQuizActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_quiz);
+        
+        if (!SessionManager.getInstance().isAuthenticated()) {
+        	finish();
+        	Intent mainActivityIntent = new Intent(this, MainActivity.class);
+        	startActivity(mainActivityIntent);
+        }
+        
         Intent startingIntent = getIntent();
         String quizID = startingIntent.getStringExtra(ShowAvailableQuizzesActivity.class.getName());
     }
@@ -37,5 +46,17 @@ public class ShowQuizActivity extends Activity {
         });
     	
     	alert.show();
+    }
+    
+    public void previousQuestion() {
+    	
+    }
+    
+    public void nextQuestion() {
+    	
+    }
+    
+    public void handInQuiz() {
+    	
     }
 }
