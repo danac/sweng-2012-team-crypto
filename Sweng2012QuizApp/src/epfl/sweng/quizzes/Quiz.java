@@ -33,25 +33,29 @@ public class Quiz {
 	 * @throws JSONException
 	 */
 	public Quiz(JSONObject json) throws JSONException {
-		JSONArray questionsJSON = json.getJSONArray("questions");
 		List<QuizQuestion> questions = new ArrayList<QuizQuestion>();
-		for (int i=0; i<questionsJSON.length(); i++) {
-			QuizQuestion question = new QuizQuestion();
-			JSONObject questionJSON = questionsJSON.getJSONObject(i);
+
+		if (json.has("questions")) {
 			
-			JSONArray answersJSON = questionJSON.getJSONArray("answers");
-			List<String> answers = new ArrayList<String>();
-			for (int j=0; j<answersJSON.length(); j++) {
-				answers.add(answersJSON.getString(j));
+			JSONArray questionsJSON = json.getJSONArray("questions");
+			for (int i=0; i<questionsJSON.length(); i++) {
+				QuizQuestion question = new QuizQuestion();
+				JSONObject questionJSON = questionsJSON.getJSONObject(i);
+				
+				JSONArray answersJSON = questionJSON.getJSONArray("answers");
+				List<String> answers = new ArrayList<String>();
+				for (int j=0; j<answersJSON.length(); j++) {
+					answers.add(answersJSON.getString(j));
+				}
+				
+				question.setQuestion(questionJSON.getString("question"));
+				question.setAnswers(answers);
+				
+				questions.add(question);
 			}
-			
-			question.setQuestion(questionJSON.getString("question"));
-			question.setAnswers(answers);
-			
-			questions.add(question);
-		}
 		
-		setQuestions(questions);
+			setQuestions(questions);
+		}
 		setId(json.getInt("id"));
 		setTitle(json.getString("title"));
 	}

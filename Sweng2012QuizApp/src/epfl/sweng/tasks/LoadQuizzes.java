@@ -35,7 +35,7 @@ public class LoadQuizzes extends QuizServerTask {
 					}
 				} catch (JSONException e) {
 					onError();
-				} 
+				}
 				callback.onSuccess(quizzes);
 			}
 			

@@ -43,7 +43,6 @@ public class ShowAvailableQuizzesActivity extends ListActivity {
         final ArrayAdapter<Quiz> adapter = new ArrayAdapter<Quiz>(this,
 				android.R.layout.simple_list_item_single_choice,
 				quizzes);
-        
         setListAdapter(adapter);
         
     }
