@@ -23,11 +23,5 @@ public class ShowAvailableQuizzesActivity extends ListActivity {
         
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_show_available_quizzes, menu);
-        return true;
-    }
-    
     
 }
