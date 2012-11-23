@@ -3,6 +3,7 @@ package epfl.sweng.quizzes;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,7 +34,37 @@ public class Quiz {
 	 */
 	public Quiz(JSONObject json) throws JSONException {
 		
+		JSONArray questionsJSON = json.getJSONArray("questions");
+		List<QuizQuestion> questions = new ArrayList<QuizQuestion>();
+		for (int i=0; i<questionsJSON.length(); i++) {
+			QuizQuestion question = new QuizQuestion();
+			JSONObject questionJSON = questionsJSON.getJSONObject(i);
+			
+			JSONArray answersJSON = questionJSON.getJSONArray("answers");
+			List<String> answers = new ArrayList<String>();
+			for (int j=0; j<answersJSON.length(); j++) {
+				answers.add(answersJSON.getString(j));
+			}
+			
+			question.setQuestion(questionJSON.getString("question"));
+			question.setAnswers(answers);
+			
+			questions.add(question);
+		}
+		
+		setQuestions(questions);
+		setId(json.getInt("id"));
+		setTitle(json.getString("title"));
 	}
+	
+	/**
+	 * Constructor for a quiz received as a JSON string
+	 * @param json
+	 * @throws JSONException
+	 */
+	public Quiz(String json) throws JSONException {
+		this(new JSONObject(json));
+	}	
 	
 	// Setters
 	public void setQuestions(List<QuizQuestion> questions) {
@@ -59,5 +90,13 @@ public class Quiz {
 	
 	public String getTitle() {
 		return mTitle;
+	}
+	
+	/**
+	 * Returns the size (number of questions) of the quiz
+	 * @return
+	 */
+	public int size() {
+		return mQuestions.size();
 	}
 }
