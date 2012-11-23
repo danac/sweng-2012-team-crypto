@@ -3,7 +3,6 @@ package epfl.sweng.test;
 import android.test.ActivityInstrumentationTestCase2;
 import epfl.sweng.quizzes.ShowQuizActivity;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
-import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.test.mocking.MockHttpClient;
 
 import com.jayway.android.robotium.solo.Solo;
