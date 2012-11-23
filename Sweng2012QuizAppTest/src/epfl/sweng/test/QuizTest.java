@@ -1,7 +1,6 @@
 package epfl.sweng.test;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.View;
 import epfl.sweng.quizzes.ShowQuizActivity;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.test.mocking.MockHttpClient;
@@ -13,6 +12,7 @@ import com.jayway.android.robotium.solo.Solo;
  */
 public class QuizTest extends ActivityInstrumentationTestCase2<ShowQuizActivity> {
 	
+	private static final double TEST_SCORE = 13.58;
 	private Solo solo;
 	
 	public QuizTest() {
@@ -28,7 +28,7 @@ public class QuizTest extends ActivityInstrumentationTestCase2<ShowQuizActivity>
 	}
 	
 	public void testAlertDialog() {
-		getActivity().displayScoreAlertDialog(13.58);
+		getActivity().displayScoreAlertDialog(TEST_SCORE);
 		assertTrue("Could not find the dialog!", solo.searchText("13.58"));
 	}
 }
