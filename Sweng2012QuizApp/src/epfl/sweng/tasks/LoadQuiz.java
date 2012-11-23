@@ -57,7 +57,7 @@ public class LoadQuiz extends QuizServerTask {
     	String url = "";
     	
 		if (urls.length == 0) {
-			url = Globals.QUIZZES_LIST_URL + mQuizId;
+			url = Globals.QUIZ_BY_ID_URL + mQuizId;
 		} else {
 			url = (String) urls[0];
 		}

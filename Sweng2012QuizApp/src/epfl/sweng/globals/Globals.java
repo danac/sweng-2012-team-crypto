@@ -12,7 +12,8 @@ public final class Globals {
 	public static final String QUESTION_BY_OWNER_URL = "https://sweng-quiz.appspot.com/quizquestions/ownedby/";
 	public static final String QUESTION_BY_TAG_URL = "https://sweng-quiz.appspot.com/quizquestions/tagged/";
 	public static final String QUESTION_BY_ID_URL = SUBMIT_QUESTION_URL;
-	public static final String QUIZZES_LIST_URL = "https://sweng-quiz.appspot.com/quizzes/";
+	public static final String QUIZZES_LIST_URL = "https://sweng-quiz.appspot.com/quizzes";
+	public static final String QUIZ_BY_ID_URL = "https://sweng-quiz.appspot.com/quizzes/";
 	
 	
 	public final static int MAX_NUMBER_OF_ANSWERS = 10;
