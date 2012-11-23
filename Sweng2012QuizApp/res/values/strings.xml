@@ -1,7 +1,5 @@
 <resources>
-
     <string name="app_name">Sweng2012QuizApp</string>
-    <string name="hello_world">Welcome</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Sweng Quiz App</string>
     <string name="title_activity_show_questions">ShowQuestionsActivity</string>
@@ -43,5 +41,5 @@
     <string name="title_activity_show_available_quizzes">ShowAvailableQuizzesActivity</string>
     <string name="quiz_hand_in_error">An error occurred while handing in your answers</string>
     <string name="quiz_score_alert_dialog_text">Your score is </string>
-
+    <string name="no_quizzes_text">There are no quizzes available at the moment.</string>
 </resources>
