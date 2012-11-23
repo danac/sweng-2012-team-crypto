@@ -38,7 +38,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:onClick="previousQuestion"
+            android:onClick="clickedPreviousQuestion"
             android:text="@string/button_previousQuestion" />
 
         <Button
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@id/quiz_button_previous"
-            android:onClick="nextQuestion"
+            android:onClick="clickedNextQuestion"
             android:text="@string/button_nextQuestion" />
 
         <Button
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/quiz_button_next"
             android:layout_centerHorizontal="true"
-            android:onClick="handInQuiz"
+            android:onClick="clickedHandInQuiz"
             android:text="@string/button_handin" />
     </RelativeLayout>
 
