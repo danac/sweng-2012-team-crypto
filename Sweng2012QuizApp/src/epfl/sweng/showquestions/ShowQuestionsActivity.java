@@ -19,10 +19,9 @@ import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.entry.MainActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.tasks.IQuizQuestionReceivedCallback;
-import epfl.sweng.tasks.IQuizServerCallback;
+import epfl.sweng.tasks.IQuizQuestionVerdictSubmittedCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
 import epfl.sweng.tasks.SubmitQuestionVerdict;
-import epfl.sweng.tasks.UpdateQuestionRating;
 
 
 /**
@@ -42,6 +41,7 @@ public class ShowQuestionsActivity extends Activity {
 		@Override
 		public void onRatingSuccess(QuizQuestion question) {
 			updateQuestionRating(question);
+			updatePersonalRating(question);
 		}
 		
 		
@@ -217,39 +217,28 @@ public class ShowQuestionsActivity extends Activity {
     }
     
     private void submitQuizQuestionVerdict() {
-        new SubmitQuestionVerdict(new IQuizQuestionReceivedCallback() {
+        new SubmitQuestionVerdict(new IQuizQuestionVerdictSubmittedCallback() {
 			
 			@Override
-			public void onQuestionSuccess(QuizQuestion question) {
+			public void onSubmitSuccess(QuizQuestion question) {
 			}
 			
 			@Override
-			public void onRatingSuccess(QuizQuestion question) {
+			public void onSubmitError() {
+				displaySubmitRatingError();
+			}
+
+			@Override
+			public void onReloadedSuccess(QuizQuestion question) {
 				updatePersonalRating(question);
-				new UpdateQuestionRating(new IQuizServerCallback() {
-					
-					@Override
-					public void onSuccess(QuizQuestion question) {
-						updateQuestionRating(question);
-					}
-					
-					@Override
-					public void onError() {
-						displayUpdateRatingError();
-					}
-				}).execute(mQuestionDisplayed);
+				updateQuestionRating(question);
 			}
-			
+
 			@Override
-			public void onRatingError() {
-				displaySubmitRatingError();
+			public void onReloadedError() {
+				displayUpdateRatingError();
 			}
-			
-			@Override
-			public void onQuestionError() {
-				displaySubmitRatingError();
-			}
-		}).execute(mQuestionDisplayed);
+		}, mQuestionDisplayed).execute();
         
         
 	}

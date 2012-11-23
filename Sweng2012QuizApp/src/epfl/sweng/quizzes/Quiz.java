@@ -32,7 +32,8 @@ public class Quiz {
 	 * @throws JSONException
 	 */
 	public Quiz(JSONObject json) throws JSONException {
-		
+		mTitle = json.getString("title");
+		mId = json.getInt("id");
 	}
 	
 	// Setters
@@ -58,6 +59,10 @@ public class Quiz {
 	}
 	
 	public String getTitle() {
+		return mTitle;
+	}
+	
+	public String toString() {
 		return mTitle;
 	}
 }

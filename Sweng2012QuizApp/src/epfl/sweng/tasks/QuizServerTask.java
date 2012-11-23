@@ -10,12 +10,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.globals.Globals;
-import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 
 
@@ -25,7 +23,7 @@ import android.util.Log;
 /**
  * AsyncTask for communication between the App and the Sweng Quiz question server
  */
-abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
+abstract class QuizServerTask extends AsyncTask<Object, Void, JSONTokener> {
     
 	/**
 	 * Local Variable holding the callback interface passed through the constructor 
@@ -46,8 +44,8 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	 * @param question the question returned by the server
 	 */
 	@Override
-	protected void onPostExecute(QuizQuestion question) {
-		mCallback.onSuccess(question);
+	protected void onPostExecute(JSONTokener json) {
+		mCallback.onSuccess(json);
 	}
 
 	/**
@@ -64,7 +62,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 	 * @param request the request
 	 * @return the JSONObject as received from the server
 	 */
-	final protected JSONObject handleQuizServerRequest(HttpUriRequest request) {
+	final protected JSONTokener handleQuizServerRequest(HttpUriRequest request) {
 		try {
 			if (SessionManager.getInstance().isAuthenticated()) {
 				request.addHeader("Authorization", "Tequila " + SessionManager.getInstance().getSessionId());
@@ -102,14 +100,10 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, QuizQuestion> {
 				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, body);
 			}
 			
-			return new JSONObject(body);
-    	} catch (JSONException e) {
-    		// SET HERE THE mExcept ATTRIBUTE TO A SUITABLE EXCEPTION
-    		cancel(false);    		
+			return new JSONTokener(body);
     	} catch (ClientProtocolException e) {
     		cancel(false);
     	} catch (IOException e) {
-    		// SET HERE THE mExcept ATTRIBUTE TO A SUITABLE EXCEPTION
     		cancel(false);
     	}
 		return null;

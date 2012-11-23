@@ -6,6 +6,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
@@ -15,13 +16,30 @@ import epfl.sweng.quizquestions.QuizQuestion;
  */
 public class SubmitQuestion extends QuizServerTask {
     
+	
 	/**
 	 * Constructor
 	 * @param IQuizServerCallback callback interface defining the methods to be called
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
-	public SubmitQuestion(IQuizServerCallback callback) {
-		super(callback);
+	public SubmitQuestion(final IQuizQuestionSubmittedCallback callback) {
+		
+		super(new IQuizServerCallback() {
+			
+			@Override
+			public void onSuccess(JSONTokener response) {
+				try {
+					callback.onSubmitSuccess(new QuizQuestion((JSONObject) response.nextValue()));
+				} catch (JSONException e) {
+					callback.onError();
+				}
+			}
+			
+			@Override
+			public void onError() {
+				callback.onError();
+			}
+		});
 	}
 	
 
@@ -32,7 +50,7 @@ public class SubmitQuestion extends QuizServerTask {
 	 * @param String url (optional) an alternative url for the QuizServer submit location
 	 */
 	@Override
-	protected QuizQuestion doInBackground(Object... args) {
+	protected JSONTokener doInBackground(Object... args) {
 		String url = "";
 		QuizQuestion question = (QuizQuestion) args[0];
 		if (args.length == 1) {
@@ -51,19 +69,7 @@ public class SubmitQuestion extends QuizServerTask {
 		}
 		post.setHeader("Content-type", "application/json");
 		
-		try {
-			JSONObject responseJSON = handleQuizServerRequest(post);
-			if (responseJSON != null) {
-				question = new QuizQuestion(responseJSON);
-			} else {
-				question = null;
-				cancel(false);
-			}
-		} catch (JSONException e) {
-			cancel(false);
-		}
-		
-		return question;
+		return handleQuizServerRequest(post);
 	}
 	
 }

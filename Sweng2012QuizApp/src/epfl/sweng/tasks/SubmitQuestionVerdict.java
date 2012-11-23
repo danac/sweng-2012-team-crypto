@@ -7,6 +7,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
@@ -16,37 +17,51 @@ import epfl.sweng.quizquestions.QuizQuestion;
  */
 public class SubmitQuestionVerdict extends QuizServerTask {
     
+	private QuizQuestion mQuestion;
 	
 	/**
 	 * Constructor
 	 * @param callback interface defining the methods to be called
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
-	public SubmitQuestionVerdict(final IQuizQuestionReceivedCallback callback) {
+	public SubmitQuestionVerdict(final IQuizQuestionVerdictSubmittedCallback callback, final QuizQuestion question) {
 		super(new IQuizServerCallback() {
 			
 			@Override
-			public void onSuccess(final QuizQuestion question) {
-				callback.onQuestionSuccess(question);
-				new UpdatePersonalRating(new IQuizServerCallback() {
+			public void onSuccess(final JSONTokener response) {
+				callback.onSubmitSuccess(question);
+				new ReloadPersonalRating(new IQuestionPersonalRatingReloadedCallback() {
 					
 					@Override
-					public void onSuccess(QuizQuestion question) {
-						callback.onRatingSuccess(question);
+					public void onReloadedSuccess(QuizQuestion question) {
+						callback.onReloadedSuccess(question);
+						new ReloadQuestionRating(new IQuestionRatingReloadedCallback() {
+							
+							@Override
+							public void onReloadedSuccess(QuizQuestion question) {
+								callback.onReloadedSuccess(question);
+							}
+							
+							@Override
+							public void onError() {
+								callback.onReloadedError();
+							}
+						}, question).execute();
 					}
 					
 					@Override
 					public void onError() {
-						callback.onRatingError();
+						callback.onReloadedError();
 					}
-				}).execute(question);
+				}, question).execute();
 			}
 			
 			@Override
 			public void onError() {
-				callback.onQuestionError();
+				callback.onSubmitError();
 			}
 		});
+		mQuestion = question;
 	}
 	
 
@@ -56,13 +71,12 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 	 * @param question the Question containing the new verdict to be submitted
 	 */
 	@Override
-	protected QuizQuestion doInBackground(Object... args) {
-		QuizQuestion question = (QuizQuestion) args[0];
-		
-		HttpPost post = new HttpPost(Globals.QUESTION_BY_ID_URL + question.getId() + "/rating");
+	protected JSONTokener doInBackground(Object... args) {
+		 
+		HttpPost post = new HttpPost(Globals.QUESTION_BY_ID_URL + mQuestion.getId() + "/rating");
 		try {
 			JSONObject verdictJson = new JSONObject();
-			verdictJson.put("verdict", question.getVerdict());
+			verdictJson.put("verdict", mQuestion.getVerdict());
 			post.setEntity(new StringEntity(verdictJson.toString()));
 		} catch (UnsupportedEncodingException e) {
 			cancel(false);
@@ -71,7 +85,6 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 		}
 		post.setHeader("Content-type", "application/json");
 		
-		handleQuizServerRequest(post);
-		return question;
+		return handleQuizServerRequest(post);
 	}
 }

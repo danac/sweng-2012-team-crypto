@@ -9,7 +9,7 @@ import com.jayway.android.robotium.solo.Solo;
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
-import epfl.sweng.tasks.IQuizServerCallback;
+import epfl.sweng.tasks.IQuizQuestionSubmittedCallback;
 import epfl.sweng.tasks.SubmitQuestion;
 import epfl.sweng.test.mocking.MockHttpClient;
 import epfl.sweng.test.tools.TestingTricks;
@@ -100,10 +100,13 @@ public class EditQuestionActivityTest extends
 		
 		final EditQuestionActivity activity = getActivity();
 		
-		IQuizServerCallback callback = new IQuizServerCallback() {
-        	public void onSuccess(QuizQuestion question) {
+		IQuizQuestionSubmittedCallback callback = new IQuizQuestionSubmittedCallback() {
+			@Override
+			public void onSubmitSuccess(QuizQuestion question) {
         		activity.displaySuccess(question);
         	}
+			
+			@Override
         	public void onError() {
         		activity.displaySubmitError();
         	}

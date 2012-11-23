@@ -8,6 +8,7 @@ import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.tasks.IQuizQuestionReceivedCallback;
+import epfl.sweng.tasks.IQuizQuestionVerdictSubmittedCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
 import epfl.sweng.tasks.SubmitQuestionVerdict;
 import epfl.sweng.test.mocking.MockHttpClient;
@@ -111,7 +112,25 @@ public class ShowQuestionsActivityTest extends
     	
     	question.setId(-1);
     	
-    	new SubmitQuestionVerdict(callback).execute(question);
+    	new SubmitQuestionVerdict(new IQuizQuestionVerdictSubmittedCallback() {
+			
+			@Override
+			public void onSubmitSuccess(QuizQuestion question) {
+				
+			}
+			
+			@Override
+			public void onReloadedSuccess(QuizQuestion question) {
+			}
+
+			@Override
+			public void onSubmitError() {
+			}
+
+			@Override
+			public void onReloadedError() {
+			}
+		}, question).execute();
     	
 	}
 	

@@ -5,7 +5,7 @@ import epfl.sweng.R;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.quizquestions.QuizQuestion.QuizQuestionParam;
-import epfl.sweng.tasks.IQuizServerCallback;
+import epfl.sweng.tasks.IQuizQuestionSubmittedCallback;
 import epfl.sweng.tasks.SubmitQuestion;
 import epfl.sweng.tools.GUITools;
 import android.content.Intent;
@@ -120,10 +120,14 @@ public class ButtonListener implements OnClickListener {
 		// On click 'Submit' button
 		} else if (buttonTag == mActivity.getResources().getText(R.string.edit_button_submit)) {
 			
-			new SubmitQuestion(new IQuizServerCallback() {
-				public void onSuccess(QuizQuestion question) {
+			new SubmitQuestion(new IQuizQuestionSubmittedCallback() {
+			    
+				@Override
+				public void onSubmitSuccess(QuizQuestion question) {
 					mActivity.displaySuccess(question);
 				}
+				
+				@Override
 				public void onError() {
 					mActivity.displaySubmitError();
 				}
