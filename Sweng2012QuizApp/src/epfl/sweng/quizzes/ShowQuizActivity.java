@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 
 /**
  * Class allowing to take a quiz and hand in the answers to the server
@@ -12,11 +13,15 @@ import android.content.DialogInterface;
  *
  */
 public class ShowQuizActivity extends Activity {
+	
+	private Quiz mQuiz;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_quiz);
+        Intent startingIntent = getIntent();
+        String quizID = startingIntent.getStringExtra(ShowAvailableQuizzesActivity.class.getName());
     }
 
     private void displayScoreAlertDialog(float score) {

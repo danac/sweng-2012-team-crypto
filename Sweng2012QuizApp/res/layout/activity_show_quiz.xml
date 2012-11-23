@@ -1,14 +1,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/quiz_question"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#336699"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/quiz_button_previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".ShowQuizActivity" />
+        android:onClick="previousQuestion"
+        android:text="@string/button_previousQuestion" />
+
+    <Button 
+        android:id="@+id/quiz_button_handin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="handIn"
+        android:text="@string/button_handin"/>
+
+    <Button
+        android:id="@+id/quiz_button_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="nextQuestion"
+        android:text="@string/button_nextQuestion" />
 
 </RelativeLayout>
