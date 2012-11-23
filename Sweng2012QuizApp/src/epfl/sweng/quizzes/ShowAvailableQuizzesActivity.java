@@ -43,7 +43,6 @@ public class ShowAvailableQuizzesActivity extends ListActivity {
         final ArrayAdapter<Quiz> adapter = new ArrayAdapter<Quiz>(this,
 				android.R.layout.simple_list_item_single_choice,
 				quizzes);
-        
         setListAdapter(adapter);
         
     }
@@ -54,7 +53,7 @@ public class ShowAvailableQuizzesActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
     	Intent intent = new Intent(this, ShowQuizActivity.class);
-    	intent.putExtra("id", ((Quiz) l.getSelectedItem()).getId());
+    	intent.putExtra("id", ((Quiz) l.getItemAtPosition(position)).getId());
     	startActivity(intent);
 	}
 }
