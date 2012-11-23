@@ -49,5 +49,6 @@
     <string name="quiz_score_alert_dialog_button_text">OK</string>
     <string name="button_previousQuestion">Previous question</string>
     <string name="button_handin">Hand in quiz</string>
+    <string name="error_fetching_quizzes">An error occurred while fetching quizzes.</string>
 
 </resources>
