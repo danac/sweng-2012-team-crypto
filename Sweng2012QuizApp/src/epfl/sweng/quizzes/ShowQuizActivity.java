@@ -1,8 +1,6 @@
 package epfl.sweng.quizzes;
 
-import java.util.List;
 
-import org.json.JSONObject;
 
 import epfl.sweng.R;
 import epfl.sweng.authentication.SessionManager;
@@ -10,7 +8,6 @@ import epfl.sweng.entry.MainActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.tasks.IQuizReceivedCallback;
 import epfl.sweng.tasks.LoadQuiz;
-import epfl.sweng.tasks.LoadQuizzes;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,8 +25,6 @@ import android.content.Intent;
  */
 public class ShowQuizActivity extends Activity {
 	
-	private Quiz mQuiz;
-	private JSONObject mChoices = new JSONObject();
 	// TODO A la création de mQuiz, mChoices doit être initialisé avec :
 	// { "choices": [ null, null, ..., null] }
 

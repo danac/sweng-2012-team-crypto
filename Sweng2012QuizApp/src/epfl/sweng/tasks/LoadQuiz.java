@@ -1,11 +1,8 @@
 package epfl.sweng.tasks;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.client.methods.HttpGet;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;

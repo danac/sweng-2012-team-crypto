@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.app.ListActivity;
 import android.content.Intent;
 
@@ -22,6 +23,8 @@ public class ShowAvailableQuizzesActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_available_quizzes);
         
+        TextView statusText = (TextView) findViewById(android.R.id.empty);
+        statusText.setText(R.string.no_quizzes_text);
         
         new LoadQuizzes(new IQuizzesReceivedCallback() {
 			
@@ -48,6 +51,9 @@ public class ShowAvailableQuizzesActivity extends ListActivity {
     }
 
 	private void displayError() {
+		TextView statusText = (TextView) findViewById(android.R.id.empty);
+        statusText.setText(R.string.error_fetching_quizzes);
+        
 	}
     
 	@Override
