@@ -3,8 +3,6 @@ package epfl.sweng.quizzes;
 
 
 import epfl.sweng.R;
-import epfl.sweng.authentication.SessionManager;
-import epfl.sweng.entry.MainActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.tasks.IQuizReceivedCallback;
 import epfl.sweng.tasks.LoadQuiz;
@@ -32,12 +30,6 @@ public class ShowQuizActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_quiz);
-        
-        if (!SessionManager.getInstance().isAuthenticated()) {
-        	finish();
-        	Intent mainActivityIntent = new Intent(this, MainActivity.class);
-        	startActivity(mainActivityIntent);
-        }
         
         Intent startingIntent = getIntent();
         int quizId = startingIntent.getIntExtra("id", -1);

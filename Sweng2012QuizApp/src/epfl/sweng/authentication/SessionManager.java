@@ -1,7 +1,6 @@
 package epfl.sweng.authentication;
 
 import android.content.SharedPreferences;
-import epfl.sweng.entry.MainApplication;
 import epfl.sweng.tasks.AuthenticationTask;
 import epfl.sweng.tasks.IAuthenticationCallback;
 
@@ -25,17 +24,14 @@ final public class SessionManager {
 	 * @return
 	 */
 	public static SessionManager getInstance() {
-		mInstance.setSettings();
 		return mInstance;
 	}
 	
 	/**
-	 * Private method fetching the settings from the shared preferences database of the application
+	 * Public method fetching the settings from the shared preferences database of the application
 	 */
-	private void setSettings() {
-		if (mSettings == null) {			
-			mSettings = MainApplication.getSettings();
-		}
+	public void setSettings(SharedPreferences settings) {
+		mSettings = settings;
 	}
 	
 	/**
