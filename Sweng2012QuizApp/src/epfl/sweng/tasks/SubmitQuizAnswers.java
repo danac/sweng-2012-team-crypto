@@ -9,29 +9,34 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import epfl.sweng.globals.Globals;
-import epfl.sweng.quizquestions.QuizQuestion;
-import epfl.sweng.tasks.interfaces.IQuizQuestionSubmittedCallback;
+import epfl.sweng.quizzes.Quiz;
+import epfl.sweng.tasks.interfaces.IQuizAnswersSubmittedCallback;
 import epfl.sweng.tasks.interfaces.IQuizServerCallback;
 
 /**
  * QuizServerTask realization that submits a new Question
  */
-public class SubmitQuestion extends QuizServerTask {
+public class SubmitQuizAnswers extends QuizServerTask {
     
 	
+	private Quiz mQuiz;
+
+
 	/**
 	 * Constructor
 	 * @param IQuizServerCallback callback interface defining the methods to be called
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
-	public SubmitQuestion(final IQuizQuestionSubmittedCallback callback) {
+	public SubmitQuizAnswers(final IQuizAnswersSubmittedCallback callback, Quiz quiz) {
 		
 		super(new IQuizServerCallback() {
 			
 			@Override
 			public void onSuccess(JSONTokener response) {
 				try {
-					callback.onSubmitSuccess(new QuizQuestion((JSONObject) response.nextValue()));
+					JSONObject responseJSON = (JSONObject) response.nextValue();
+					double score = responseJSON.getDouble("score");
+					callback.onSubmitSuccess(score);
 				} catch (JSONException e) {
 					callback.onError();
 				}
@@ -42,6 +47,7 @@ public class SubmitQuestion extends QuizServerTask {
 				callback.onError();
 			}
 		});
+		mQuiz = quiz;
 	}
 	
 
@@ -53,21 +59,17 @@ public class SubmitQuestion extends QuizServerTask {
 	 */
 	@Override
 	protected JSONTokener doInBackground(Object... args) {
-		String url = "";
-		QuizQuestion question = (QuizQuestion) args[0];
-		if (args.length == 1) {
-			url = Globals.SUBMIT_QUESTION_URL;
-		} else {
-			url = (String) args[1];
-		}
-		
-		HttpPost post = new HttpPost(url);
+		String url = Globals.SUBMIT_QUIZ_ANSWERS_URL;
+
+		HttpPost post = new HttpPost(String.format(url, mQuiz.getId()));
 		try {
-			post.setEntity(new StringEntity(question.getJSONString()));
+			post.setEntity(new StringEntity(mQuiz.getChoicesJSON()));
 		} catch (UnsupportedEncodingException e) {
 			cancel(false);
+			return null;
 		} catch (JSONException e) {
 			cancel(false);
+			return null;
 		}
 		post.setHeader("Content-type", "application/json");
 		

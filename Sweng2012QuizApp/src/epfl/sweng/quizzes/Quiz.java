@@ -96,7 +96,7 @@ public class Quiz {
 	}
 	
 	public String toString() {
-		return mTitle;
+		return getTitle();
 	}
 
 	/**
@@ -105,5 +105,22 @@ public class Quiz {
 	 */
 	public int size() {
 		return mQuestions.size();
+	}
+	
+	public String getChoicesJSON() throws JSONException {
+		JSONObject json = new JSONObject();
+		JSONArray choicesJSON = new JSONArray();
+		
+		for (QuizQuestion question : mQuestions) {
+			if (question.getAnswerIndex() == -1) {
+				choicesJSON.put(JSONObject.NULL);
+			} else {				
+				choicesJSON.put(question.getAnswerIndex());
+			}
+		}
+		
+		json.put("choices", choicesJSON);
+		
+		return json.toString();
 	}
 }

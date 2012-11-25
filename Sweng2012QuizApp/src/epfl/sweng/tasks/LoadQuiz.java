@@ -9,6 +9,8 @@ import org.json.JSONTokener;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizzes.Quiz;
+import epfl.sweng.tasks.interfaces.IQuizReceivedCallback;
+import epfl.sweng.tasks.interfaces.IQuizServerCallback;
 
 /**
  * QuizServerTask realization that fetches a random Question

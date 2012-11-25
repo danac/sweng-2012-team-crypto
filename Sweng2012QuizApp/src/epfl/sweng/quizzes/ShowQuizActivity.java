@@ -2,17 +2,23 @@ package epfl.sweng.quizzes;
 
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import epfl.sweng.R;
-import epfl.sweng.authentication.SessionManager;
-import epfl.sweng.entry.MainActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
-import epfl.sweng.tasks.IQuizReceivedCallback;
 import epfl.sweng.tasks.LoadQuiz;
+import epfl.sweng.tasks.SubmitQuizAnswers;
+import epfl.sweng.tasks.interfaces.IQuizAnswersSubmittedCallback;
+import epfl.sweng.tasks.interfaces.IQuizReceivedCallback;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -28,16 +34,14 @@ public class ShowQuizActivity extends Activity {
 	// TODO A la création de mQuiz, mChoices doit être initialisé avec :
 	// { "choices": [ null, null, ..., null] }
 
+	private QuizQuestion mQuestionDisplayed;
+	private Quiz mQuiz;
+	private int mQuestionIndex = 0;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_quiz);
-        
-        if (!SessionManager.getInstance().isAuthenticated()) {
-        	finish();
-        	Intent mainActivityIntent = new Intent(this, MainActivity.class);
-        	startActivity(mainActivityIntent);
-        }
         
         Intent startingIntent = getIntent();
         int quizId = startingIntent.getIntExtra("id", -1);
@@ -46,12 +50,14 @@ public class ShowQuizActivity extends Activity {
 			
 			@Override
 			public void onSuccess(Quiz quiz) {
+				mQuiz = quiz;
 				displayQuestion(quiz.getQuestions().get(0));
+				mQuestionIndex = 0;
 			}
 			
 			@Override
 			public void onError() {
-				displayError();
+				displayLoadQuizError();
 			}
 
 		}, quizId).execute();
@@ -73,29 +79,56 @@ public class ShowQuizActivity extends Activity {
     	alertBox.show();
     }
     
-    /**
-     * Display a question on the screen
-     * @param question The question to be displayed
-     */
     public void displayQuestion(final QuizQuestion question) {
-    	
-    	TextView questionTxt = (TextView) findViewById(R.id.quiz_question);
-    	questionTxt.setText(question.getQuestion());
-    	
-    	LinearLayout answersContainer = (LinearLayout) findViewById(R.id.quiz_answers_container);
-    	for (int i=0; i < question.getAnswers().length; i++) {
-    		TextView answerTextView = new TextView(getApplicationContext());
-    		answerTextView.setText(question.getAnswers()[i]);
-    		answersContainer.addView(answerTextView, i);
-    	}
-    }
+
+    	final ListView listView = (ListView) findViewById(R.id.quiz_listView);
+        final TextView questionTxt = (TextView) findViewById(R.id.quiz_question);
+
+        mQuestionDisplayed = question;
+        questionTxt.setText(question.getQuestion());
+                       
+        // Instantiating array adapter to populate the listView
+        // Using an ArrayList instead of an Array to populate, for future modifications
+        // The layout android.R.layout.simple_list_item_single_choice creates radio button for each listview item
+        final ArrayList<String> listAnswers = new ArrayList<String>();
+        listAnswers.addAll(Arrays.asList(question.getAnswers()));
+        
+        if (question.getAnswerIndex()!=-1) {
+        	listAnswers.set(question.getAnswerIndex(), listAnswers.get(question.getAnswerIndex()) + " \u2724");
+        }
+		
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        														android.R.layout.simple_list_item_single_choice,
+        														listAnswers);
+
+        listView.setAdapter(adapter);
+        listView.setEnabled(true);
+        
+        
+        // Implementing the interaction with the user
+        listView.setOnItemClickListener(new OnItemClickListener() {
+        	@Override
+        	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        		
+        		listAnswers.clear();
+        		listAnswers.addAll(Arrays.asList(question.getAnswers()));
+                
+        		mQuestionDisplayed.setAnswerIndex(position);
+        		listAnswers.set(position, listAnswers.get(position) + " \u2724");
+        		adapter.notifyDataSetChanged();
+        	}
+        });
+
+        
+    } 
     
     /**
      * Handles the "Previous question" Button 
      * @param previousButton
      */
     public void clickedPreviousQuestion(View previousButton) {
-    	
+    	mQuestionIndex = (mQuestionIndex-1 + mQuiz.size()) % mQuiz.size();
+		displayQuestion(mQuiz.getQuestions().get(mQuestionIndex));
     }
     
     /**
@@ -103,18 +136,37 @@ public class ShowQuizActivity extends Activity {
      * @param nextButton
      */
     public void clickedNextQuestion(View nextButton) {
-    	
+    	mQuestionIndex = (mQuestionIndex+1) % mQuiz.size();
+    	displayQuestion(mQuiz.getQuestions().get(mQuestionIndex));
     }
     
-    /**
+	/**
      * Handles the "Hand in quiz" Button 
      * @param handInButton
      */
     public void clickedHandInQuiz(View handInButton) {
-    	
+    	new SubmitQuizAnswers(new IQuizAnswersSubmittedCallback() {
+			
+			@Override
+			public void onSubmitSuccess(double score) {
+				displayScoreAlertDialog(score);
+			}
+			
+			@Override
+			public void onError() {
+				displaySumitQuizAnswersError();
+			}
+
+		}, mQuiz).execute();
     }
     
-    public void displayError() {
-    	
-    }
+
+    private void displaySumitQuizAnswersError() {
+		
+	}
+	
+	private void displayLoadQuizError() {
+		
+	}
+
 }

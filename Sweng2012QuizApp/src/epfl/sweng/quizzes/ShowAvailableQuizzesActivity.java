@@ -3,10 +3,8 @@ package epfl.sweng.quizzes;
 import java.util.List;
 
 import epfl.sweng.R;
-import epfl.sweng.authentication.SessionManager;
-import epfl.sweng.entry.MainActivity;
-import epfl.sweng.tasks.IQuizzesReceivedCallback;
 import epfl.sweng.tasks.LoadQuizzes;
+import epfl.sweng.tasks.interfaces.IQuizzesReceivedCallback;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,11 +23,6 @@ public class ShowAvailableQuizzesActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_available_quizzes);
         
-        if (!SessionManager.getInstance().isAuthenticated()) {
-        	finish();
-        	Intent mainActivityIntent = new Intent(this, MainActivity.class);
-        	startActivity(mainActivityIntent);
-        }
         
         TextView statusText = (TextView) findViewById(android.R.id.empty);
         statusText.setText(R.string.no_quizzes_text);

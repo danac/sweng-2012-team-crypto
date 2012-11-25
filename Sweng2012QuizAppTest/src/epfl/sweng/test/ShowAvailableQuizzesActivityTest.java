@@ -5,6 +5,8 @@ import com.jayway.android.robotium.solo.Solo;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.quizzes.ShowAvailableQuizzesActivity;
 import epfl.sweng.test.mocking.MockHttpClient;
+import epfl.sweng.test.mocking.NoNetworkServerSimulator;
+import epfl.sweng.test.mocking.ServerSimulatorFactory;
 import epfl.sweng.test.tools.TestingTricks;
 /**
  * First test case...
@@ -46,6 +48,19 @@ public class ShowAvailableQuizzesActivityTest extends
 		assertTrue(solo.searchText("5, for very large values of 2"));
 		
 	}	
+	
+	public void testNoNetwork() {
+		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
+		solo.goBack();
+		getActivity().startActivity(getActivity().getIntent());
+		
+		solo.assertCurrentActivity("Quizzes are being displayed",
+				ShowAvailableQuizzesActivity.class);
+		assertTrue(solo.searchText("An error occurred while fetching quizzes."));
+		
+		ServerSimulatorFactory.setInstance(null);
+	}
+	
 	/* End list of the different tests to be performed */
 	
 	@Override

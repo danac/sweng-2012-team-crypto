@@ -7,10 +7,10 @@ import com.jayway.android.robotium.solo.Solo;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
-import epfl.sweng.tasks.IQuizQuestionReceivedCallback;
-import epfl.sweng.tasks.IQuizQuestionVerdictSubmittedCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
 import epfl.sweng.tasks.SubmitQuestionVerdict;
+import epfl.sweng.tasks.interfaces.IQuizQuestionReceivedCallback;
+import epfl.sweng.tasks.interfaces.IQuizQuestionVerdictSubmittedCallback;
 import epfl.sweng.test.mocking.MockHttpClient;
 import epfl.sweng.test.tools.TestingTricks;
 /**

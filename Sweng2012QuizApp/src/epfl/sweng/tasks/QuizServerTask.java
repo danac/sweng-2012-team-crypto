@@ -15,6 +15,7 @@ import org.json.JSONTokener;
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
+import epfl.sweng.tasks.interfaces.IQuizServerCallback;
 
 
 import android.os.AsyncTask;
