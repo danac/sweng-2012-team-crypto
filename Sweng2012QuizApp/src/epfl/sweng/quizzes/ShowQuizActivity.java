@@ -64,7 +64,7 @@ public class ShowQuizActivity extends Activity {
     }
 
     public void displayScoreAlertDialog(double score) {
-    	String displayedText = new String(getText(R.string.quiz_score_alert_dialog_text).toString() + " " + score);
+    	String displayedText = String.format(getText(R.string.quiz_score_alert_dialog_text).toString(),score);
     	AlertDialog.Builder alert=new AlertDialog.Builder(this);
     	alert.setMessage(displayedText);
     	alert.setTitle(R.string.quiz_score_alert_dialog_title);
@@ -113,8 +113,12 @@ public class ShowQuizActivity extends Activity {
         		listAnswers.clear();
         		listAnswers.addAll(Arrays.asList(question.getAnswers()));
                 
-        		mQuestionDisplayed.setAnswerIndex(position);
-        		listAnswers.set(position, listAnswers.get(position) + " \u2724");
+        		if (mQuestionDisplayed.getAnswerIndex() == position) {
+        			mQuestionDisplayed.setAnswerIndex(-1);
+        		} else {
+        			mQuestionDisplayed.setAnswerIndex(position);
+        			listAnswers.set(position, listAnswers.get(position) + " \u2724");
+        		}
         		adapter.notifyDataSetChanged();
         	}
         });
