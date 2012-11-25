@@ -73,7 +73,8 @@ public class ShowQuizActivityTest extends
 		solo.clickOnText("Previous question");
 		solo.clickOnText("Next question");
 
-		assertTrue("Right Question still marked", solo.searchText("It all depends on the semantics of the '\\+' operator \u2724"));
+		assertTrue("Right Question still marked",
+				solo.searchText("It all depends on the semantics of the '\\+' operator \u2724"));
 		
 		solo.clickOnText("Hand in quiz");
 		assertTrue("Could not find the dialog!", solo.searchText("13.58"));
