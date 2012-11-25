@@ -64,7 +64,7 @@ public class ShowQuizActivity extends Activity {
     }
 
     public void displayScoreAlertDialog(double score) {
-    	String displayedText = String.format(getText(R.string.quiz_score_alert_dialog_text).toString(),score);
+    	String displayedText = String.format(getText(R.string.quiz_score_alert_dialog_text).toString(), score);
     	AlertDialog.Builder alert=new AlertDialog.Builder(this);
     	alert.setMessage(displayedText);
     	alert.setTitle(R.string.quiz_score_alert_dialog_title);
