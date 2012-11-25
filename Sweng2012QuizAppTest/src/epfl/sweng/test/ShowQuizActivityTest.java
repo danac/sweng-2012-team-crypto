@@ -6,6 +6,8 @@ import com.jayway.android.robotium.solo.Solo;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.quizzes.ShowQuizActivity;
 import epfl.sweng.test.mocking.MockHttpClient;
+import epfl.sweng.test.mocking.NoNetworkServerSimulator;
+import epfl.sweng.test.mocking.ServerSimulatorFactory;
 import epfl.sweng.test.tools.TestingTricks;
 /**
  * First test case...
@@ -81,6 +83,28 @@ public class ShowQuizActivityTest extends
 		assertTrue("Could not find the dialog!", solo.searchText("13.58"));
 		solo.clickOnText("OK");
 		
+	}
+	
+	
+	public void testNoNetworkLoad() {
+		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
+		solo.goBack();
+		getActivity().startActivity(getActivity().getIntent());
+		
+		solo.assertCurrentActivity("Quizzes are being displayed",
+				ShowQuizActivity.class);
+		assertTrue(solo.searchText("An error occurred while loading the quiz."));
+		
+		ServerSimulatorFactory.setInstance(null);
+	}
+	
+	public void testNoNetworkHandIn() {
+		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
+
+		solo.clickOnText("Hand in quiz");
+		assertTrue(solo.searchText("An error occurred while handing in your answers"));
+		
+		ServerSimulatorFactory.setInstance(null);
 	}
 	
 	

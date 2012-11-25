@@ -162,11 +162,24 @@ public class ShowQuizActivity extends Activity {
     
 
     private void displaySumitQuizAnswersError() {
-		
+    	String displayedText = new String(getText(R.string.quiz_hand_in_error).toString());
+    	AlertDialog.Builder alert=new AlertDialog.Builder(this);
+    	alert.setMessage(displayedText);
+    	alert.setTitle(R.string.quiz_score_alert_dialog_title);
+    	
+    	alert.setPositiveButton(R.string.quiz_score_alert_dialog_button_text, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                // Nothing special for the time being... //Dana
+            }
+        });
+    	Log.i("ALERT_DIALOG", displayedText);
+    	AlertDialog alertBox = alert.create();
+    	alertBox.show();		
 	}
 	
 	private void displayLoadQuizError() {
-		
+        final TextView questionTxt = (TextView) findViewById(R.id.quiz_question);
+        questionTxt.setText(getText(R.string.quiz_load_error).toString());
 	}
 
 }
