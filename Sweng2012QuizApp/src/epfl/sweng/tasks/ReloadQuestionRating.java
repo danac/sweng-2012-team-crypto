@@ -25,8 +25,12 @@ public class ReloadQuestionRating extends QuizServerTask {
 			public void onSuccess(JSONTokener response) {
 				try {
 					question.setVerdictStats((JSONObject) response.nextValue());
+				} catch (ClassCastException e) {
+					callback.onError();
+					return;
 				} catch (JSONException e) {
 					callback.onError();
+					return;
 				}
 				callback.onReloadedSuccess(question);
 			}

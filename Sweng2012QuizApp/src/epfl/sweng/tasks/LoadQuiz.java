@@ -35,6 +35,10 @@ public class LoadQuiz extends QuizServerTask {
 					quiz = new Quiz(quizJSON);
 				} catch (JSONException e) {
 					onError();
+					return;
+				} catch (ClassCastException e) {
+					onError();
+					return;
 				} 
 				callback.onSuccess(quiz);
 			}

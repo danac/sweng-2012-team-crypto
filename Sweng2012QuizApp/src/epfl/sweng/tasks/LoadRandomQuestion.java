@@ -58,6 +58,8 @@ public class LoadRandomQuestion extends QuizServerTask {
 						}
 					}, question).execute();
 					
+				} catch (ClassCastException e) {
+					onError();
 				} catch (JSONException e) {
 					onError();
 				}

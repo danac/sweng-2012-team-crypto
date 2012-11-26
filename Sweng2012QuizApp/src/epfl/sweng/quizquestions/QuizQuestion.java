@@ -446,6 +446,10 @@ public class QuizQuestion {
     	mLikeCount = json.getInt("likeCount");
     	mDislikeCount = json.getInt("dislikeCount");
     	mIncorrectCount = json.getInt("incorrectCount");
+    	
+    	if (mLikeCount < 0 || mDislikeCount < 0 || mIncorrectCount < 0) {
+    		throw new JSONException("Negative Verdict Stat");
+    	}
     }
 
     /**

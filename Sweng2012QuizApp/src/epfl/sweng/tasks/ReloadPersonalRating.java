@@ -32,6 +32,8 @@ public class ReloadPersonalRating extends QuizServerTask {
 				try {
 					question.setVerdict((JSONObject) response.nextValue());
 					callback.onReloadedSuccess(question);
+				} catch (ClassCastException e) {
+					onError();
 				} catch (JSONException e) {
 					onError();
 				}
