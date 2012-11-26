@@ -23,8 +23,10 @@ public final class Globals {
 	public static final String LOGTAG_AUTH_COMMUNICATION = "Auth";
 	public static final int STATUSCODE_AUTHSUCCESSFUL = 302;
 	public static final int STATUSCODE_NOTFOUND = 404;
+	public static final int STATUSCODE_FORBIDDEN = 403;
 	public static final String PREFS_NAME = "user_session";
 	public final static int AUTHENTICATION_REQUEST_CODE = 1;
+	public static final String SUBMIT_QUIZ_ANSWERS_URL = "https://sweng-quiz.appspot.com/quizzes/%d/submission";
 	
 		
 }

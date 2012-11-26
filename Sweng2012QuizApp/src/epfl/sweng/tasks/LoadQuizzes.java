@@ -11,6 +11,8 @@ import org.json.JSONTokener;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizzes.Quiz;
+import epfl.sweng.tasks.interfaces.IQuizServerCallback;
+import epfl.sweng.tasks.interfaces.IQuizzesReceivedCallback;
 
 /**
  * QuizServerTask realization that fetches a random Question
@@ -33,8 +35,12 @@ public class LoadQuizzes extends QuizServerTask {
 					for (int i=0; i<quizzesJSON.length(); i++) {
 						quizzes.add(new Quiz(quizzesJSON.getJSONObject(i)));
 					}
+				} catch (ClassCastException e) {
+					onError();
+					return;
 				} catch (JSONException e) {
 					onError();
+					return;
 				}
 				callback.onSuccess(quizzes);
 			}

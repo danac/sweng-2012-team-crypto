@@ -15,6 +15,7 @@ import org.json.JSONTokener;
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
+import epfl.sweng.tasks.interfaces.IQuizServerCallback;
 
 
 import android.os.AsyncTask;
@@ -62,7 +63,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, JSONTokener> {
 	 * @param request the request
 	 * @return the JSONObject as received from the server
 	 */
-	final protected JSONTokener handleQuizServerRequest(HttpUriRequest request) {
+	final public JSONTokener handleQuizServerRequest(HttpUriRequest request) {
 		try {
 			if (SessionManager.getInstance().isAuthenticated()) {
 				request.addHeader("Authorization", "Tequila " + SessionManager.getInstance().getSessionId());
@@ -108,6 +109,8 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, JSONTokener> {
     	}
 		return null;
 	}
+	
+	
 	
 
 }

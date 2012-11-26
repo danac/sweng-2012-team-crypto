@@ -3,8 +3,8 @@ package epfl.sweng.quizzes;
 import java.util.List;
 
 import epfl.sweng.R;
-import epfl.sweng.tasks.IQuizzesReceivedCallback;
 import epfl.sweng.tasks.LoadQuizzes;
+import epfl.sweng.tasks.interfaces.IQuizzesReceivedCallback;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,6 +22,7 @@ public class ShowAvailableQuizzesActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_available_quizzes);
+        
         
         TextView statusText = (TextView) findViewById(android.R.id.empty);
         statusText.setText(R.string.no_quizzes_text);

@@ -9,8 +9,8 @@ import org.json.JSONException;
 
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
-import epfl.sweng.tasks.IQuizQuestionReceivedCallback;
 import epfl.sweng.tasks.LoadRandomQuestion;
+import epfl.sweng.tasks.interfaces.IQuizQuestionReceivedCallback;
 
 import junit.framework.TestCase;
 

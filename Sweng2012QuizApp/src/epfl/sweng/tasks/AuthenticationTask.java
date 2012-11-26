@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
+import epfl.sweng.tasks.interfaces.IAuthenticationCallback;
 
 
 import android.os.AsyncTask;

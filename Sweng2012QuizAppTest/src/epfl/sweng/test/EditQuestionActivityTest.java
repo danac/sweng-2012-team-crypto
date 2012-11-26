@@ -9,8 +9,8 @@ import com.jayway.android.robotium.solo.Solo;
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
-import epfl.sweng.tasks.IQuizQuestionSubmittedCallback;
 import epfl.sweng.tasks.SubmitQuestion;
+import epfl.sweng.tasks.interfaces.IQuizQuestionSubmittedCallback;
 import epfl.sweng.test.mocking.MockHttpClient;
 import epfl.sweng.test.tools.TestingTricks;
 /**

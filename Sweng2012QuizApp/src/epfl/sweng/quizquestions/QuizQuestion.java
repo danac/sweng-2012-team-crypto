@@ -24,6 +24,7 @@ public class QuizQuestion {
     private String mQuestion;
     private List<String> mAnswers;
     private int mSolutionIndex;
+    private int mAnswerIndex = -1;
     private Set<String> mTags;
     private String mOwner;
     private int mId;
@@ -445,6 +446,10 @@ public class QuizQuestion {
     	mLikeCount = json.getInt("likeCount");
     	mDislikeCount = json.getInt("dislikeCount");
     	mIncorrectCount = json.getInt("incorrectCount");
+    	
+    	if (mLikeCount < 0 || mDislikeCount < 0 || mIncorrectCount < 0) {
+    		throw new JSONException("Negative Verdict Stat");
+    	}
     }
 
     /**
@@ -491,5 +496,13 @@ public class QuizQuestion {
     public String getVerdict() {
     	return mVerdict;
     }
+
+    public void setAnswerIndex(int index) {
+		mAnswerIndex = index;
+	}
+    
+    public int getAnswerIndex() {
+		return mAnswerIndex;
+	}
     
 }

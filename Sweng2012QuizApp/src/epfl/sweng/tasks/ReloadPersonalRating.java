@@ -8,6 +8,8 @@ import org.json.JSONTokener;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
+import epfl.sweng.tasks.interfaces.IQuestionPersonalRatingReloadedCallback;
+import epfl.sweng.tasks.interfaces.IQuizServerCallback;
 
 /**
  * QuizServerTask realization that fetches a random Question
@@ -30,6 +32,8 @@ public class ReloadPersonalRating extends QuizServerTask {
 				try {
 					question.setVerdict((JSONObject) response.nextValue());
 					callback.onReloadedSuccess(question);
+				} catch (ClassCastException e) {
+					onError();
 				} catch (JSONException e) {
 					onError();
 				}

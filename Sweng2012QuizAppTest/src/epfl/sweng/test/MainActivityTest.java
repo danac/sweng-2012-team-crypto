@@ -5,6 +5,7 @@ import com.jayway.android.robotium.solo.Solo;
 
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.entry.MainActivity;
+import epfl.sweng.quizzes.ShowAvailableQuizzesActivity;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.test.mocking.MockHttpClient;
@@ -50,6 +51,17 @@ public class MainActivityTest extends
 
 		
 		assertTrue(solo.searchText("Submit"));
+		
+	}
+
+	public void testShowQuizzes() {
+		TestingTricks.authenticateMe(solo);
+		
+		solo.clickOnButton("Take a Quiz");
+		solo.assertCurrentActivity("Quizzes list is being displayed",
+                ShowAvailableQuizzesActivity.class);
+
+		
 		
 	}
 	

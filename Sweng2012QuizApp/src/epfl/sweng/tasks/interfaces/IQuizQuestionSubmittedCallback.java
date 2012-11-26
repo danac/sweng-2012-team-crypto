@@ -1,4 +1,4 @@
-package epfl.sweng.tasks;
+package epfl.sweng.tasks.interfaces;
 
 import epfl.sweng.quizquestions.QuizQuestion;
 /**

@@ -8,6 +8,10 @@ import org.json.JSONTokener;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
+import epfl.sweng.tasks.interfaces.IQuestionPersonalRatingReloadedCallback;
+import epfl.sweng.tasks.interfaces.IQuestionRatingReloadedCallback;
+import epfl.sweng.tasks.interfaces.IQuizQuestionReceivedCallback;
+import epfl.sweng.tasks.interfaces.IQuizServerCallback;
 
 /**
  * QuizServerTask realization that fetches a random Question
@@ -54,6 +58,8 @@ public class LoadRandomQuestion extends QuizServerTask {
 						}
 					}, question).execute();
 					
+				} catch (ClassCastException e) {
+					onError();
 				} catch (JSONException e) {
 					onError();
 				}

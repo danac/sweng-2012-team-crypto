@@ -13,19 +13,13 @@
         android:textColor="#FFFFFF"
         android:textSize="22dp"
         android:textStyle="bold" />
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
-
-        <LinearLayout
-            android:id="@+id/quiz_answers_container"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-        </LinearLayout>
-    </ScrollView>
+	
+    <ListView
+        android:id="@+id/quiz_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice" >
+    </ListView>
 
     <RelativeLayout
         android:layout_width="fill_parent"

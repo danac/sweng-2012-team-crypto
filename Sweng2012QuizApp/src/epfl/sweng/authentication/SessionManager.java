@@ -3,7 +3,7 @@ package epfl.sweng.authentication;
 import android.content.SharedPreferences;
 import epfl.sweng.entry.MainApplication;
 import epfl.sweng.tasks.AuthenticationTask;
-import epfl.sweng.tasks.IAuthenticationCallback;
+import epfl.sweng.tasks.interfaces.IAuthenticationCallback;
 
 
 /**
