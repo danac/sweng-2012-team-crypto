@@ -30,6 +30,8 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, JSONTokener> {
 	 * Local Variable holding the callback interface passed through the constructor 
 	 */
 	private IQuizServerCallback mCallback;
+	private static int mLastStatusCode = -1;
+	
 	
 	/**
 	 * Constructor
@@ -87,6 +89,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, JSONTokener> {
 			HttpResponse response = SwengHttpClientFactory.getInstance().execute(request);
 			
 			Log.i("SERVER", "Replied with status code " + response.getStatusLine().getStatusCode());
+			mLastStatusCode = response.getStatusLine().getStatusCode();
 			String body = responseHandler.handleResponse(response);
 			if (body == null || body.equals("")) {
 				body = "{}";
@@ -108,6 +111,10 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, JSONTokener> {
     		cancel(false);
     	}
 		return null;
+	}
+	
+	public static int getLastStatusCode() {
+		return mLastStatusCode;
 	}
 	
 	

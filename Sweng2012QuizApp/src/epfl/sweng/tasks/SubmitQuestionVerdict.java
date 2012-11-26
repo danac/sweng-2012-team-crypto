@@ -33,31 +33,37 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 			
 			@Override
 			public void onSuccess(final JSONTokener response) {
-				callback.onSubmitSuccess(question);
-				new ReloadPersonalRating(new IQuestionPersonalRatingReloadedCallback() {
+				if (getLastStatusCode() != Globals.STATUSCODE_OK && getLastStatusCode() != Globals.STATUSCODE_CREATED) {
+					onError();
+				} else {
 					
-					@Override
-					public void onReloadedSuccess(QuizQuestion question) {
-						callback.onReloadedSuccess(question);
-						new ReloadQuestionRating(new IQuestionRatingReloadedCallback() {
-							
-							@Override
-							public void onReloadedSuccess(QuizQuestion question) {
-								callback.onReloadedSuccess(question);
-							}
-							
-							@Override
-							public void onError() {
-								callback.onReloadedError();
-							}
-						}, question).execute();
-					}
+					callback.onSubmitSuccess(question);
+					new ReloadPersonalRating(new IQuestionPersonalRatingReloadedCallback() {
+						
+						@Override
+						public void onReloadedSuccess(QuizQuestion question) {
+							callback.onReloadedSuccess(question);
+							new ReloadQuestionRating(new IQuestionRatingReloadedCallback() {
+								
+								@Override
+								public void onReloadedSuccess(QuizQuestion question) {
+									callback.onReloadedSuccess(question);
+								}
+								
+								@Override
+								public void onError() {
+									callback.onReloadedError();
+								}
+							}, question).execute();
+						}
+						
+						@Override
+						public void onError() {
+							callback.onReloadedError();
+						}
+					}, question).execute();
 					
-					@Override
-					public void onError() {
-						callback.onReloadedError();
-					}
-				}, question).execute();
+				}
 			}
 			
 			@Override

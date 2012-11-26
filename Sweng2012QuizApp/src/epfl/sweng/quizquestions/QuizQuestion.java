@@ -443,12 +443,13 @@ public class QuizQuestion {
      * @param json JSON response from Quiz Server
      */
     public void setVerdictStats(JSONObject json) throws JSONException {
-    	mLikeCount = json.getInt("likeCount");
-    	mDislikeCount = json.getInt("dislikeCount");
-    	mIncorrectCount = json.getInt("incorrectCount");
     	
-    	if (mLikeCount < 0 || mDislikeCount < 0 || mIncorrectCount < 0) {
+    	if (json.getInt("likeCount") < 0 || json.getInt("dislikeCount") < 0 || json.getInt("incorrectCount") < 0) {
     		throw new JSONException("Negative Verdict Stat");
+    	} else {
+    		mLikeCount = json.getInt("likeCount");
+    		mDislikeCount = json.getInt("dislikeCount");
+    		mIncorrectCount = json.getInt("incorrectCount");
     	}
     }
 
@@ -458,7 +459,13 @@ public class QuizQuestion {
      * @param json JSON response from Quiz Server
      */
     public void setVerdict(JSONObject json) throws JSONException {
-    	if (json.has("verdict")) {    		
+    	
+    	if (json.has("verdict")) {
+    		if (!(json.getString("verdict").equals("incorrect") 
+    				|| json.getString("verdict").equals("like") 
+    				|| json.getString("verdict").equals("dislike"))) {
+    			throw new JSONException("Invalid verdict");
+    		}
     		mVerdict = json.getString("verdict");
     	} else {
     		mVerdict = "";
