@@ -40,7 +40,7 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 					try {
 						JSONObject responseJSON = (JSONObject) response.nextValue();
 						
-						if (responseJSON.getString("verdict") != question.getVerdict()){
+						if (responseJSON.getString("verdict") != question.getVerdict()) {
 							onError();
 						} else {
 							
