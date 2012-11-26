@@ -37,17 +37,31 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 					onError();
 				} else {
 					
-					callback.onSubmitSuccess(question);
-					new ReloadPersonalRating(new IQuestionPersonalRatingReloadedCallback() {
+					try {
+						JSONObject responseJSON = (JSONObject) response.nextValue();
 						
-						@Override
-						public void onReloadedSuccess(QuizQuestion question) {
-							callback.onReloadedSuccess(question);
-							new ReloadQuestionRating(new IQuestionRatingReloadedCallback() {
+						if (responseJSON.getString("verdict") != question.getVerdict()){
+							onError();
+						} else {
+							
+							callback.onSubmitSuccess(question);
+							new ReloadPersonalRating(new IQuestionPersonalRatingReloadedCallback() {
 								
 								@Override
 								public void onReloadedSuccess(QuizQuestion question) {
 									callback.onReloadedSuccess(question);
+									new ReloadQuestionRating(new IQuestionRatingReloadedCallback() {
+										
+										@Override
+										public void onReloadedSuccess(QuizQuestion question) {
+											callback.onReloadedSuccess(question);
+										}
+										
+										@Override
+										public void onError() {
+											callback.onReloadedError();
+										}
+									}, question).execute();
 								}
 								
 								@Override
@@ -55,13 +69,13 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 									callback.onReloadedError();
 								}
 							}, question).execute();
+							
 						}
-						
-						@Override
-						public void onError() {
-							callback.onReloadedError();
-						}
-					}, question).execute();
+					} catch (ClassCastException e) {
+						onError();
+					} catch (JSONException e) {
+						onError();
+					}
 					
 				}
 			}
