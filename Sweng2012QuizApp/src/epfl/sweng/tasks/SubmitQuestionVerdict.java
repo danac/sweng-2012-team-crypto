@@ -40,8 +40,8 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 					try {
 						JSONObject responseJSON = (JSONObject) response.nextValue();
 						
-						if (responseJSON.getString("verdict") != question.getVerdict()) {
-							onError();
+						if (!responseJSON.getString("verdict").equals(question.getVerdict())) {
+							callback.onReloadedError();
 						} else {
 							
 							callback.onSubmitSuccess(question);
