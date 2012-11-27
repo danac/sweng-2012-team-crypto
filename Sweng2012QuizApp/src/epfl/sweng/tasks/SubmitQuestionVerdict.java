@@ -49,7 +49,7 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 								
 								@Override
 								public void onReloadedSuccess(QuizQuestion question) {
-									if (question.getVerdict()!= newVerdict) {
+									if (!question.getVerdict().equals(newVerdict)) {
 										callback.onSubmitError();
 									} else {
 										callback.onReloadedSuccess(question);
