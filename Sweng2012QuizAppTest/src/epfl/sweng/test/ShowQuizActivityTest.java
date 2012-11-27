@@ -7,6 +7,7 @@ import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.quizzes.ShowQuizActivity;
 import epfl.sweng.test.mocking.MockHttpClient;
 import epfl.sweng.test.mocking.NoNetworkServerSimulator;
+import epfl.sweng.test.mocking.QuizServerSimulator;
 import epfl.sweng.test.mocking.ServerSimulatorFactory;
 import epfl.sweng.test.tools.TestingTricks;
 /**
@@ -99,6 +100,12 @@ public class ShowQuizActivityTest extends
 	}
 	
 	public void testNoNetworkHandIn() {
+		ServerSimulatorFactory.setInstance(new QuizServerSimulator());
+		solo.goBack();
+		getActivity().startActivity(getActivity().getIntent());
+		
+		assertTrue(solo.searchText("How much is 2 \\+ 2 \\?"));
+		
 		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
 
 		solo.clickOnText("Hand in quiz");
