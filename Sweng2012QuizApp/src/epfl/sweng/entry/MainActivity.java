@@ -27,10 +27,6 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (!SessionManager.getInstance().isAuthenticated()) {
-        	Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
-        	startActivityForResult(authenticationActivityIntent, Globals.AUTHENTICATION_REQUEST_CODE);
-        }
     }
     
 	/**
