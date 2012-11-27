@@ -28,7 +28,8 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 	 * @param callback interface defining the methods to be called
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
-	public SubmitQuestionVerdict(final IQuizQuestionVerdictSubmittedCallback callback, final QuizQuestion question) {
+	public SubmitQuestionVerdict(final IQuizQuestionVerdictSubmittedCallback callback, 
+			final QuizQuestion question, final String newVerdict) {
 		super(new IQuizServerCallback() {
 			
 			@Override
@@ -48,7 +49,11 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 								
 								@Override
 								public void onReloadedSuccess(QuizQuestion question) {
-									callback.onReloadedSuccess(question);
+									if (question.getVerdict()!= newVerdict) {
+										callback.onSubmitError();
+									} else {
+										callback.onReloadedSuccess(question);
+									}
 								}
 								
 								@Override
@@ -74,6 +79,7 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 			}
 		});
 		mQuestion = question;
+		mQuestion.setVerdict(newVerdict);
 	}
 	
 
