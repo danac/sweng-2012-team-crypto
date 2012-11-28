@@ -28,36 +28,49 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 	 * @param callback interface defining the methods to be called
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
-	public SubmitQuestionVerdict(final IQuizQuestionVerdictSubmittedCallback callback, final QuizQuestion question) {
+	public SubmitQuestionVerdict(final IQuizQuestionVerdictSubmittedCallback callback, 
+			final QuizQuestion question, final String newVerdict) {
 		super(new IQuizServerCallback() {
 			
 			@Override
 			public void onSuccess(final JSONTokener response) {
-				callback.onSubmitSuccess(question);
-				new ReloadPersonalRating(new IQuestionPersonalRatingReloadedCallback() {
+				if (getLastStatusCode() != Globals.STATUSCODE_OK && getLastStatusCode() != Globals.STATUSCODE_CREATED) {
+					onError();
+				} else {
 					
-					@Override
-					public void onReloadedSuccess(QuizQuestion question) {
-						callback.onReloadedSuccess(question);
-						new ReloadQuestionRating(new IQuestionRatingReloadedCallback() {
+						
+					callback.onSubmitSuccess(question);
+					new ReloadPersonalRating(new IQuestionPersonalRatingReloadedCallback() {
+						
+						@Override
+						public void onReloadedSuccess(QuizQuestion question) {
+							callback.onReloadedSuccess(question);
+							new ReloadQuestionRating(new IQuestionRatingReloadedCallback() {
+								
+								@Override
+								public void onReloadedSuccess(QuizQuestion question) {
+									if (!question.getVerdict().equals(newVerdict)) {
+										callback.onSubmitError();
+									} else {
+										callback.onReloadedSuccess(question);
+									}
+								}
+								
+								@Override
+								public void onError() {
+									callback.onReloadedError();
+								}
+							}, question).execute();
+						}
+						
+						@Override
+						public void onError() {
+							callback.onReloadedError();
+						}
+					}, question).execute();
 							
-							@Override
-							public void onReloadedSuccess(QuizQuestion question) {
-								callback.onReloadedSuccess(question);
-							}
-							
-							@Override
-							public void onError() {
-								callback.onReloadedError();
-							}
-						}, question).execute();
-					}
 					
-					@Override
-					public void onError() {
-						callback.onReloadedError();
-					}
-				}, question).execute();
+				}
 			}
 			
 			@Override
@@ -66,6 +79,7 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 			}
 		});
 		mQuestion = question;
+		mQuestion.setVerdict(newVerdict);
 	}
 	
 

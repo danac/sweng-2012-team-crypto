@@ -27,7 +27,7 @@ public class SubmitQuizAnswers extends QuizServerTask {
 	 * @param IQuizServerCallback callback interface defining the methods to be called
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
-	public SubmitQuizAnswers(final IQuizAnswersSubmittedCallback callback, Quiz quiz) {
+	public SubmitQuizAnswers(final IQuizAnswersSubmittedCallback callback, final Quiz quiz) {
 		
 		super(new IQuizServerCallback() {
 			

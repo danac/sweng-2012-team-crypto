@@ -228,7 +228,7 @@ public class ShowQuestionsActivity extends Activity {
 			public void onReloadedError() {
 				displayUpdateRatingError();
 			}
-		}, mQuestionDisplayed).execute();
+		}, mQuestionDisplayed, mQuestionDisplayed.getVerdict()).execute();
         
         
 	}
