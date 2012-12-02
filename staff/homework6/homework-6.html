@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.9.1: http://docutils.sourceforge.net/" />
+<title>Homework #6</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7434 2012-05-11 21:06:27Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { /* line numbers */
+  color: grey;
+}
+
+.code {
+  background-color: #eeeeee
+}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="homework-6">
+<h1 class="title">Homework #6</h1>
+
+<div class="section" id="introduction">
+<h1>1. Introduction</h1>
+<p>In this homework, you will extend your quiz app to work offline, with no network connectivity. The app will have two modes, an <em>online mode</em> and an <em>offline mode</em>. In online mode the app can connect to the server and should cache the content (questions and ratings) it receives from the server as well as the content generated by the user. When the app transitions to offline mode, it should provide the same functionality as in online mode, however, it can only access cached content. The app should detect errors that occur when communicating with the server and automatically transition to offline mode when the server is malfunctioning or is unreachable. The app should transition back to online mode upon user request.</p>
+<p>Please keep track of how many hours it takes you to solve each exercise, as we
+will ask you to provide us with this information in a text file named <tt class="docutils literal">homework_6_time_spent.txt</tt> that
+resides in the <tt class="docutils literal">${REPO}</tt> folder (defined below).</p>
+<p>Please abide by the <a class="reference external" href="http://sweng.epfl.ch/collaboration">Collaboration Policy</a>. If you have any questions
+regarding the assignment requirements, ask on <a class="reference external" href="https://piazza.com/epfl.ch/fall2012/cs305/home">Piazza</a>. If you have any doubts
+about whether it is appropriate to ask something, mark the question private. You
+are allowed to use Web search to find answers to questions.</p>
+<div class="section" id="preparation">
+<h2>1.1 Preparation</h2>
+<p>As for all previous homework assignments, you should regularly commit your work, push it to your
+repository, and build it on the <a class="reference external" href="http://jenkins.epfl.ch/">Jenkins</a> server.</p>
+<p><a class="reference external" href="http://jenkins.epfl.ch/">Jenkins</a> will send a notification to you by e-mail if the source code that you
+committed does not compile or is improperly formatted.  The system will
+automatically give 0 points to submissions that do not compile or
+violate the <a class="reference external" href="http://sweng.epfl.ch/tutorials/checkstyle">SwEng coding style</a>. We strongly recommend that you commit
+regularly before the deadline to make sure everything works as expected.
+A basic set of sanity checks is available on Jenkins. You should check that you pass these
+basic tests, otherwise it is unlikely that your assignment will pass our grading tests.</p>
+<p>The deadline for this homework is  <strong>Friday, December 14, 2012</strong>, at <strong>19:00</strong>. Any assignments (or
+parts thereof) handed in late will not be graded.</p>
+</div>
+<div class="section" id="basic-track-vs-full-track">
+<h2>1.2 Basic Track vs. Full track</h2>
+<p>This homework has two parts:</p>
+<ul class="simple">
+<li>The basic track implements the <em>offline mode</em> functionality, and</li>
+<li>The full track adds tests to ensure the reliability of the features implemented in the basic track.</li>
+</ul>
+<p>The total number of points for this homework is 100. Completely and correctly solving the basic track will earn you 70 points,
+while completely and correctly solving the full track will earn you 30 additional points, for a maximum of 100.</p>
+</div>
+</div>
+<div class="section" id="basic-track-implementing-offline-mode-70-points">
+<h1>2. [Basic track] Implementing Offline Mode (70 points)</h1>
+<p>The app should transition from online to offline mode in two situations:</p>
+<ul class="simple">
+<li>Upon user request (i.e., the user would like to use the app without network connectivity for a while)</li>
+<li>Upon a communication error (e.g., the server is malfunctioning or is unavailable)</li>
+</ul>
+<p>Conversely, the app should transition from offline mode to online mode upon user request, when the user would like to go back online and synchronize with the server.</p>
+<div class="section" id="use-the-proxy-design-pattern-10-points">
+<h2>2.1 Use the Proxy Design Pattern (10 points)</h2>
+<p>This homework will entail refactoring your code that implements the communication layer. You are required to use the <a class="reference external" href="https://myedu.epfl.ch/courses/SwEng/22/74">Proxy Design Pattern</a> to implement content caching.</p>
+<p>To facilitate grading the correct implementation of the design pattern, implement the interface <em>ICheckProxyHelper</em> provided in <tt class="docutils literal">staff/homework6/resources/ICheckProxyHelper.java</tt>. The class that implements this interface should be called <em>CheckProxyHelper</em> and it should be placed in the <em>epfl.sweng.patterns</em> package.</p>
+</div>
+<div class="section" id="the-offline-mode-check-box-5-points">
+<span id="exercise-2-2"></span><h2>2.2 The Offline Mode Check Box (5 points)</h2>
+<p>Add a <a class="reference external" href="http://developer.android.com/guide/topics/ui/controls/checkbox.html">CheckBox</a>  with the text <em>Offline mode</em> to your <tt class="docutils literal">MainActivity</tt>. When the <tt class="docutils literal">MainActivity</tt> is the current activity, this <tt class="docutils literal">CheckBox</tt> should always be ticked if the app is operating in offline mode and un-ticked if the app is operating in online mode. This <tt class="docutils literal">CheckBox</tt> is only available to authenticated users.</p>
+</div>
+<div class="section" id="cache-content-in-online-mode-10-points">
+<h2>2.3 Cache Content in Online Mode (10 points)</h2>
+<p>In online mode, the app should cache questions and ratings. The cached information refers to the questions and ratings that are displayed to the user or submitted by the user. The cached information should be available in offline mode. The app should not prefetch any other content from the server. This means that only the questions and ratings that the user already viewed or submitted are cached.</p>
+<p>You are free to store the cached information in memory or using internal or external storage. The cached information does not have to be persistent in case of crashes, therefore in-memory caching is sufficient.</p>
+<p>There is no limit for the cached content size. You can assume virtually infinite storage space for the purpose of this homework.</p>
+<p>The app should only cache questions and ratings. Quizzes and other information should not be cached.</p>
+</div>
+<div class="section" id="cache-content-in-offline-mode-10-points">
+<h2>2.4 Cache Content in Offline Mode (10 points)</h2>
+<p>Users should be able to submit new questions and ratings while in offline mode. All the new content, that was submitted while the app was in offline mode should be sent to the server when the app transitions back to online mode.</p>
+</div>
+<div class="section" id="user-requested-transitions-20-points">
+<span id="exercise-2-5"></span><h2>2.5 User-Requested Transitions (20 points)</h2>
+<ul>
+<li><p class="first"><em>Online -&gt; Offline</em></p>
+<p>If the app is in online mode and the user clicks on the <tt class="docutils literal">CheckBox</tt> defined in <a class="reference internal" href="#exercise-2-2">Exercise 2.2</a>, the app should transition to offline mode. In offline mode the <tt class="docutils literal">CheckBox</tt> should be checked, and the app should not communicate with the server.</p>
+</li>
+<li><p class="first"><em>Offline -&gt; Online</em></p>
+<p>If the app is in offline mode and the user clicks on the <tt class="docutils literal">CheckBox</tt> defined in <a class="reference internal" href="#exercise-2-2">Exercise 2.2</a>, the app should transition to online mode. However, if there is an error (i.e., 500 status reply from the server or communication exception) when trying to send the cached content to the server, the app should remain in offline mode. If there is no new cached content (i.e., content generated by the user since the last successful synchronization with the server), the app should not attempt to send anything to the server.</p>
+<p>The order in which events are sent to the server should be the following: (1) send the newly submitted questions, that are not on the server yet; (2)  send the new ratings, that are not yet on the server. Steps (1) and (2) must happen sequentially (i.e., they should not interleave), in order to ensure consistency. Otherwise, the app may send to the server a rating for a question that is not yet created on the server, which will result in an error and a lost rating.</p>
+<p>Strictly after the above steps have finished, the app should fetch the latest ratings for all the cached questions. This step should not happen concurrently with the steps (1) and (2) above.</p>
+<p>If the synchronization with the server is interrupted by an error, subsequent synchronization attempts should resume from where they were stopped. For instance, if the app tries to send 2 new questions to the server and there is an error while sending the second question, the next synchronization attempt should only try to send the second question.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="transitions-on-communication-failures-15-points">
+<h2>2.6 Transitions on Communication Failures (15 points)</h2>
+<ul>
+<li><p class="first"><em>Online -&gt; Offline</em></p>
+<p>On the first communication failure, the app transitions from online mode to offline mode. A communication failure can occur if the server is unavailable, if there is a communication exception, or if the server responds with a 500 status code.</p>
+<p>Offline mode only applies for authenticated users. Thus, a Tequila authentication error does not cause the app to transition to offline mode.</p>
+</li>
+<li><p class="first"><em>Offline -&gt; Online</em></p>
+<p>This transition can only be done manually, upon user request (see <a class="reference internal" href="#exercise-2-5">Exercise 2.5</a>).</p>
+</li>
+</ul>
+<!-- This only applies in the case in which the app was *not* set offline by the user (see `Exercise 2.5`_). Thus, if the app automatically transitioned to offline mode, it should send each request to the server as if it was in online mode.  If the server is still unavailable, the app will remain offline. If the server is available, the app should attempt to synchronize any content that was cached while the app was in offline mode. -->
+<!-- If anything goes wrong, e.g., the server responds with a non-200 status code, returns unexpected data, or executing the request generates an ``Exception``, you must display "There was an error retrieving the ratings" or "There was an error setting the rating" as appropriate (e.g., in a `toast <http://developer.android.com/guide/topics/ui/notifiers/toasts.html>`_ message ). -->
+</div>
+</div>
+<div class="section" id="full-track-code-coverage-30-points">
+<h1>3. [Full Track] Code Coverage (30 points)</h1>
+<p>Now that you have implemented the basic track for this homework, it is time to verify that your code performs as expected. Check this by writing unit tests for your application. You can also use Test-Driven Development (<a class="reference external" href="https://myedu.epfl.ch/courses/SwEng/20/67">TDD</a>) and write the tests first.</p>
+<p>The goal for the tests you write is to achieve <strong>80%</strong> code coverage for the code you wrote so far for <strong>Homeworks 1-5 and Exams 1-2</strong>.</p>
+<p>Only the code coverage generated by the tests that succeed counts toward the 80% code coverage goal.
+So, if you achieve 80% coverage, yet none of your tests pass, you will receive 0 points for this part of the homework.</p>
+<p>Your tests should take less than 40 minutes to finish running. After the 40 minutes run out, Jenkins will stop running your tests.</p>
+<div class="admonition-grading admonition">
+<p class="first admonition-title">Grading</p>
+<p>Your tests may only use the default testing features provided by the Android SDK or <a class="reference external" href="http://code.google.com/p/robotium/downloads/detail?name=robotium-solo-3.4.1.jar">Robotium 3.4.1</a>.
+Using any other testing tools, libraries, or versions of Robotium will make it impossible for us to automatically run your tests and compute their code coverage, so you will lose points.</p>
+<blockquote class="last">
+<p>The number of points will be computed using the same rules as in Homework #1, i.e.,
+with the following formula:</p>
+<blockquote>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">30 * min<span style="color: #666666">(</span>1, <span style="color: #666666">(</span><span style="color: #008000; font-weight: bold">${</span><span style="color: #19177C">CODE_COVERAGE</span><span style="color: #008000; font-weight: bold">}</span>/80<span style="color: #666666">)</span>^2<span style="color: #666666">)</span>
+</pre></div>
+</blockquote>
+<p>In other words, your tests must achieve 80% line coverage for the entire code
+base of your application in order for you to get the full points for this part of the homework.</p>
+</blockquote>
+</div>
+</div>
+<div class="section" id="final-checklist">
+<h1>4. Final Checklist</h1>
+<p>Grading for this homework will be completely automated. This means that your
+homework's project structure, code, package names, button labels, <tt class="docutils literal">Activity</tt>
+names, etc., must conform to the rules below. Otherwise, our servers will not be able to
+automatically grade your homework, and you will lose points.</p>
+<p>Here is a recap of the rules your homework must follow:</p>
+<ul>
+<li><p class="first">Rules set in the previous homeworks regarding the project structure still apply</p>
+</li>
+<li><p class="first">Your <tt class="docutils literal">${REPO}</tt> must have the following folder structure:</p>
+<pre class="literal-block">
+${REPO}
+├── Sweng2012QuizApp
+|   ├── assets
+|   ├── libs
+|   ├── res
+|   └── src
+|       └── epfl
+|           └── sweng
+|               ├── authentication
+|               |   └── AuthenticationActivity.java
+|               ├── editquestions
+|               |   └── EditQuestionActivity.java
+|               ├── entry
+|               |   └── MainActivity.java
+|               |── patterns
+|               |    └── ICheckProxyHelper.java
+|               |    └── CheckProxyHelper.java
+|               ├── quizquestions
+|               |   └── QuizQuestion.java
+|               ├── quizzes
+|               |   ├── ShowAvailableQuizzesActivity.java
+|               |   └── ShowQuizActivity.java
+|               └── showquestions
+|                   └── ShowQuestionsActivity.java
+└── Sweng2012QuizAppTest
+ &nbsp;&nbsp; ├── assets
+ &nbsp;&nbsp; ├── libs
+ &nbsp;&nbsp; ├── res
+ &nbsp;&nbsp; └── src
+ &nbsp;&nbsp;     └── epfl
+ &nbsp;&nbsp;         └── sweng
+                └── test
+</pre>
+</li>
+<li><p class="first">You can have additional classes in the <tt class="docutils literal">epfl.sweng</tt> package</p>
+</li>
+<li><p class="first">The following command must fully compile and install your app in an emulator:</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #19177C">$ </span><span style="color: #008000">cd</span> <span style="color: #008000; font-weight: bold">${</span><span style="color: #19177C">REPO</span><span style="color: #008000; font-weight: bold">}</span>/Sweng2012QuizApp
+<span style="color: #19177C">$ </span>ant clean debug install
+</pre></div>
+</li>
+<li><p class="first">The following command must run your installed app on an emulator:</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #19177C">$ </span>adb shell am start -a android.intent.action.MAIN -n epfl.sweng/.entry.MainActivity
+</pre></div>
+</li>
+<li><p class="first">The following command must compile and run all your tests:</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #19177C">$ </span><span style="color: #008000">cd</span> <span style="color: #008000; font-weight: bold">${</span><span style="color: #19177C">REPO</span><span style="color: #008000; font-weight: bold">}</span>/Sweng2012QuizAppTest
+<span style="color: #19177C">$ </span>ant clean emma debug install <span style="color: #008000">test</span>
+</pre></div>
+</li>
+<li><p class="first">The rules defined in Homework #1 for accessing the network still apply</p>
+</li>
+<li><p class="first">Your code must be committed to the <tt class="docutils literal"><span class="pre">https://github.com/dslab-epfl/&lt;reponame&gt;.git</span></tt>
+git repository, where <tt class="docutils literal">&lt;reponame&gt;</tt> is the name of your team's repository</p>
+</li>
+</ul>
+</div>
+</div>
+</body>
+</html>
