@@ -1,0 +1,619 @@
+Checking out revision 3acb7f9c8c2aa452f876ea4eb46413f751895469
+Installing the grading project
+Compiling your project with the grading tests
+Executing epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testDislikeButtonPresence...
+PASSED: epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testDislikeButtonPresence
+Executing epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testDislikeButtonWithNumberOfRatingsPresence...
+PASSED: epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testDislikeButtonWithNumberOfRatingsPresence
+Executing epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testIncorrectButtonPresence...
+PASSED: epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testIncorrectButtonPresence
+Executing epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testIncorrectButtonWithNumberOfRatingsPresence...
+PASSED: epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testIncorrectButtonWithNumberOfRatingsPresence
+Executing epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testLikeButtonPresence...
+PASSED: epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testLikeButtonPresence
+Executing epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testLikeButtonWithNumberOfRatingsPresence...
+PASSED: epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testLikeButtonWithNumberOfRatingsPresence
+Executing epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testPresenceOfSomeUserRating...
+PASSED: epfl.sweng.test.homework4.Ex2P1GuiButtonTest#testPresenceOfSomeUserRating
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testAggregatedRatingsServerQuery...
+PASSED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testAggregatedRatingsServerQuery
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenAllRatingsIncorrectContentType...
+PASSED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenAllRatingsIncorrectContentType
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenAllRatingsIncorrectCountInResponse...
+PASSED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenAllRatingsIncorrectCountInResponse
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenAllRatingsNegativeLikeCount...
+Test failed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework4.Ex2P2ActivityLoadTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testBrokenAllRatingsNegativeLikeCount
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+Failure in testBrokenAllRatingsNegativeLikeCount:
+junit.framework.AssertionFailedError: Could not find text There was an error retrieving the ratings
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testBrokenAllRatingsNegativeLikeCount(Ex2P2ActivityLoadTest.java:145)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=junit.framework.AssertionFailedError: Could not find text There was an error retrieving the ratings
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testBrokenAllRatingsNegativeLikeCount(Ex2P2ActivityLoadTest.java:145)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: test=testBrokenAllRatingsNegativeLikeCount
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+Test results for InstrumentationTestRunner=.F
+Time: 12.342
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+
+
+INSTRUMENTATION_CODE: -1
+FAILED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenAllRatingsNegativeLikeCount
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenPersonalRating...
+Test failed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework4.Ex2P2ActivityLoadTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testBrokenPersonalRating
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+Failure in testBrokenPersonalRating:
+junit.framework.AssertionFailedError: Could not find text There was an error retrieving the ratings
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testBrokenPersonalRating(Ex2P2ActivityLoadTest.java:109)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=junit.framework.AssertionFailedError: Could not find text There was an error retrieving the ratings
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testBrokenPersonalRating(Ex2P2ActivityLoadTest.java:109)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: test=testBrokenPersonalRating
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+Test results for InstrumentationTestRunner=.F
+Time: 13.038
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+
+
+INSTRUMENTATION_CODE: -1
+FAILED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenPersonalRating
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenPersonalRatingBrokenBody...
+Test failed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework4.Ex2P2ActivityLoadTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testBrokenPersonalRatingBrokenBody
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+Failure in testBrokenPersonalRatingBrokenBody:
+junit.framework.AssertionFailedError: Could not find text There was an error retrieving the ratings
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testBrokenPersonalRatingBrokenBody(Ex2P2ActivityLoadTest.java:137)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=junit.framework.AssertionFailedError: Could not find text There was an error retrieving the ratings
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testBrokenPersonalRatingBrokenBody(Ex2P2ActivityLoadTest.java:137)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: test=testBrokenPersonalRatingBrokenBody
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+Test results for InstrumentationTestRunner=.F
+Time: 12.421
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+
+
+INSTRUMENTATION_CODE: -1
+FAILED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenPersonalRatingBrokenBody
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenPersonalRatingQuestionNotFound...
+Test failed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework4.Ex2P2ActivityLoadTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testBrokenPersonalRatingQuestionNotFound
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+Failure in testBrokenPersonalRatingQuestionNotFound:
+junit.framework.AssertionFailedError: Could not find text There was an error retrieving the ratings
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testBrokenPersonalRatingQuestionNotFound(Ex2P2ActivityLoadTest.java:116)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=junit.framework.AssertionFailedError: Could not find text There was an error retrieving the ratings
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testBrokenPersonalRatingQuestionNotFound(Ex2P2ActivityLoadTest.java:116)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: test=testBrokenPersonalRatingQuestionNotFound
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+Test results for InstrumentationTestRunner=.F
+Time: 12.637
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+
+
+INSTRUMENTATION_CODE: -1
+FAILED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenPersonalRatingQuestionNotFound
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenPersonalRatingUnexpectedBody...
+Test failed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework4.Ex2P2ActivityLoadTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testBrokenPersonalRatingUnexpectedBody
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+Failure in testBrokenPersonalRatingUnexpectedBody:
+junit.framework.AssertionFailedError: Could not find text There was an error retrieving the ratings
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testBrokenPersonalRatingUnexpectedBody(Ex2P2ActivityLoadTest.java:123)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=junit.framework.AssertionFailedError: Could not find text There was an error retrieving the ratings
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testBrokenPersonalRatingUnexpectedBody(Ex2P2ActivityLoadTest.java:123)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: test=testBrokenPersonalRatingUnexpectedBody
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+Test results for InstrumentationTestRunner=.F
+Time: 12.27
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+
+
+INSTRUMENTATION_CODE: -1
+FAILED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenPersonalRatingUnexpectedBody
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenPersonalRatingUnexpectedErrorCode...
+Test failed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework4.Ex2P2ActivityLoadTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testBrokenPersonalRatingUnexpectedErrorCode
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+Failure in testBrokenPersonalRatingUnexpectedErrorCode:
+junit.framework.AssertionFailedError: Could not find text There was an error retrieving the ratings
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testBrokenPersonalRatingUnexpectedErrorCode(Ex2P2ActivityLoadTest.java:130)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=junit.framework.AssertionFailedError: Could not find text There was an error retrieving the ratings
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testBrokenPersonalRatingUnexpectedErrorCode(Ex2P2ActivityLoadTest.java:130)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: test=testBrokenPersonalRatingUnexpectedErrorCode
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+Test results for InstrumentationTestRunner=.F
+Time: 12.658
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+
+
+INSTRUMENTATION_CODE: -1
+FAILED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testBrokenPersonalRatingUnexpectedErrorCode
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testDislikeButtonWithNumberOfRatings...
+PASSED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testDislikeButtonWithNumberOfRatings
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testIncorrectButtonWithNumberOfRatings...
+PASSED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testIncorrectButtonWithNumberOfRatings
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testLikeButtonWithNumberOfRatings...
+PASSED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testLikeButtonWithNumberOfRatings
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testPersonalRatingDislike...
+Test failed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework4.Ex2P2ActivityLoadTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testPersonalRatingDislike
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+Failure in testPersonalRatingDislike:
+junit.framework.AssertionFailedError: Could not find text You dislike the question
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testPersonalRatingDislike(Ex2P2ActivityLoadTest.java:94)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=junit.framework.AssertionFailedError: Could not find text You dislike the question
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testPersonalRatingDislike(Ex2P2ActivityLoadTest.java:94)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: test=testPersonalRatingDislike
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+Test results for InstrumentationTestRunner=.F
+Time: 27.346
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+
+
+INSTRUMENTATION_CODE: -1
+FAILED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testPersonalRatingDislike
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testPersonalRatingIncorrect...
+Test failed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework4.Ex2P2ActivityLoadTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testPersonalRatingIncorrect
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+Failure in testPersonalRatingIncorrect:
+junit.framework.AssertionFailedError: Could not find text You think the question is incorrect
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testPersonalRatingIncorrect(Ex2P2ActivityLoadTest.java:101)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=junit.framework.AssertionFailedError: Could not find text You think the question is incorrect
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testPersonalRatingIncorrect(Ex2P2ActivityLoadTest.java:101)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: test=testPersonalRatingIncorrect
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+Test results for InstrumentationTestRunner=.F
+Time: 27.5
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+
+
+INSTRUMENTATION_CODE: -1
+FAILED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testPersonalRatingIncorrect
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testPersonalRatingLike...
+Test failed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework4.Ex2P2ActivityLoadTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testPersonalRatingLike
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+Failure in testPersonalRatingLike:
+junit.framework.AssertionFailedError: Could not find text You like the question
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testPersonalRatingLike(Ex2P2ActivityLoadTest.java:87)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=junit.framework.AssertionFailedError: Could not find text You like the question
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testPersonalRatingLike(Ex2P2ActivityLoadTest.java:87)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: test=testPersonalRatingLike
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+Test results for InstrumentationTestRunner=.F
+Time: 27.43
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+
+
+INSTRUMENTATION_CODE: -1
+FAILED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testPersonalRatingLike
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testPersonalRatingNotRated...
+PASSED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testPersonalRatingNotRated
+Executing epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testPersonalRatingsServerQuery...
+Test failed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework4.Ex2P2ActivityLoadTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testPersonalRatingsServerQuery
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2ActivityLoadTest
+INSTRUMENTATION_STATUS: stream=
+Failure in testPersonalRatingsServerQuery:
+junit.framework.AssertionFailedError: The app did not send the appropriate request to the server. See log for details.
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testPersonalRatingsServerQuery(Ex2P2ActivityLoadTest.java:70)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=junit.framework.AssertionFailedError: The app did not send the appropriate request to the server. See log for details.
+	at epfl.sweng.test.homework4.Ex2P2ActivityLoadTest.testPersonalRatingsServerQuery(Ex2P2ActivityLoadTest.java:70)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: test=testPersonalRatingsServerQuery
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+Test results for InstrumentationTestRunner=.F
+Time: 106.941
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+
+
+INSTRUMENTATION_CODE: -1
+FAILED: epfl.sweng.test.homework4.Ex2P2ActivityLoadTest#testPersonalRatingsServerQuery
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testBrokenAggregateResponseWhenLikeButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testBrokenAggregateResponseWhenLikeButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testBrokenResponseWhenDislikeButtonClicked...
+Test failed. Debug output follows...
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest
+INSTRUMENTATION_STATUS: stream=
+epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest:
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: test=testBrokenResponseWhenDislikeButtonClicked
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: id=InstrumentationTestRunner
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: class=epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest
+INSTRUMENTATION_STATUS: stream=
+Failure in testBrokenResponseWhenDislikeButtonClicked:
+junit.framework.AssertionFailedError: Could not find text There was an error setting the rating
+	at epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest.checkBrokenResponseWhenButtonClicked(Ex2P2RatingButtonClickTest.java:192)
+	at epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest.testBrokenResponseWhenDislikeButtonClicked(Ex2P2RatingButtonClickTest.java:201)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=junit.framework.AssertionFailedError: Could not find text There was an error setting the rating
+	at epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest.checkBrokenResponseWhenButtonClicked(Ex2P2RatingButtonClickTest.java:192)
+	at epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest.testBrokenResponseWhenDislikeButtonClicked(Ex2P2RatingButtonClickTest.java:201)
+	at java.lang.reflect.Method.invokeNative(Native Method)
+	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:190)
+	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:175)
+	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1584)
+
+INSTRUMENTATION_STATUS: test=testBrokenResponseWhenDislikeButtonClicked
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+Test results for InstrumentationTestRunner=.F
+Time: 14.688
+
+FAILURES!!!
+Tests run: 1,  Failures: 1,  Errors: 0
+
+
+INSTRUMENTATION_CODE: -1
+FAILED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testBrokenResponseWhenDislikeButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testBrokenResponseWhenIncorrectButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testBrokenResponseWhenIncorrectButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testBrokenResponseWhenLikeButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testBrokenResponseWhenLikeButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testNoSpuriousErrorWhenDislikeButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testNoSpuriousErrorWhenDislikeButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testNoSpuriousErrorWhenIncorrectButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testNoSpuriousErrorWhenIncorrectButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testNoSpuriousErrorWhenLikeButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testNoSpuriousErrorWhenLikeButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentAndButtonUpdatedWhenDislikeButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentAndButtonUpdatedWhenDislikeButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentAndButtonUpdatedWhenIncorrectButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentAndButtonUpdatedWhenIncorrectButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentAndButtonUpdatedWhenLikeButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentAndButtonUpdatedWhenLikeButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentAndMyRatingDisplayedWhenDislikeButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentAndMyRatingDisplayedWhenDislikeButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentAndMyRatingDisplayedWhenIncorrectButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentAndMyRatingDisplayedWhenIncorrectButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentAndMyRatingDisplayedWhenLikeButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentAndMyRatingDisplayedWhenLikeButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentWhenDislikeButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentWhenDislikeButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentWhenIncorrectButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentWhenIncorrectButtonClicked
+Executing epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentWhenLikeButtonClicked...
+PASSED: epfl.sweng.test.homework4.Ex2P2RatingButtonClickTest#testRequestIsSentWhenLikeButtonClicked
+Total: 29 / 40 tests passed
+Testing took 801 seconds
+If you feel that there is an error in the testing process,
+please write a private note on Piazza, titled
+homework4 test results: 63f86fd3e99ac24581312aac952e565b
+DONE
