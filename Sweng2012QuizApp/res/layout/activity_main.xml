@@ -17,6 +17,14 @@
         android:textStyle="bold"
         tools:context=".MainActivity" />
     
+    <CheckBox
+        android:id="@+id/main_checkbox_offline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/main_title"
+        android:text="@string/checkbox_offline"/>
+        
     <Button
         android:id="@+id/main_button_logout"
         android:layout_width="wrap_content"
