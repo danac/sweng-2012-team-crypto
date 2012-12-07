@@ -33,6 +33,7 @@
     <string name="auth_pass_hint">GASPAR Password</string>
     <string name="auth_submit_text">Log in using Tequila</string>
     <string name="button_logout">Log out</string>
+    <string name="checkbox_offline">Offline mode</string>
     <string name="auth_error_text">Authentication failed!</string>
     <string name="auth_success_text">Authentication successful! =D</string>
     <string name="tequila">tequila</string>
@@ -50,5 +51,6 @@
     <string name="button_previousQuestion">Previous question</string>
     <string name="button_handin">Hand in quiz</string>
     <string name="error_fetching_quizzes">An error occurred while fetching quizzes.</string>
+    <string name="not_yet_implemented">Not yet implemented!</string>
 
 </resources>

@@ -12,6 +12,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
 /**
  * Main Activity of the Application
@@ -19,6 +22,9 @@ import android.view.View;
  */
 public class MainActivity extends Activity {
 
+	private static final String TOAST_MSG1 = new String("Not yet implemented (isChecked=True)!");
+	private static final String TOAST_MSG2 = new String("Not yet implemented (isChecked=False)!");
+	
 	/**
 	 * Method invoked at the creation of the Activity. 
 	 * @param savedInstanceState the saved instance
@@ -26,7 +32,19 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.activity_main);
+        CheckBox offlineChkBx = (CheckBox) findViewById(R.id.main_checkbox_offline);
+        offlineChkBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        	@Override
+        	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        		if (isChecked) {
+        			Toast.makeText(getBaseContext(), TOAST_MSG1, Toast.LENGTH_LONG).show();
+        		} else {
+        			Toast.makeText(getBaseContext(), TOAST_MSG2, Toast.LENGTH_LONG).show();		   
+        		}
+        	}
+        });
     }
     
 	/**
@@ -84,5 +102,13 @@ public class MainActivity extends Activity {
     	SessionManager.getInstance().destroySession();
     	Intent authenticationActivityIntent = new Intent(this, AuthenticationActivity.class);
     	startActivityForResult(authenticationActivityIntent, Globals.AUTHENTICATION_REQUEST_CODE);
+    }
+    
+    /**
+     * Enable offline mode
+     * @param view reference to the menu button
+     */
+    public void goOffline(View view) {
+    	Toast.makeText(this, getString(R.string.not_yet_implemented), Toast.LENGTH_LONG).show();
     }
 }

@@ -1,0 +1,7 @@
+Ex2P2ActivityLoadTest (correct 7 / 17) = 10.29411764705882352925
+Ex2P2RatingButtonClickTest (correct 15 / 16) = 23.43750000000000000000
+Ex2P1GuiButtonTest (correct 7 / 7) = 20.00000000000000000000
+Total: 53.73161764705882352925
+
+Coverage: 84 %
+Full track grade: 30
