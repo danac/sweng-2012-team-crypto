@@ -109,6 +109,7 @@ public class MainActivity extends Activity {
      * @param view reference to the menu button
      */
     public void goOffline(View view) {
-    	Toast.makeText(this, getString(R.string.not_yet_implemented), Toast.LENGTH_LONG).show();
+    	SessionManager.getInstance().setOnlineState(false);
+    	Toast.makeText(this, getString(R.string.you_are_offline), Toast.LENGTH_LONG).show();
     }
 }
