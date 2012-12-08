@@ -1,6 +1,7 @@
 package epfl.sweng.servercomm;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -31,15 +33,16 @@ final public class CachedServerCommunication {
 	private static CachedServerCommunication mInstance;
 	
 	private List<QuizQuestion> mCachedQuestions;
-	private List<HttpUriRequest> mCachedSubmitQuestions;
-	private List<HttpUriRequest> mCachedSubmitVerdict;
+	private List<QuizQuestion> mCachedQuestionsToSubmit;
+	private List<QuizQuestion> mCachedVerdictsToSubmit;
+	
 	
 	
 	
 	private CachedServerCommunication() {
 		mCachedQuestions = new ArrayList<QuizQuestion>();
-		mCachedSubmitQuestions = new ArrayList<HttpUriRequest>();
-		mCachedSubmitVerdict = new ArrayList<HttpUriRequest>();
+		mCachedQuestionsToSubmit = new ArrayList<QuizQuestion>();
+		mCachedVerdictsToSubmit = new ArrayList<QuizQuestion>();
 		
 	}
 	
@@ -74,8 +77,11 @@ final public class CachedServerCommunication {
 					response = loadRandomQuestion();
 				} else if (url.equals(Globals.SUBMIT_QUESTION_URL)) {
 					response = submitQuestion(request);
-				} else if (url.endsWith("rating")) {
+					cacheQuestion(response);
+				} else if (url.endsWith("rating") && request instanceof HttpGet) {
 					response = getRating(request);
+				} else if (url.endsWith("rating") && request instanceof HttpPost) {
+					response = cacheVerdict(response, request);
 				} else if (url.endsWith("ratings")) {
 					response = getRatings(request);
 				}
@@ -87,33 +93,113 @@ final public class CachedServerCommunication {
 		return response;
 	}
 
-	private HttpResponse getRatings(HttpUriRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+	private HttpResponse getRatings(HttpUriRequest request) throws JSONException, UnsupportedEncodingException {
+		
+		String url = request.getRequestLine().getUri();
+		
+		url = url.replace("https://sweng-quiz.appspot.com/quizquestions/", "");
+		url = url.replace("/ratings", "");
+		
+		int id = Integer.parseInt(url);
+		
+		String verdict ="";
+		
+		for (QuizQuestion question : mCachedQuestions) {
+			if (question.getId() == id) {
+				HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_OK, "Ok");
+				JSONObject responseJSON = new JSONObject();
+				responseJSON.put("likeCount", verdict);
+				responseJSON.put("dislikeCount", verdict);
+				responseJSON.put("incorrectCount", verdict);
+				response.setEntity(new StringEntity(responseJSON.toString()));
+				return response;
+			}
+		}
+		return new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_NOTFOUND, "Not found");
 	}
 
-	private HttpResponse getRating(HttpUriRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private HttpResponse submitQuestion(HttpUriRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private HttpResponse loadRandomQuestion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private void cacheRatings(HttpResponse response, HttpUriRequest request) {
-		// TODO Auto-generated method stub
+	private HttpResponse getRating(HttpUriRequest request) throws JSONException, UnsupportedEncodingException {
+		
+		String url = request.getRequestLine().getUri();
+		
+		url = url.replace("https://sweng-quiz.appspot.com/quizquestions/", "");
+		url = url.replace("/rating", "");
+		
+		int id = Integer.parseInt(url);
+		
+		String verdict ="";
+		boolean found = false;
+		
+		for (QuizQuestion question : mCachedQuestions) {
+			if (question.getId() == id) {
+				verdict = question.getVerdict();
+				found = true;
+			}
+		}
+		if (found) {
+			if (verdict.equals("")) {
+				return new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_NOCONTENT, "No Content");
+			} else {
+				HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_OK, "Ok");
+				JSONObject responseJSON = new JSONObject();
+				responseJSON.put("verdict", verdict);
+				response.setEntity(new StringEntity(responseJSON.toString()));
+				return response;
+			}
+		} else {
+			return new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_NOTFOUND, "Not found");
+		}
 		
 	}
+	
+
+	private HttpResponse submitQuestion(HttpUriRequest request) throws ParseException, JSONException, IOException {
+		HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_CREATED, "Created");
+		JSONObject questionJSON = new JSONObject(getPostContent((HttpPost) request));
+		
+		int freeQuestionId=0;
+		for (QuizQuestion question : mCachedQuestions) {
+			freeQuestionId = Math.max(freeQuestionId, question.getId());
+		}
+		
+		questionJSON.put("id", freeQuestionId++);
+		QuizQuestion question = new QuizQuestion(questionJSON);
+		mCachedQuestionsToSubmit.add(question);
+		mCachedQuestions.add(question);
+		response.setEntity(new StringEntity(question.getJSONString()));
+		return response;
+	}
+
+	private HttpResponse loadRandomQuestion() throws UnsupportedEncodingException, JSONException {
+		HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_OK, "OK");
+		
+		response.setEntity(new StringEntity(
+				mCachedQuestions.get((int) Math.floor(Math.random()*mCachedQuestions.size())).getJSONString()));
+		return response;
+	}
+
+	private void cacheRatings(HttpResponse response, HttpUriRequest request) 
+		throws ParseException, JSONException, IOException {
+		
+		String url = request.getRequestLine().getUri();
+		
+		url = url.replace("https://sweng-quiz.appspot.com/quizquestions/", "");
+		url = url.replace("/ratings", "");
+		
+		int id = Integer.parseInt(url);
+		
+		JSONObject ratings =  new JSONObject(getResponseContent(response));	
+		
+		
+		for (QuizQuestion question : mCachedQuestions) {
+			if (question.getId() == id) {
+				question.setVerdictStats(ratings);
+			}
+		}
+	}
 
 
-	private void cacheVerdict(HttpResponse response, HttpUriRequest request) 
+	private HttpResponse cacheVerdict(HttpResponse response, HttpUriRequest request) 
 		throws ParseException, JSONException, IOException {
 		
 		String url = request.getRequestLine().getUri();
@@ -125,24 +211,42 @@ final public class CachedServerCommunication {
 		
 		JSONObject verdict =  new JSONObject();
 		if (request instanceof HttpPost) {
-			verdict =  new JSONObject(EntityUtils.toString(((HttpPost) request).getEntity()));
+			verdict =  new JSONObject(getPostContent((HttpPost) request));
 		} else {
-			ResponseHandler<String> responseHandler = new BasicResponseHandler();
-			verdict = new JSONObject(responseHandler.handleResponse(response));	
+			verdict = new JSONObject(getResponseContent(response));
 		}
 		
-		
+
 		for (QuizQuestion question : mCachedQuestions) {
 			if (question.getId() == id) {
+				String oldverdict = question.getVerdict();
+				
+				if (!SessionManager.getInstance().isOnline()) {
+					mCachedVerdictsToSubmit.add(question);
+				}
 				question.setVerdict(verdict);
+				
+				if (oldverdict.equals("")) {
+					response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_CREATED, "Created");
+					JSONObject responseJSON = new JSONObject();
+					responseJSON.put("verdict", question.getVerdict());
+					response.setEntity(new StringEntity(responseJSON.toString()));
+					return response;
+				} else {
+					response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_CREATED, "Created");
+					JSONObject responseJSON = new JSONObject();
+					responseJSON.put("verdict", question.getVerdict());
+					response.setEntity(new StringEntity(responseJSON.toString()));
+					return response;
+				}
+					
 			}
 		}
+		return new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_NOTFOUND, "Not found");
 	}
 
 	private void cacheQuestion(HttpResponse response) throws ClientProtocolException, JSONException, IOException {
-		ResponseHandler<String> responseHandler = new BasicResponseHandler();
-		
-		QuizQuestion newQuestion = new QuizQuestion(responseHandler.handleResponse(response));
+		QuizQuestion newQuestion = new QuizQuestion(getResponseContent(response));
 		
 		for (QuizQuestion question : mCachedQuestions) {
 			if (question.getId() == newQuestion.getId()) {
@@ -154,4 +258,21 @@ final public class CachedServerCommunication {
 	}
 	
 
+	private String getPostContent(HttpPost request) throws ParseException, IOException {
+		String content = EntityUtils.toString(request.getEntity());
+		request.setEntity(new StringEntity(content));
+		return content;
+	}
+	
+	private String getResponseContent(HttpResponse response) throws ParseException, IOException {
+		ResponseHandler<String> responseHandler = new BasicResponseHandler();
+		String content = responseHandler.handleResponse(response);
+		if (content == null) {
+			content = "";
+		}
+		response.setEntity(new StringEntity(content));
+		return content;
+	}
+	
+	
 }

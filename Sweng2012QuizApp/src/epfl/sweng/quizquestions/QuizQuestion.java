@@ -424,6 +424,7 @@ public class QuizQuestion {
     	
     	json.put("question", mQuestion); 
     	json.put("solutionIndex", mSolutionIndex); 
+    	json.put("id", mId); 
     	
     	return json.toString();
 

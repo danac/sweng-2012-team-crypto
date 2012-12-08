@@ -29,6 +29,7 @@ public final class Globals {
 	public static final String SUBMIT_QUIZ_ANSWERS_URL = "https://sweng-quiz.appspot.com/quizzes/%d/submission";
 	public static final int STATUSCODE_OK = 200;
 	public static final int STATUSCODE_CREATED = 201;
+	public static final int STATUSCODE_NOCONTENT = 204;
 	
 	
 		
