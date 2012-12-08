@@ -80,5 +80,9 @@ final public class SessionManager {
 		return !getSessionId().equals("");
 	}
 	
+	
+	public boolean isOnline() {
+		return true;
+	}
 }
 	
