@@ -6,7 +6,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizzes.Quiz;
 import epfl.sweng.tasks.interfaces.IQuizReceivedCallback;
