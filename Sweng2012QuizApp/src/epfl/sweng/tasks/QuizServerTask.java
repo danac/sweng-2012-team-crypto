@@ -14,7 +14,7 @@ import org.json.JSONTokener;
 
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.globals.Globals;
-import epfl.sweng.servercomm.SwengHttpClientFactory;
+import epfl.sweng.servercomm.CachedServerCommunication;
 import epfl.sweng.tasks.interfaces.IQuizServerCallback;
 
 
@@ -86,7 +86,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, JSONTokener> {
 			
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
 			
-			HttpResponse response = SwengHttpClientFactory.getInstance().execute(request);
+			HttpResponse response = CachedServerCommunication.getInstance().execute(request);
 			
 			Log.i("SERVER", "Replied with status code " + response.getStatusLine().getStatusCode());
 			mLastStatusCode = response.getStatusLine().getStatusCode();

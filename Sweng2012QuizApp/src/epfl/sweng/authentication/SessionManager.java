@@ -79,5 +79,6 @@ final public class SessionManager {
 	public boolean isAuthenticated() {
 		return !getSessionId().equals("");
 	}
+	
 }
 	
