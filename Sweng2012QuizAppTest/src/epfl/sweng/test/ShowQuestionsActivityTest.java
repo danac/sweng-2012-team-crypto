@@ -130,7 +130,7 @@ public class ShowQuestionsActivityTest extends
 			@Override
 			public void onReloadedError() {
 			}
-		}, question, question.getVerdict()).execute();
+		}, question, question.getVerdict(), true).execute();
     	
 	}
 	

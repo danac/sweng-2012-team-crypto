@@ -89,15 +89,14 @@ final public class CachedServerCommunication {
 		
 		int id = Integer.parseInt(url);
 		
-		String verdict ="";	// Why do you put empty verdict in responseJSON?
 		
 		for (QuizQuestion question : CacheManager.getInstance().getCachedQuestions()) {
 			if (question.getId() == id) {
 				HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_OK, "Ok");
 				JSONObject responseJSON = new JSONObject();
-				responseJSON.put("likeCount", verdict);
-				responseJSON.put("dislikeCount", verdict);
-				responseJSON.put("incorrectCount", verdict);
+				responseJSON.put("likeCount", question.getLikeCount());
+				responseJSON.put("dislikeCount", question.getDislikeCount());
+				responseJSON.put("incorrectCount", question.getIncorrectCount());
 				response.setEntity(new StringEntity(responseJSON.toString()));
 				return response;
 			}
@@ -122,7 +121,7 @@ final public class CachedServerCommunication {
 				verdict = question.getVerdict();
 				found = true;
 			}
-		}
+		}	
 		if (found) {
 			if (verdict.equals("")) {
 				return new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_NOCONTENT, "No Content");
@@ -148,8 +147,8 @@ final public class CachedServerCommunication {
 		for (QuizQuestion question : CacheManager.getInstance().getCachedQuestions()) {
 			freeQuestionId = Math.max(freeQuestionId, question.getId());
 		}
-		
-		questionJSON.put("id", freeQuestionId++);
+		freeQuestionId++;
+		questionJSON.put("id", freeQuestionId);
 		QuizQuestion question = new QuizQuestion(questionJSON);
 		CacheManager.getInstance().addCachedQuestionToSubmit(question);
 		CacheManager.getInstance().addCachedQuestion(question);
@@ -158,11 +157,17 @@ final public class CachedServerCommunication {
 	}
 
 	private HttpResponse loadRandomQuestion() throws UnsupportedEncodingException, JSONException {
-		HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_OK, "OK");
 		
-		response.setEntity(new StringEntity(
-				CacheManager.getInstance().getRandomQuestion().getJSONString()));
-		return response;
+		if (CacheManager.getInstance().getCachedQuestions().size() > 0) {
+			
+			HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_OK, "OK");
+			
+			response.setEntity(new StringEntity(
+					CacheManager.getInstance().getRandomQuestion().getJSONString()));
+			return response;
+		} else {
+			return new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_NOTFOUND, "No Questions cached");
+		}
 	}
 
 	private void cacheRatings(HttpResponse response, HttpUriRequest request) 
@@ -207,20 +212,20 @@ final public class CachedServerCommunication {
 		for (QuizQuestion question : CacheManager.getInstance().getCachedQuestions()) {
 			if (question.getId() == id) {
 				String oldverdict = question.getVerdict();
+				question.setVerdictAndUpdateStats(verdict);
 				
 				if (!SessionManager.getInstance().isOnline()) {
 					CacheManager.getInstance().addVerdictToSubmit(question);
 				}
-				question.setVerdict(verdict);	// Why isn't this instruction above?
 				
-				if (oldverdict.equals("")) {	// Cyril were you drunk? This if/else seems useless
+				if (oldverdict.equals("")) {
 					response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_CREATED, "Created");
 					JSONObject responseJSON = new JSONObject();
 					responseJSON.put("verdict", question.getVerdict());
 					response.setEntity(new StringEntity(responseJSON.toString()));
 					return response;
 				} else {
-					response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_CREATED, "Created");
+					response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_OK, "OK");
 					JSONObject responseJSON = new JSONObject();
 					responseJSON.put("verdict", question.getVerdict());
 					response.setEntity(new StringEntity(responseJSON.toString()));
@@ -245,13 +250,13 @@ final public class CachedServerCommunication {
 	}
 	
 
-	private String getPostContent(HttpPost request) throws ParseException, IOException {
+	public static String getPostContent(HttpPost request) throws ParseException, IOException {
 		String content = EntityUtils.toString(request.getEntity());
 		request.setEntity(new StringEntity(content));
 		return content;
 	}
 	
-	private String getResponseContent(HttpResponse response) throws ParseException, IOException {
+	public static String getResponseContent(HttpResponse response) throws ParseException, IOException {
 		ResponseHandler<String> responseHandler = new BasicResponseHandler();
 		String content = responseHandler.handleResponse(response);
 		if (content == null) {

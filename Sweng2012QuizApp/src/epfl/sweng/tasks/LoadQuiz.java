@@ -2,10 +2,12 @@ package epfl.sweng.tasks;
 
 
 
+import java.io.IOException;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizzes.Quiz;
 import epfl.sweng.tasks.interfaces.IQuizReceivedCallback;
@@ -27,15 +29,20 @@ public class LoadQuiz extends QuizServerTask {
 		super(new IQuizServerCallback() {
 			
 			@Override
-			public void onSuccess(JSONTokener response) {
+			public void onSuccess(HttpResponse response) {
 				Quiz quiz = new Quiz();
 				try {
-					JSONObject quizJSON = (JSONObject) response.nextValue();
-					quiz = new Quiz(quizJSON);
+					quiz = new Quiz(getJSONObject(response));
 				} catch (JSONException e) {
 					onError();
 					return;
 				} catch (ClassCastException e) {
+					onError();
+					return;
+				} catch (ParseException e) {
+					onError();
+					return;
+				} catch (IOException e) {
 					onError();
 					return;
 				} 
@@ -55,7 +62,7 @@ public class LoadQuiz extends QuizServerTask {
 	 * @param url (optional) an alternative url for the QuizServer "fetch random question location
 	 */
 	@Override
-	protected JSONTokener doInBackground(Object... urls) {
+	protected HttpResponse doInBackground(Object... urls) {
     	String url = "";
     	
 		if (urls.length == 0) {

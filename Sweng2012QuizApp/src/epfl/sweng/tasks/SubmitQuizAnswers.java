@@ -1,12 +1,14 @@
 package epfl.sweng.tasks;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizzes.Quiz;
@@ -32,12 +34,16 @@ public class SubmitQuizAnswers extends QuizServerTask {
 		super(new IQuizServerCallback() {
 			
 			@Override
-			public void onSuccess(JSONTokener response) {
+			public void onSuccess(HttpResponse response) {
 				try {
-					JSONObject responseJSON = (JSONObject) response.nextValue();
+					JSONObject responseJSON = getJSONObject(response);
 					double score = responseJSON.getDouble("score");
 					callback.onSubmitSuccess(score);
 				} catch (JSONException e) {
+					callback.onError();
+				} catch (ParseException e) {
+					callback.onError();
+				} catch (IOException e) {
 					callback.onError();
 				}
 			}
@@ -58,7 +64,7 @@ public class SubmitQuizAnswers extends QuizServerTask {
 	 * @param String url (optional) an alternative url for the QuizServer submit location
 	 */
 	@Override
-	protected JSONTokener doInBackground(Object... args) {
+	protected HttpResponse doInBackground(Object... args) {
 		String url = Globals.SUBMIT_QUIZ_ANSWERS_URL;
 
 		HttpPost post = new HttpPost(String.format(url, mQuiz.getId()));

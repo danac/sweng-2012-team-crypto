@@ -425,6 +425,7 @@ public class QuizQuestion {
     	json.put("question", mQuestion); 
     	json.put("solutionIndex", mSolutionIndex); 
     	json.put("id", mId); 
+    	json.put("owner", mOwner); 
     	
     	return json.toString();
 
@@ -467,11 +468,40 @@ public class QuizQuestion {
     				|| json.getString("verdict").equals("dislike"))) {
     			throw new JSONException("Invalid verdict");
     		}
-    		mVerdict = json.getString("verdict");
+       		mVerdict = json.getString("verdict");
     	} else {
     		mVerdict = "";
     	}
     }
+    
+    /**
+     * Set Verdict from JSON and update stats
+     * @throws JSONException 
+     * @param json JSON response from Quiz Server
+     */
+    public void setVerdictAndUpdateStats(JSONObject json) throws JSONException {
+    	
+    	String oldVerdict = mVerdict;
+    	setVerdict(json);
+    	
+    	if (oldVerdict.equals("like")) {
+    		mLikeCount--;
+    	} else if (oldVerdict.equals("dislike")) {
+    		mDislikeCount--;
+    	} else if (oldVerdict.equals("incorrect")) {
+    		mIncorrectCount--;
+    	}
+    	
+    	if (mVerdict.equals("like")) {
+    		mLikeCount++;
+    	} else if (mVerdict.equals("dislike")) {
+    		mDislikeCount++;
+    	} else if (mVerdict.equals("incorrect")) {
+    		mIncorrectCount++;
+    	}
+    }
+    
+        
     
     /**
      * Set the like count

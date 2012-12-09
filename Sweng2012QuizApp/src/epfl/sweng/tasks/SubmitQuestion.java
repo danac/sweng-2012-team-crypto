@@ -1,12 +1,13 @@
 package epfl.sweng.tasks;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
@@ -29,10 +30,14 @@ public class SubmitQuestion extends QuizServerTask {
 		super(new IQuizServerCallback() {
 			
 			@Override
-			public void onSuccess(JSONTokener response) {
+			public void onSuccess(HttpResponse response) {
 				try {
-					callback.onSubmitSuccess(new QuizQuestion((JSONObject) response.nextValue()));
+					callback.onSubmitSuccess(new QuizQuestion(getJSONObject(response)));
 				} catch (JSONException e) {
+					callback.onError();
+				} catch (ParseException e) {
+					callback.onError();
+				} catch (IOException e) {
 					callback.onError();
 				}
 			}
@@ -52,7 +57,7 @@ public class SubmitQuestion extends QuizServerTask {
 	 * @param String url (optional) an alternative url for the QuizServer submit location
 	 */
 	@Override
-	protected JSONTokener doInBackground(Object... args) {
+	protected HttpResponse doInBackground(Object... args) {
 		String url = "";
 		QuizQuestion question = (QuizQuestion) args[0];
 		if (args.length == 1) {

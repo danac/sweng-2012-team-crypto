@@ -1,6 +1,8 @@
 package epfl.sweng.authentication;
 
 import android.content.SharedPreferences;
+import epfl.sweng.cache.CacheManager;
+import epfl.sweng.cache.IDoNetworkCommunication;
 import epfl.sweng.tasks.AuthenticationTask;
 import epfl.sweng.tasks.interfaces.IAuthenticationCallback;
 
@@ -85,11 +87,16 @@ final public class SessionManager {
 		return mSettings.getBoolean("IS_ONLINE", true);
 	}
 
-	public void setOnlineState(boolean b) {
+	public void setOnlineState(boolean b, IDoNetworkCommunication callback) {
 		if (b == isOnline()) {
 			return;
 		} else {
 			mSettings.edit().putBoolean("IS_ONLINE", b).commit();
+			if (b) {
+				CacheManager.getInstance().doNetworkCommunication(callback);
+			} else {
+				callback.onSuccess();
+			}
 		}
 	}
 }

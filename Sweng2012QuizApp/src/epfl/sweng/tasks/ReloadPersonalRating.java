@@ -1,10 +1,12 @@
 package epfl.sweng.tasks;
 
 
+import java.io.IOException;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
@@ -28,13 +30,15 @@ public class ReloadPersonalRating extends QuizServerTask {
 		super(new IQuizServerCallback() {
 			
 			@Override
-			public void onSuccess(JSONTokener response) {
+			public void onSuccess(HttpResponse response) {
 				try {
-					question.setVerdict((JSONObject) response.nextValue());
+					question.setVerdict(getJSONObject(response));
 					callback.onReloadedSuccess(question);
-				} catch (ClassCastException e) {
-					onError();
 				} catch (JSONException e) {
+					onError();
+				} catch (ParseException e) {
+					onError();
+				} catch (IOException e) {
 					onError();
 				}
 			}
@@ -52,7 +56,7 @@ public class ReloadPersonalRating extends QuizServerTask {
 	 * @param question the Question to update
 	 */
 	@Override
-	protected JSONTokener doInBackground(Object... args) {
+	protected HttpResponse doInBackground(Object... args) {
 		return handleQuizServerRequest(
 					new HttpGet(Globals.QUESTION_BY_ID_URL + mQuestion.getId() + "/rating"));
 	}

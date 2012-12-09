@@ -3,6 +3,7 @@ package epfl.sweng.entry;
 import epfl.sweng.R;
 import epfl.sweng.authentication.AuthenticationActivity;
 import epfl.sweng.authentication.SessionManager;
+import epfl.sweng.cache.IDoNetworkCommunication;
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizzes.ShowAvailableQuizzesActivity;
@@ -22,8 +23,8 @@ import android.widget.Toast;
  */
 public class MainActivity extends Activity {
 
-	private static final String TOAST_MSG1 = new String("Not yet implemented (isChecked=True)!");
-	private static final String TOAST_MSG2 = new String("Not yet implemented (isChecked=False)!");
+	
+	private MainActivity mActivity = this;
 	
 	/**
 	 * Method invoked at the creation of the Activity. 
@@ -34,15 +35,29 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.activity_main);
-        CheckBox offlineChkBx = (CheckBox) findViewById(R.id.main_checkbox_offline);
+        final CheckBox offlineChkBx = (CheckBox) findViewById(R.id.main_checkbox_offline);
         offlineChkBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         	@Override
-        	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        		if (isChecked) {
-        			Toast.makeText(getBaseContext(), TOAST_MSG1, Toast.LENGTH_LONG).show();
-        		} else {
-        			Toast.makeText(getBaseContext(), TOAST_MSG2, Toast.LENGTH_LONG).show();		   
-        		}
+        	public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+            	SessionManager.getInstance().setOnlineState(!isChecked, new IDoNetworkCommunication() {
+					
+					@Override
+					public void onSuccess() {
+		            	if (isChecked) {
+		            		Toast.makeText(mActivity, getString(R.string.you_are_offline), Toast.LENGTH_LONG).show();
+		            	} else {
+		            		Toast.makeText(mActivity, getString(R.string.you_are_online), Toast.LENGTH_LONG).show();
+		            	}
+					}
+					
+					@Override
+					public void onError() {
+						Toast.makeText(mActivity, 
+								getString(R.string.online_transition_error), Toast.LENGTH_LONG).show();
+						offlineChkBx.setChecked(true);
+					}
+				});
+            	
         	}
         });
     }
@@ -104,12 +119,4 @@ public class MainActivity extends Activity {
     	startActivityForResult(authenticationActivityIntent, Globals.AUTHENTICATION_REQUEST_CODE);
     }
     
-    /**
-     * Enable offline mode
-     * @param view reference to the menu button
-     */
-    public void goOffline(View view) {
-    	SessionManager.getInstance().setOnlineState(false);
-    	Toast.makeText(this, getString(R.string.you_are_offline), Toast.LENGTH_LONG).show();
-    }
 }

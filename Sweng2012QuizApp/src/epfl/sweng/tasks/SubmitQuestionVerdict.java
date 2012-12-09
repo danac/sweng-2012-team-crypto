@@ -3,11 +3,11 @@ package epfl.sweng.tasks;
 
 import java.io.UnsupportedEncodingException;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
@@ -29,45 +29,49 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
 	public SubmitQuestionVerdict(final IQuizQuestionVerdictSubmittedCallback callback, 
-			final QuizQuestion question, final String newVerdict) {
+			final QuizQuestion question, final String newVerdict, final boolean reloadVerdict) {
 		super(new IQuizServerCallback() {
 			
 			@Override
-			public void onSuccess(final JSONTokener response) {
-				if (getLastStatusCode() != Globals.STATUSCODE_OK && getLastStatusCode() != Globals.STATUSCODE_CREATED) {
+			public void onSuccess(final HttpResponse response) {
+				if (getStatusCode(response) != Globals.STATUSCODE_OK 
+						&& getStatusCode(response) != Globals.STATUSCODE_CREATED) {
 					onError();
 				} else {
 					
 						
 					callback.onSubmitSuccess(question);
-					new ReloadPersonalRating(new IQuestionPersonalRatingReloadedCallback() {
-						
-						@Override
-						public void onReloadedSuccess(QuizQuestion question) {
-							callback.onReloadedSuccess(question);
-							new ReloadQuestionRating(new IQuestionRatingReloadedCallback() {
-								
-								@Override
-								public void onReloadedSuccess(QuizQuestion question) {
-									if (!question.getVerdict().equals(newVerdict)) {
-										callback.onSubmitError();
-									} else {
-										callback.onReloadedSuccess(question);
+					
+					if (reloadVerdict) {
+						new ReloadPersonalRating(new IQuestionPersonalRatingReloadedCallback() {
+							
+							@Override
+							public void onReloadedSuccess(QuizQuestion question) {
+								callback.onReloadedSuccess(question);
+								new ReloadQuestionRating(new IQuestionRatingReloadedCallback() {
+									
+									@Override
+									public void onReloadedSuccess(QuizQuestion question) {
+										if (!question.getVerdict().equals(newVerdict)) {
+											callback.onSubmitError();
+										} else {
+											callback.onReloadedSuccess(question);
+										}
 									}
-								}
-								
-								@Override
-								public void onError() {
-									callback.onReloadedError();
-								}
-							}, question).execute();
-						}
-						
-						@Override
-						public void onError() {
-							callback.onReloadedError();
-						}
-					}, question).execute();
+									
+									@Override
+									public void onError() {
+										callback.onReloadedError();
+									}
+								}, question).execute();
+							}
+							
+							@Override
+							public void onError() {
+								callback.onReloadedError();
+							}
+						}, question).execute();
+					}
 							
 					
 				}
@@ -89,7 +93,7 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 	 * @param question the Question containing the new verdict to be submitted
 	 */
 	@Override
-	protected JSONTokener doInBackground(Object... args) {
+	protected HttpResponse doInBackground(Object... args) {
 		 
 		HttpPost post = new HttpPost(Globals.QUESTION_BY_ID_URL + mQuestion.getId() + "/rating");
 		try {
