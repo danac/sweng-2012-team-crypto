@@ -11,6 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -40,7 +41,9 @@ final public class CachedServerCommunication {
 		return mInstance;
 	}
 	
-	
+	public static void setInstance(AbstractHttpClient newInstance) {
+	}
+
 	public HttpResponse execute(HttpUriRequest request) throws ClientProtocolException, IOException {
 		
 		String url = request.getRequestLine().getUri();
