@@ -34,14 +34,14 @@ final public class CachedServerCommunication {
 	private CachedServerCommunication() {	
 	}
 	
-	public static CachedServerCommunication getInstance() {
+	public static synchronized CachedServerCommunication getInstance() {
 		if (mInstance == null) {
 			mInstance = new CachedServerCommunication();
 		}
 		return mInstance;
 	}
 	
-	public static void setInstance(AbstractHttpClient newInstance) {
+	public static synchronized void setInstance(AbstractHttpClient newInstance) {
 	}
 
 	public HttpResponse execute(HttpUriRequest request) throws ClientProtocolException, IOException {
