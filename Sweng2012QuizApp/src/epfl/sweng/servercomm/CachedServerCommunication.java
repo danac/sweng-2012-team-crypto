@@ -26,9 +26,11 @@ import epfl.sweng.quizquestions.QuizQuestion;
  *
  */
 final public class CachedServerCommunication implements IServerCommunication  {
-	private static CachedServerCommunication mInstance;	
+	private static CachedServerCommunication mInstance;
+	private ServerCommunication mServerCommunication;
 	
 	private CachedServerCommunication() {	
+		mServerCommunication = ServerCommunication.getInstance();
 	}
 	
 	public static synchronized CachedServerCommunication getInstance() {
@@ -38,7 +40,6 @@ final public class CachedServerCommunication implements IServerCommunication  {
 		return mInstance;
 	}
 	
-	@Override
 	public HttpResponse execute(HttpUriRequest request) throws ClientProtocolException, IOException {
 		
 		String url = request.getRequestLine().getUri();
@@ -47,7 +48,7 @@ final public class CachedServerCommunication implements IServerCommunication  {
 		try {
 			
 			if (SessionManager.getInstance().isOnline()) {
-				response = ServerCommunication.getInstance().execute(request);
+				response = mServerCommunication.execute(request);
 				if (url.equals(Globals.RANDOM_QUESTION_URL)) {
 					cacheQuestion(response);
 				} else if (url.equals(Globals.SUBMIT_QUESTION_URL)) {
