@@ -51,7 +51,6 @@
     <string name="button_previousQuestion">Previous question</string>
     <string name="button_handin">Hand in quiz</string>
     <string name="error_fetching_quizzes">An error occurred while fetching quizzes.</string>
-    <string name="not_yet_implemented">Not yet implemented!</string>
     <string name="you_are_offline">You are now in offline mode.</string>
     <string name="you_are_online">You are now in online mode.</string>
     <string name="online_transition_error">There was an error transitioning to online mode.</string>
