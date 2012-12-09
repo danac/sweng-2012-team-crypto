@@ -31,7 +31,7 @@ final public class CachedServerCommunication implements IServerCommunication  {
 	private CachedServerCommunication() {	
 	}
 	
-	public static CachedServerCommunication getInstance() {
+	public static synchronized CachedServerCommunication getInstance() {
 		if (mInstance == null) {
 			mInstance = new CachedServerCommunication();
 		}

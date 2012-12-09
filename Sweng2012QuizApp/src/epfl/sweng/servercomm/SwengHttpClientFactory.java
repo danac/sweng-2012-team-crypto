@@ -19,7 +19,7 @@ import org.apache.http.protocol.HttpContext;
  * This factory creates HttpClients. It also allows to inject custom HttpClients
  * for testing.
  */
-public class SwengHttpClientFactory {
+final public class SwengHttpClientFactory {
 
 	private static AbstractHttpClient httpClient;
 	private static final int HTTP_PORT = 80;
