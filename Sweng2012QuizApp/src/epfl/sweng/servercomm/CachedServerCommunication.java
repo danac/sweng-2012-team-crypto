@@ -21,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import epfl.sweng.authentication.SessionManager;
+import epfl.sweng.cache.CacheManager;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
 
@@ -30,20 +31,9 @@ import epfl.sweng.quizquestions.QuizQuestion;
  *
  */
 final public class CachedServerCommunication {
-	private static CachedServerCommunication mInstance;
+	private static CachedServerCommunication mInstance;	
 	
-	private List<QuizQuestion> mCachedQuestions;
-	private List<QuizQuestion> mCachedQuestionsToSubmit;
-	private List<QuizQuestion> mCachedVerdictsToSubmit;
-	
-	
-	
-	
-	private CachedServerCommunication() {
-		mCachedQuestions = new ArrayList<QuizQuestion>();
-		mCachedQuestionsToSubmit = new ArrayList<QuizQuestion>();
-		mCachedVerdictsToSubmit = new ArrayList<QuizQuestion>();
-		
+	private CachedServerCommunication() {	
 	}
 	
 	public static CachedServerCommunication getInstance() {
@@ -104,7 +94,7 @@ final public class CachedServerCommunication {
 		
 		String verdict ="";	// Why do you put empty verdict in responseJSON?
 		
-		for (QuizQuestion question : mCachedQuestions) {
+		for (QuizQuestion question : CacheManager.getInstance().getCachedQuestions()) {
 			if (question.getId() == id) {
 				HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_OK, "Ok");
 				JSONObject responseJSON = new JSONObject();
@@ -130,7 +120,7 @@ final public class CachedServerCommunication {
 		String verdict ="";
 		boolean found = false;
 		
-		for (QuizQuestion question : mCachedQuestions) {
+		for (QuizQuestion question : CacheManager.getInstance().getCachedQuestions()) {
 			if (question.getId() == id) {
 				verdict = question.getVerdict();
 				found = true;
@@ -158,14 +148,14 @@ final public class CachedServerCommunication {
 		JSONObject questionJSON = new JSONObject(getPostContent((HttpPost) request));
 		
 		int freeQuestionId=0;
-		for (QuizQuestion question : mCachedQuestions) {
+		for (QuizQuestion question : CacheManager.getInstance().getCachedQuestions()) {
 			freeQuestionId = Math.max(freeQuestionId, question.getId());
 		}
 		
 		questionJSON.put("id", freeQuestionId++);
 		QuizQuestion question = new QuizQuestion(questionJSON);
-		mCachedQuestionsToSubmit.add(question);
-		mCachedQuestions.add(question);
+		CacheManager.getInstance().addCachedQuestionToSubmit(question);
+		CacheManager.getInstance().addCachedQuestion(question);
 		response.setEntity(new StringEntity(question.getJSONString()));
 		return response;
 	}
@@ -174,7 +164,7 @@ final public class CachedServerCommunication {
 		HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_OK, "OK");
 		
 		response.setEntity(new StringEntity(
-				mCachedQuestions.get((int) Math.floor(Math.random()*mCachedQuestions.size())).getJSONString()));
+				CacheManager.getInstance().getRandomQuestion().getJSONString()));
 		return response;
 	}
 
@@ -191,7 +181,7 @@ final public class CachedServerCommunication {
 		JSONObject ratings =  new JSONObject(getResponseContent(response));	
 		
 		
-		for (QuizQuestion question : mCachedQuestions) {
+		for (QuizQuestion question : CacheManager.getInstance().getCachedQuestions()) {
 			if (question.getId() == id) {
 				question.setVerdictStats(ratings);
 			}
@@ -217,12 +207,12 @@ final public class CachedServerCommunication {
 		}
 		
 
-		for (QuizQuestion question : mCachedQuestions) {
+		for (QuizQuestion question : CacheManager.getInstance().getCachedQuestions()) {
 			if (question.getId() == id) {
 				String oldverdict = question.getVerdict();
 				
 				if (!SessionManager.getInstance().isOnline()) {
-					mCachedVerdictsToSubmit.add(question);
+					CacheManager.getInstance().addVerdictToSubmit(question);
 				}
 				question.setVerdict(verdict);	// Why isn't this instruction above?
 				
@@ -248,13 +238,13 @@ final public class CachedServerCommunication {
 	private void cacheQuestion(HttpResponse response) throws ClientProtocolException, JSONException, IOException {
 		QuizQuestion newQuestion = new QuizQuestion(getResponseContent(response));
 		
-		for (QuizQuestion question : mCachedQuestions) {
+		for (QuizQuestion question : CacheManager.getInstance().getCachedQuestions()) {
 			if (question.getId() == newQuestion.getId()) {
 				return;
 			}
 		}
 		
-		mCachedQuestions.add(newQuestion);
+		CacheManager.getInstance().addCachedQuestion(newQuestion);
 	}
 	
 

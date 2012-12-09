@@ -86,7 +86,11 @@ final public class SessionManager {
 	}
 
 	public void setOnlineState(boolean b) {
-		mSettings.edit().putBoolean("IS_ONLINE", b);
+		if (b == isOnline()) {
+			return;
+		} else {
+			mSettings.edit().putBoolean("IS_ONLINE", b).commit();
+		}
 	}
 }
 	
