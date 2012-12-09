@@ -2,9 +2,6 @@ package epfl.sweng.servercomm;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.ParseException;

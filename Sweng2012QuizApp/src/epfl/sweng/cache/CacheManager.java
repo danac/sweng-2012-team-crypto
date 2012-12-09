@@ -8,7 +8,7 @@ import epfl.sweng.quizquestions.QuizQuestion;
 /**
  * Simple singleton data structure to store the cache and manage its input/output
  */
-public class CacheManager {
+public final class CacheManager {
 
 	private static CacheManager mCacheManager;
 	
