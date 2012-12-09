@@ -102,7 +102,7 @@ final public class CachedServerCommunication {
 		
 		int id = Integer.parseInt(url);
 		
-		String verdict ="";
+		String verdict ="";	// Why do you put empty verdict in responseJSON?
 		
 		for (QuizQuestion question : mCachedQuestions) {
 			if (question.getId() == id) {
@@ -224,9 +224,9 @@ final public class CachedServerCommunication {
 				if (!SessionManager.getInstance().isOnline()) {
 					mCachedVerdictsToSubmit.add(question);
 				}
-				question.setVerdict(verdict);
+				question.setVerdict(verdict);	// Why isn't this instruction above?
 				
-				if (oldverdict.equals("")) {
+				if (oldverdict.equals("")) {	// Cyril were you drunk? This if/else seems useless
 					response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_CREATED, "Created");
 					JSONObject responseJSON = new JSONObject();
 					responseJSON.put("verdict", question.getVerdict());
