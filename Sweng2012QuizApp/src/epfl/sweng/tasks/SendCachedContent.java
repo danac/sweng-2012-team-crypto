@@ -1,9 +1,5 @@
 package epfl.sweng.tasks;
 
-import java.util.List;
-
-import epfl.sweng.cache.CacheManager;
-import epfl.sweng.quizquestions.QuizQuestion;
 import epfl.sweng.tasks.interfaces.ISendCachedContentCallback;
 import epfl.sweng.tasks.interfaces.ISendCachedQuestionsToSubmitCallback;
 import epfl.sweng.tasks.interfaces.ISendCachedVerdictsToSubmitCallback;
