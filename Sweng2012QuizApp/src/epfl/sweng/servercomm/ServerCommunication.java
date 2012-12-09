@@ -11,15 +11,15 @@ import org.apache.http.client.methods.HttpUriRequest;
  * @author cyril
  *
  */
-final public class RealServerCommunication implements IServerCommunication  {
-	private static RealServerCommunication mInstance;	
+final public class ServerCommunication implements IServerCommunication  {
+	private static ServerCommunication mInstance;	
 	
-	private RealServerCommunication() {	
+	private ServerCommunication() {	
 	}
 	
-	public static RealServerCommunication getInstance() {
+	public static ServerCommunication getInstance() {
 		if (mInstance == null) {
-			mInstance = new RealServerCommunication();
+			mInstance = new ServerCommunication();
 		}
 		return mInstance;
 	}

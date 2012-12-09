@@ -47,7 +47,7 @@ final public class CachedServerCommunication implements IServerCommunication  {
 		try {
 			
 			if (SessionManager.getInstance().isOnline()) {
-				response = RealServerCommunication.getInstance().execute(request);
+				response = ServerCommunication.getInstance().execute(request);
 				if (url.equals(Globals.RANDOM_QUESTION_URL)) {
 					cacheQuestion(response);
 				} else if (url.equals(Globals.SUBMIT_QUESTION_URL)) {
