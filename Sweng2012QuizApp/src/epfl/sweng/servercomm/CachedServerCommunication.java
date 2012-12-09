@@ -40,6 +40,10 @@ final public class CachedServerCommunication implements IServerCommunication  {
 		return mInstance;
 	}
 	
+	public void setServerCommunicationInstance(ServerCommunication instance) {
+		mServerCommunication = instance;
+	}
+	
 	public HttpResponse execute(HttpUriRequest request) throws ClientProtocolException, IOException {
 		
 		String url = request.getRequestLine().getUri();
