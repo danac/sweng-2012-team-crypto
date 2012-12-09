@@ -29,7 +29,8 @@ import epfl.sweng.quizquestions.QuizQuestion;
  *
  */
 final public class CachedServerCommunication {
-	private static CachedServerCommunication mInstance;	
+	private static CachedServerCommunication mInstance;
+	private static AbstractHttpClient mHttpInstance;
 	
 	private CachedServerCommunication() {	
 	}
@@ -42,6 +43,9 @@ final public class CachedServerCommunication {
 	}
 	
 	public static synchronized void setInstance(AbstractHttpClient newInstance) {
+		if (mHttpInstance != null) {
+			mHttpInstance = newInstance;			
+		}
 	}
 
 	public HttpResponse execute(HttpUriRequest request) throws ClientProtocolException, IOException {
