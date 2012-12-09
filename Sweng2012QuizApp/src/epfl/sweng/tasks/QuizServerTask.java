@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.servercomm.CachedServerCommunication;
+import epfl.sweng.servercomm.ContentHelper;
 import epfl.sweng.tasks.interfaces.IQuizServerCallback;
 
 
@@ -94,7 +95,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, HttpResponse> {
 				for (Header header : response.getAllHeaders()) {
 					Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, header.toString());
 				}
-				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, CachedServerCommunication.getResponseContent(response));
+				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, ContentHelper.getResponseContent(response));
 			}
 			
 			return response;
@@ -112,7 +113,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, HttpResponse> {
 	
 
 	protected static JSONObject getJSONObject(HttpResponse response) throws ParseException, JSONException, IOException {
-		String content = CachedServerCommunication.getResponseContent(response);
+		String content = ContentHelper.getResponseContent(response);
 		if (content.equals("")) {
 			content = "{}";
 		}
@@ -120,7 +121,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, HttpResponse> {
 	}
 	
 	protected static JSONArray getJSONArray(HttpResponse response) throws ParseException, JSONException, IOException {
-		return new JSONArray(CachedServerCommunication.getResponseContent(response));
+		return new JSONArray(ContentHelper.getResponseContent(response));
 	}	
 
 }

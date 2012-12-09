@@ -2,18 +2,16 @@ package epfl.sweng.servercomm;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.message.BasicHttpResponse;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +25,7 @@ import epfl.sweng.quizquestions.QuizQuestion;
  * @author cyril
  *
  */
-final public class CachedServerCommunication {
+final public class CachedServerCommunication implements IServerCommunication  {
 	private static CachedServerCommunication mInstance;	
 	
 	private CachedServerCommunication() {	
@@ -40,7 +38,7 @@ final public class CachedServerCommunication {
 		return mInstance;
 	}
 	
-	
+	@Override
 	public HttpResponse execute(HttpUriRequest request) throws ClientProtocolException, IOException {
 		
 		String url = request.getRequestLine().getUri();
@@ -49,7 +47,7 @@ final public class CachedServerCommunication {
 		try {
 			
 			if (SessionManager.getInstance().isOnline()) {
-				response = SwengHttpClientFactory.getInstance().execute(request);
+				response = RealServerCommunication.getInstance().execute(request);
 				if (url.equals(Globals.RANDOM_QUESTION_URL)) {
 					cacheQuestion(response);
 				} else if (url.equals(Globals.SUBMIT_QUESTION_URL)) {
@@ -141,7 +139,7 @@ final public class CachedServerCommunication {
 
 	private HttpResponse submitQuestion(HttpUriRequest request) throws ParseException, JSONException, IOException {
 		HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_CREATED, "Created");
-		JSONObject questionJSON = new JSONObject(getPostContent((HttpPost) request));
+		JSONObject questionJSON = new JSONObject(ContentHelper.getPostContent((HttpPost) request));
 		
 		int freeQuestionId=0;
 		for (QuizQuestion question : CacheManager.getInstance().getCachedQuestions()) {
@@ -180,7 +178,7 @@ final public class CachedServerCommunication {
 		
 		int id = Integer.parseInt(url);
 		
-		JSONObject ratings =  new JSONObject(getResponseContent(response));	
+		JSONObject ratings =  new JSONObject(ContentHelper.getResponseContent(response));	
 		
 		
 		for (QuizQuestion question : CacheManager.getInstance().getCachedQuestions()) {
@@ -203,9 +201,9 @@ final public class CachedServerCommunication {
 		
 		JSONObject verdict =  new JSONObject();
 		if (request instanceof HttpPost) {
-			verdict =  new JSONObject(getPostContent((HttpPost) request));
+			verdict =  new JSONObject(ContentHelper.getPostContent((HttpPost) request));
 		} else {
-			verdict = new JSONObject(getResponseContent(response));
+			verdict = new JSONObject(ContentHelper.getResponseContent(response));
 		}
 		
 
@@ -238,7 +236,7 @@ final public class CachedServerCommunication {
 	}
 
 	private void cacheQuestion(HttpResponse response) throws ClientProtocolException, JSONException, IOException {
-		QuizQuestion newQuestion = new QuizQuestion(getResponseContent(response));
+		QuizQuestion newQuestion = new QuizQuestion(ContentHelper.getResponseContent(response));
 		
 		for (QuizQuestion question : CacheManager.getInstance().getCachedQuestions()) {
 			if (question.getId() == newQuestion.getId()) {
@@ -248,23 +246,6 @@ final public class CachedServerCommunication {
 		
 		CacheManager.getInstance().addCachedQuestion(newQuestion);
 	}
-	
 
-	public static String getPostContent(HttpPost request) throws ParseException, IOException {
-		String content = EntityUtils.toString(request.getEntity());
-		request.setEntity(new StringEntity(content));
-		return content;
-	}
-	
-	public static String getResponseContent(HttpResponse response) throws ParseException, IOException {
-		ResponseHandler<String> responseHandler = new BasicResponseHandler();
-		String content = responseHandler.handleResponse(response);
-		if (content == null) {
-			content = "";
-		}
-		response.setEntity(new StringEntity(content));
-		return content;
-	}
-	
 	
 }

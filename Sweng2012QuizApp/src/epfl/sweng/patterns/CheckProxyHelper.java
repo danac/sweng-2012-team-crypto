@@ -1,7 +1,7 @@
 package epfl.sweng.patterns;
 
 import epfl.sweng.servercomm.CachedServerCommunication;
-import epfl.sweng.servercomm.SwengHttpClientFactory;
+import epfl.sweng.servercomm.RealServerCommunication;
 
 /**
  * For grading purposes
@@ -12,13 +12,11 @@ public class CheckProxyHelper implements ICheckProxyHelper {
 
 	@Override
 	public Class<?> getServerCommunicationClass() {
-		// TODO Auto-generated method stub
-		return SwengHttpClientFactory.getInstance().getClass();
+		return RealServerCommunication.getInstance().getClass();
 	}
 
 	@Override
 	public Class<?> getProxyClass() {
-		// TODO Auto-generated method stub
 		return CachedServerCommunication.getInstance().getClass();
 	}
 
