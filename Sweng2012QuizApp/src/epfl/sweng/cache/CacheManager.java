@@ -56,4 +56,8 @@ public final class CacheManager {
 	public List<QuizQuestion> getCachedVerdictsToSubmit() {
 		return mCachedVerdictsToSubmit;
 	}
+	
+	public void removeSubmittedQuestion(QuizQuestion question) {
+		mCachedQuestionsToSubmit.remove(question);
+	}
 }

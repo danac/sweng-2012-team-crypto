@@ -4,6 +4,7 @@ import java.util.List;
 
 import epfl.sweng.cache.CacheManager;
 import epfl.sweng.quizquestions.QuizQuestion;
+import epfl.sweng.tasks.interfaces.IQuizQuestionSubmittedCallback;
 import epfl.sweng.tasks.interfaces.ISendCachedContentCallback;
 import epfl.sweng.tasks.interfaces.ISendCachedQuestionsToSubmitCallback;
 import epfl.sweng.tasks.interfaces.ISendCachedVerdictsToSubmitCallback;
@@ -12,19 +13,19 @@ import epfl.sweng.tasks.interfaces.ISendCachedVerdictsToSubmitCallback;
 import android.os.AsyncTask;
 
 /**
- * AsyncTask for sending the cached content when going from offline mode to online mode
+ * AsyncTask for sending the cached questions to submit
  */
-public class SendCachedContent extends AsyncTask<String, Void, String> {
+public class SendCachedVerdictsToSubmit extends AsyncTask<String, Void, String> {
     
 	
-	private ISendCachedContentCallback mCallback;
+	private ISendCachedVerdictsToSubmitCallback mCallback;
 	
 	/**
 	 * Constructor
 	 * @param callback interface defining the methods to be called
 	 * for the outcomes of success (onSuccess) or error (onError)
 	 */
-	public SendCachedContent(ISendCachedContentCallback callback) {
+	public SendCachedVerdictsToSubmit(ISendCachedVerdictsToSubmitCallback callback) {
 		mCallback = callback;
 	}
 
@@ -35,32 +36,7 @@ public class SendCachedContent extends AsyncTask<String, Void, String> {
 	@Override
 	protected String doInBackground(String... argv) {
 		
-		new SendCachedQuestionsToSubmit(new ISendCachedQuestionsToSubmitCallback() {
-			
-			@Override
-			public void onSuccess() {
-				new SendCachedVerdictsToSubmit(new ISendCachedVerdictsToSubmitCallback() {
-					
-					@Override
-					public void onSuccess() {
-						// TODO Auto-generated method stub
-						// Here we should fetch all the ratings for the cached questions
-						// Then finally update the status to online mode.
-					}
-					
-					@Override
-					public void onError() {
-						// TODO Auto-generated method stub
-						
-					}
-				}).execute();
-			}
-			
-			@Override
-			public void onError() {
-				mCallback.onError();
-			}
-		}).execute();
+		List<QuizQuestion> cachedVerdictsToSubmit = CacheManager.getInstance().getCachedVerdictsToSubmit();
 		
 		return "";
 	}
