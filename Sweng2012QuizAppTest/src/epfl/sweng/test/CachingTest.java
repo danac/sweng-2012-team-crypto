@@ -51,23 +51,23 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
 		
 		if (chkBox.isChecked()) {
-			solo.clickOnView(chkBox);
+			solo.clickOnText("Offline");
 			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
 			assertTrue(SessionManager.getInstance().isOnline());
 			assertFalse(chkBox.isChecked());
 
-			solo.clickOnView(chkBox);
+			solo.clickOnText("Offline");
 			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));
 			assertFalse(SessionManager.getInstance().isOnline());
 			assertTrue(chkBox.isChecked());
 			
 		} else {
-			solo.clickOnView(chkBox);
+			solo.clickOnText("Offline");
 			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));
 			assertFalse(SessionManager.getInstance().isOnline());
 			assertTrue(chkBox.isChecked());
 			
-			solo.clickOnView(chkBox);
+			solo.clickOnText("Offline");
 			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
 			assertTrue(SessionManager.getInstance().isOnline());
 			assertFalse(chkBox.isChecked());
@@ -133,7 +133,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
 		Boolean isChecked = chkBox.isChecked();
 		if (!isChecked) {
-			solo.clickOnView(chkBox);
+			solo.clickOnText("Offline");
 		}
 		assertTrue(chkBox.isChecked());
 		
@@ -143,7 +143,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		solo.goBackToActivity("MainActivity");
 		
 		assertTrue(chkBox.isChecked());
-		solo.clickOnView(chkBox);
+		solo.clickOnText("Offline");
 		assertFalse(chkBox.isChecked());
 		assertTrue(SessionManager.getInstance().isOnline());
 	}
@@ -155,6 +155,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		assertTrue(ServerCommunicationFactory.getInstance().getClass() == ServerCommunicationProxy.class);
 	}
 
+	
 	public void testNoNetworkUponGoingBackOnline() {
 		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
 		solo.goBack();
@@ -167,7 +168,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
 		Boolean isChecked = chkBox.isChecked();
 		if (!isChecked) {
-			solo.clickOnView(chkBox);
+			solo.clickOnText("Offline");
 		}
 		assertTrue(chkBox.isChecked());
 		
@@ -177,7 +178,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		solo.goBackToActivity("MainActivity");
 		
 		assertTrue(chkBox.isChecked());
-		solo.clickOnView(chkBox);
+		solo.clickOnText("Offline");
 		solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.online_transition_error));
 		assertFalse(SessionManager.getInstance().isOnline());
 		assertTrue(chkBox.isChecked());		
