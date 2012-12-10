@@ -7,8 +7,6 @@ import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.test.mocking.MockHttpClient;
 import epfl.sweng.test.tools.TestingTricks;
 import android.test.ActivityInstrumentationTestCase2;
-import epfl.sweng.test.mocking.QuestionOnlyServerSimulator;
-import epfl.sweng.test.mocking.ServerSimulatorFactory;
 
 /**
  * Test class for the rating system 
@@ -56,27 +54,5 @@ public class RatingTest extends ActivityInstrumentationTestCase2<ShowQuestionsAc
 		solo.clickOnText("Incorrect (");
 		assertTrue(solo.searchText("You think the question is incorrect"));
 				
-	}	
-	
-	public void testRatingNoNetwork() {
-		ServerSimulatorFactory.setInstance(new QuestionOnlyServerSimulator());
-		solo.goBack();
-		getActivity().startActivity(getActivity().getIntent());
-		
-		TestingTricks.authenticateMe(solo);
-		if (solo.searchText("Show a random question")) {
-			solo.clickOnButton("Show a random question");
-		}
-		solo.clickOnText("Incorrect (");
-		assertTrue(solo.searchText("There was an error setting the rating"));
-		
-        SwengHttpClientFactory.setInstance(null);
-	}
-	
-	@Override
-	protected void tearDown() throws Exception {
-		solo.finishOpenedActivities();
-
-        SwengHttpClientFactory.setInstance(null);
 	}
 }
