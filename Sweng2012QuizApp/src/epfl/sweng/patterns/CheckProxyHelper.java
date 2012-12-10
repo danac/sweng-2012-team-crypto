@@ -1,6 +1,6 @@
 package epfl.sweng.patterns;
 
-import epfl.sweng.servercomm.CachedServerCommunication;
+import epfl.sweng.servercomm.ServerCommunicationProxy;
 import epfl.sweng.servercomm.ServerCommunication;
 
 /**
@@ -17,7 +17,7 @@ public class CheckProxyHelper implements ICheckProxyHelper {
 
 	@Override
 	public Class<?> getProxyClass() {
-		return CachedServerCommunication.getInstance().getClass();
+		return ServerCommunicationProxy.getInstance().getClass();
 	}
 
 }

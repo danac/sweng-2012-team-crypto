@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.globals.Globals;
-import epfl.sweng.servercomm.CachedServerCommunication;
+import epfl.sweng.servercomm.ServerCommunicationProxy;
 import epfl.sweng.servercomm.ContentHelper;
 import epfl.sweng.tasks.interfaces.IQuizServerCallback;
 
@@ -85,7 +85,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, HttpResponse> {
 				}
 			}
 			
-			HttpResponse response = CachedServerCommunication.getInstance().execute(request);
+			HttpResponse response = ServerCommunicationProxy.getInstance().execute(request);
 			
 			Log.i("SERVER", "Replied with status code " + getStatusCode(response));
 			if (Globals.LOG_QUIZSERVER_REQUESTS) {
