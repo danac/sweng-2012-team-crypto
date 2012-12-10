@@ -115,6 +115,10 @@ public final class CacheManager {
 					@Override
 					public synchronized void onError() {
 						mFailedTasks++;
+						mRunningTasks--;
+						if (mRunningTasks == 0) {
+							callback.onError();
+						}
 					}
 				}).execute(question);
 			}
@@ -151,6 +155,10 @@ public final class CacheManager {
 					@Override
 					public synchronized void onSubmitError() {
 						mFailedTasks++;
+						mRunningTasks--;
+						if (mRunningTasks == 0) {
+							callback.onError();
+						}
 					}
 					
 					@Override
@@ -195,6 +203,10 @@ public final class CacheManager {
 					@Override
 					public synchronized void onError() {
 						mFailedTasks++;
+						mRunningTasks--;
+						if (mRunningTasks == 0) {
+							callback.onError();
+						}
 					}
 				}, question).execute();
 				
@@ -215,6 +227,10 @@ public final class CacheManager {
 					@Override
 					public synchronized void onError() {
 						mFailedTasks++;
+						mRunningTasks--;
+						if (mRunningTasks == 0) {
+							callback.onError();
+						}
 					}
 				}, question).execute();
 			}
