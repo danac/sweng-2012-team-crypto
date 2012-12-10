@@ -1,7 +1,7 @@
 package epfl.sweng.patterns;
 
-import epfl.sweng.servercomm.ServerCommunicationProxy;
 import epfl.sweng.servercomm.ServerCommunication;
+import epfl.sweng.servercomm.ServerCommunicationFactory;
 
 /**
  * For grading purposes
@@ -12,12 +12,13 @@ public class CheckProxyHelper implements ICheckProxyHelper {
 
 	@Override
 	public Class<?> getServerCommunicationClass() {
-		return ServerCommunication.getInstance().getClass();
+		ServerCommunication commObject = new ServerCommunication();
+		return commObject.getClass();
 	}
 
 	@Override
 	public Class<?> getProxyClass() {
-		return ServerCommunicationProxy.getInstance().getClass();
+		return ServerCommunicationFactory.getInstance().getClass();
 	}
 
 }

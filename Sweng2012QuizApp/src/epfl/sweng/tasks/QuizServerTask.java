@@ -13,15 +13,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import epfl.sweng.authentication.SessionManager;
-import epfl.sweng.globals.Globals;
-import epfl.sweng.servercomm.ServerCommunicationProxy;
-import epfl.sweng.servercomm.ContentHelper;
-import epfl.sweng.tasks.interfaces.IQuizServerCallback;
-
-
 import android.os.AsyncTask;
 import android.util.Log;
+import epfl.sweng.authentication.SessionManager;
+import epfl.sweng.globals.Globals;
+import epfl.sweng.servercomm.ContentHelper;
+import epfl.sweng.servercomm.ServerCommunicationFactory;
+import epfl.sweng.tasks.interfaces.IQuizServerCallback;
 
 /**
  * AsyncTask for communication between the App and the Sweng Quiz question server
@@ -85,7 +83,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, HttpResponse> {
 				}
 			}
 			
-			HttpResponse response = ServerCommunicationProxy.getInstance().execute(request);
+			HttpResponse response = ServerCommunicationFactory.getInstance().execute(request);
 			
 			Log.i("SERVER", "Replied with status code " + getStatusCode(response));
 			if (Globals.LOG_QUIZSERVER_REQUESTS) {

@@ -26,24 +26,9 @@ import epfl.sweng.quizquestions.QuizQuestion;
  *
  */
 final public class ServerCommunicationProxy implements IServerCommunication  {
-	private static ServerCommunicationProxy mInstance;
-	private ServerCommunication mServerCommunication;
+
+	private ServerCommunication notProxiedCommObject = new ServerCommunication();
 	
-	private ServerCommunicationProxy() {	
-		mServerCommunication = ServerCommunication.getInstance();
-	}
-	
-	public static synchronized ServerCommunicationProxy getInstance() {
-		if (mInstance == null) {
-			mInstance = new ServerCommunicationProxy();
-		}
-		return mInstance;
-	}
-	/*
-	public void setServerCommunicationInstance(ServerCommunication instance) {
-		mServerCommunication = instance;
-	}
-	*/
 	public HttpResponse execute(HttpUriRequest request) throws ClientProtocolException, IOException {
 		
 		String url = request.getRequestLine().getUri();
@@ -52,16 +37,8 @@ final public class ServerCommunicationProxy implements IServerCommunication  {
 		try {
 			
 			if (SessionManager.getInstance().isOnline()) {
-				response = mServerCommunication.execute(request);
-				if (url.equals(Globals.RANDOM_QUESTION_URL)) {
-					cacheQuestion(response);
-				} else if (url.equals(Globals.SUBMIT_QUESTION_URL)) {
-					cacheQuestion(response);
-				} else if (url.endsWith("rating")) {
-					cacheVerdict(response, request);
-				} else if (url.endsWith("ratings")) {
-					cacheRatings(response, request);
-				}
+				response = notProxiedCommObject.execute(request);
+				cacheData(request, response, url);
 			} else {			
 				if (url.equals(Globals.RANDOM_QUESTION_URL)) {
 					response = loadRandomQuestion();
@@ -76,11 +53,24 @@ final public class ServerCommunicationProxy implements IServerCommunication  {
 					response = getRatings(request);
 				}
 			}
-		
 		} catch (JSONException e) {
 			
 		}
 		return response;
+	}
+	
+	private void cacheData(HttpUriRequest request, HttpResponse response, String url)
+		throws ClientProtocolException, JSONException, IOException {
+
+		if (url.equals(Globals.RANDOM_QUESTION_URL)) {
+			cacheQuestion(response);
+		} else if (url.equals(Globals.SUBMIT_QUESTION_URL)) {
+			cacheQuestion(response);
+		} else if (url.endsWith("rating")) {
+			cacheVerdict(response, request);
+		} else if (url.endsWith("ratings")) {
+			cacheRatings(response, request);
+		}
 	}
 
 	private HttpResponse getRatings(HttpUriRequest request) throws JSONException, UnsupportedEncodingException {

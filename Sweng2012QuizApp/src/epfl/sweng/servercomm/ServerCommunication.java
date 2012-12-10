@@ -12,18 +12,7 @@ import org.apache.http.client.methods.HttpUriRequest;
  *
  */
 final public class ServerCommunication implements IServerCommunication  {
-	private static ServerCommunication mInstance;	
-	
-	private ServerCommunication() {	
-	}
-	
-	public static synchronized ServerCommunication getInstance() {
-		if (mInstance == null) {
-			mInstance = new ServerCommunication();
-		}
-		return mInstance;
-	}
-	
+
 	@Override
 	public HttpResponse execute(HttpUriRequest request) throws ClientProtocolException, IOException {
 		return SwengHttpClientFactory.getInstance().execute(request);
