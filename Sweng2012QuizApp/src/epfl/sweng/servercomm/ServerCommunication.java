@@ -17,7 +17,7 @@ final public class ServerCommunication implements IServerCommunication  {
 	private ServerCommunication() {	
 	}
 	
-	public static ServerCommunication getInstance() {
+	public static synchronized ServerCommunication getInstance() {
 		if (mInstance == null) {
 			mInstance = new ServerCommunication();
 		}
