@@ -156,6 +156,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 	}
 
 	public void testNoNetworkUponGoingBackOnline() {
+		TestingTricks.authenticateMe(solo);
 		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
 		solo.goBack();
 		getActivity().startActivity(getActivity().getIntent());
@@ -163,7 +164,6 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		solo.assertCurrentActivity("Quizzes are being displayed",
 				MainActivity.class);
 		
-		TestingTricks.authenticateMe(solo);
 		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
 		Boolean isChecked = chkBox.isChecked();
 		if (!isChecked) {
@@ -189,6 +189,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 	protected void tearDown() throws Exception {
 		solo.finishOpenedActivities();
         SwengHttpClientFactory.setInstance(null);
+		ServerSimulatorFactory.setInstance(null);
 	}
 }
 
