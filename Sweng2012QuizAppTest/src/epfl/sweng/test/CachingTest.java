@@ -48,9 +48,9 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		Boolean isChecked = chkBox.isChecked();
 		solo.clickOnView(chkBox);
 		if (isChecked) {
-			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));	
+			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));
 		} else {
-			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));				
+			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
 		}
 	}
 	
@@ -60,7 +60,8 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		Boolean isChecked = chkBox.isChecked();
 		if (!isChecked) {
 			solo.clickOnView(chkBox);
-		}		if (solo.searchText("Submit quiz question")) {
+		}
+		if (solo.searchText("Submit quiz question")) {
 			solo.clickOnButton("Submit quiz question");
 		}
 		
@@ -151,9 +152,9 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 
 		solo.goBackToActivity("MainActivity");
 		
-		assert(!chkBox.isChecked());
+		assert !chkBox.isChecked();
 		solo.clickOnView(chkBox);
-		assert(chkBox.isChecked());
+		assert chkBox.isChecked();
 	}
 }
 
