@@ -126,11 +126,8 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		assertTrue("No items in list view!", l.getChildCount()>0);
 		
 		assertFalse(solo.searchText("error"));
-		
-		solo.clickOnText("Dislike (");
-		assertTrue(solo.searchText("You dislike the question"));
 	}
-		
+	
 	public void testEditAndShowQuestionInCacheAndGoBackOnline() {
 		TestingTricks.authenticateMe(solo);
 		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
