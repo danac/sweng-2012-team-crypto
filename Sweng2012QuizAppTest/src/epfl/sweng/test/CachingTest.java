@@ -159,18 +159,18 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		TestingTricks.authenticateMe(solo);
 
 		
+		solo.assertCurrentActivity("Quizzes are being displayed",
+				MainActivity.class);
 		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
 		Boolean isChecked = chkBox.isChecked();
 		if (!isChecked) {
-			solo.clickOnView(chkBox);
+			solo.clickOnText("Offline");
 		}
 		assertTrue(chkBox.isChecked());
 		
 		
 		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
-		
-		solo.assertCurrentActivity("Quizzes are being displayed",
-				MainActivity.class);
+
 
 		editAndShowQuestion();	
 		
