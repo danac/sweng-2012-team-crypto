@@ -157,12 +157,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 
 	public void testNoNetworkUponGoingBackOnline() {
 		TestingTricks.authenticateMe(solo);
-		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
-		solo.goBack();
-		getActivity().startActivity(getActivity().getIntent());
-		
-		solo.assertCurrentActivity("Quizzes are being displayed",
-				MainActivity.class);
+
 		
 		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
 		Boolean isChecked = chkBox.isChecked();
@@ -171,6 +166,12 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		}
 		assertTrue(chkBox.isChecked());
 		
+		
+		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
+		
+		solo.assertCurrentActivity("Quizzes are being displayed",
+				MainActivity.class);
+
 		editAndShowQuestion();	
 		
 		// Eventually, we go back on line to flush the cache
