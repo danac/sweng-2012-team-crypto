@@ -1,24 +1,18 @@
 package epfl.sweng.test;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.jayway.android.robotium.solo.Solo;
 
-import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.entry.MainActivity;
-import epfl.sweng.patterns.CheckProxyHelper;
-import epfl.sweng.servercomm.ServerCommunication;
-import epfl.sweng.servercomm.ServerCommunicationFactory;
-import epfl.sweng.servercomm.ServerCommunicationProxy;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.test.mocking.MockHttpClient;
-import epfl.sweng.test.mocking.NoNetworkServerSimulator;
-import epfl.sweng.test.mocking.ServerSimulatorFactory;
 import epfl.sweng.test.tools.TestingTricks;
 
 /**
@@ -27,12 +21,14 @@ import epfl.sweng.test.tools.TestingTricks;
 public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	
 	private Solo solo;
-	private final static int WAIT_TIME = 2000;
+	private final static int WAIT_TIME = 4000;
 	private final static String TEST_QUESTION = "Test question...";
 	private final static String TEST_FALSEANSWER = "False Answer";
 	private final static String TEST_RIGHTANSWER = "Right Answer";
 	private final static String TEST_TAGS = "test";
-	private static final int SLEEP_LISTCHECK = 1000;
+	private static final int NUMBER_OF_QUESTIONS = 1;
+	private static final int SLEEP_LISTCHECK = 2000;
+	private static final int SLEEP_CHARACTERSCHECK = 500;
 	
 	public CachingTest() {
 		super(MainActivity.class);
@@ -44,44 +40,44 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
         SwengHttpClientFactory.setInstance(new MockHttpClient());
 		solo = new Solo(getInstrumentation(), getActivity());
 	}
-
+	
 	public void testSwitchMode() {
 		TestingTricks.authenticateMe(solo);
-		solo.assertCurrentActivity("Are we on the MainActivity?", MainActivity.class);
+		solo.goBackToActivity("MainActivity");
 		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
-		
-		if (chkBox.isChecked()) {
-			solo.clickOnText("Offline");
-			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
-			assertTrue(SessionManager.getInstance().isOnline());
-			assertFalse(chkBox.isChecked());
-
-			solo.clickOnText("Offline");
-			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));
-			assertFalse(SessionManager.getInstance().isOnline());
-			assertTrue(chkBox.isChecked());
-			
-		} else {
-			solo.clickOnText("Offline");
-			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));
-			assertFalse(SessionManager.getInstance().isOnline());
-			assertTrue(chkBox.isChecked());
-			
-			solo.clickOnText("Offline");
-			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
-			assertTrue(SessionManager.getInstance().isOnline());
-			assertFalse(chkBox.isChecked());
-		}
+		solo.clickOnView(chkBox);
+		solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));
+		solo.clickOnView(chkBox);
+		solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
 	}
-
-	private void editAndShowQuestion() {
+	
+	public void testEditAndShowQuestionInCacheAndGoBackOnline() {
+		TestingTricks.authenticateMe(solo);
+		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
+		Boolean isChecked = chkBox.isChecked();
+		if (!isChecked) {
+			solo.clickOnView(chkBox);
+		}
 		if (solo.searchText("Submit quiz question")) {
 			solo.clickOnButton("Submit quiz question");
 		}
 		
-		// We first edit a new question while offline to populate the cache...
 		solo.assertCurrentActivity("Edit Question Form is being displayed",
                 EditQuestionActivity.class);
+
+		assertTrue(((EditQuestionActivity) solo.getCurrentActivity()).auditErrors()==0);
+		solo.clickOnButton("\\+");
+		assertTrue(((EditQuestionActivity) solo.getCurrentActivity()).auditErrors()==0);
+		solo.clickOnButton("\\-");
+		assertTrue(((EditQuestionActivity) solo.getCurrentActivity()).auditErrors()==0);
+		solo.clickOnButton("\u2718");
+		assertTrue(((EditQuestionActivity) solo.getCurrentActivity()).auditErrors()==0);
+		assertTrue(solo.searchText("\u2714"));
+		solo.clickOnButton("\u2714");
+		assertTrue(((EditQuestionActivity) solo.getCurrentActivity()).auditErrors()==0);
+    	assertTrue(solo.waitForText("One answer should be marked as correct"));		
+		assertTrue(((EditQuestionActivity) solo.getCurrentActivity()).auditErrors()==0);
+    	solo.sleep(WAIT_TIME);
 		
 		solo.clickOnButton("\\+");
     	boolean rightAnswerEntered = false;
@@ -111,8 +107,10 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		solo.clickOnButton("Submit");
 		assertTrue(solo.waitForText("\u2714 Question successfully submitted"));
 		
-		// Now we go back to the main activity and display the question (while still offline)
+		
+		
 		solo.goBackToActivity("MainActivity");
+		
 		
 		if (solo.searchText("Show a random question")) {
 			solo.clickOnButton("Show a random question");
@@ -125,70 +123,33 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		solo.sleep(SLEEP_LISTCHECK);
 		assertTrue("No items in list view!", l.getChildCount()>0);
 		
-		assertFalse(solo.searchText("error"));
-	}
-	
-	public void testEditAndShowQuestionInCacheAndGoBackOnline() {
-		TestingTricks.authenticateMe(solo);
-		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
-		Boolean isChecked = chkBox.isChecked();
-		if (!isChecked) {
-			solo.clickOnText("Offline");
+		for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
+			solo.sleep(SLEEP_CHARACTERSCHECK);
+			for (int childIndex = 0; childIndex < l.getAdapter().getCount(); childIndex++) {
+				solo.sleep(SLEEP_CHARACTERSCHECK);
+				System.out.println("Number of answers: " + l.getAdapter().getCount());
+				System.out.println("Index of current answer: " + childIndex);
+				
+				View childView = l.getChildAt(childIndex);
+				if (childView != null) {
+					solo.clickOnView(childView);
+					System.out.println("Index of answer having been clicked: " + childIndex);
+				}
+			}
+			
+			assertTrue(solo.searchText("\u2718") || solo.searchText("\u2714"));
+			
+			solo.clickOnButton("Next question");
+			solo.sleep(SLEEP_CHARACTERSCHECK);
+			assertFalse(solo.searchText("\u2718") && solo.searchText("\u2714"));
 		}
-		assertTrue(chkBox.isChecked());
 		
-		editAndShowQuestion();
 
-		// Eventually, we go back on line to flush the cache
 		solo.goBackToActivity("MainActivity");
 		
-		assertTrue(chkBox.isChecked());
-		solo.clickOnText("Offline");
-		assertFalse(chkBox.isChecked());
-		assertTrue(SessionManager.getInstance().isOnline());
-	}
-	
-	public void testCheckProxyHelper() {
-		CheckProxyHelper helper = new CheckProxyHelper();
-		assertTrue(helper.getServerCommunicationClass() == ServerCommunication.class);
-		assertTrue(helper.getProxyClass() == ServerCommunicationProxy.class);
-		assertTrue(ServerCommunicationFactory.getInstance().getClass() == ServerCommunicationProxy.class);
-	}
-
-	
-	public void testNoNetworkUponGoingBackOnline() {
-		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
-		solo.goBack();
-		getActivity().startActivity(getActivity().getIntent());
-		
-		solo.assertCurrentActivity("Quizzes are being displayed",
-				MainActivity.class);
-		
-		TestingTricks.authenticateMe(solo);
-		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
-		Boolean isChecked = chkBox.isChecked();
-		if (!isChecked) {
-			solo.clickOnText("Offline");
-		}
-		assertTrue(chkBox.isChecked());
-		
-		editAndShowQuestion();	
-		
-		// Eventually, we go back on line to flush the cache
-		solo.goBackToActivity("MainActivity");
-		
-		assertTrue(chkBox.isChecked());
-		solo.clickOnText("Offline");
-		solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.online_transition_error));
-		assertFalse(SessionManager.getInstance().isOnline());
-		assertTrue(chkBox.isChecked());		
-		ServerSimulatorFactory.setInstance(null);
-	}
-	
-	@Override
-	protected void tearDown() throws Exception {
-		solo.finishOpenedActivities();
-        SwengHttpClientFactory.setInstance(null);
+		assert !chkBox.isChecked();
+		solo.clickOnView(chkBox);
+		assert chkBox.isChecked();
 	}
 	
 }
