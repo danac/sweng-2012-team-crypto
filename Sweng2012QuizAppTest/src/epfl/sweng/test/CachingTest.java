@@ -178,7 +178,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		
 		assertTrue(chkBox.isChecked());
 		solo.clickOnView(chkBox);
-		solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.online_transition_error));		
+		solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.online_transition_error));
 		assertFalse(SessionManager.getInstance().isOnline());
 		assertTrue(chkBox.isChecked());		
 		ServerSimulatorFactory.setInstance(null);

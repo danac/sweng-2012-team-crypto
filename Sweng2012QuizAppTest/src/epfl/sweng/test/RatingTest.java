@@ -7,7 +7,6 @@ import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.test.mocking.MockHttpClient;
 import epfl.sweng.test.tools.TestingTricks;
 import android.test.ActivityInstrumentationTestCase2;
-import epfl.sweng.test.mocking.NoNetworkServerSimulator;
 import epfl.sweng.test.mocking.QuestionOnlyServerSimulator;
 import epfl.sweng.test.mocking.ServerSimulatorFactory;
 
