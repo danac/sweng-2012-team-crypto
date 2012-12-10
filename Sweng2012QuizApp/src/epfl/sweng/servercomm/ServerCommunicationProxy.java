@@ -27,6 +27,8 @@ import epfl.sweng.quizquestions.QuizQuestion;
  */
 final public class ServerCommunicationProxy extends ServerCommunication implements IServerCommunication  {
 	
+	private ServerCommunication mServerCommunication = new ServerCommunication();
+	
 	public HttpResponse execute(HttpUriRequest request) throws ClientProtocolException, IOException {
 		
 		String url = request.getRequestLine().getUri();
@@ -35,7 +37,7 @@ final public class ServerCommunicationProxy extends ServerCommunication implemen
 		try {
 			
 			if (SessionManager.getInstance().isOnline()) {
-				response = super.execute(request);
+				response = mServerCommunication.execute(request);
 				cacheData(request, response, url);
 			} else {			
 				if (url.equals(Globals.RANDOM_QUESTION_URL)) {
