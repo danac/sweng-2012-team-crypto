@@ -80,11 +80,11 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		solo.clickOnButton("\u2714");
 		assertTrue(((EditQuestionActivity) solo.getCurrentActivity()).auditErrors()==0);
     	assertTrue(solo.waitForText("One answer should be marked as correct"));		
-    	solo.clickOnButton("\\+");
 		assertTrue(((EditQuestionActivity) solo.getCurrentActivity()).auditErrors()==0);
     	solo.sleep(WAIT_TIME);
     	*/
 		
+		solo.clickOnButton("\\+");
     	boolean rightAnswerEntered = false;
 		for (EditText et: solo.getCurrentEditTexts()) {
 			if (et.getTag().toString() 
