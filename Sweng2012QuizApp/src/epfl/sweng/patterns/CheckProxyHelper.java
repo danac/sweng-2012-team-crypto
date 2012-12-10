@@ -1,7 +1,6 @@
 package epfl.sweng.patterns;
 
 import epfl.sweng.servercomm.ServerCommunication;
-import epfl.sweng.servercomm.ServerCommunicationFactory;
 import epfl.sweng.servercomm.ServerCommunicationProxy;
 
 /**

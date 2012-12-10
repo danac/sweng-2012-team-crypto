@@ -25,7 +25,7 @@ import epfl.sweng.quizquestions.QuizQuestion;
  * @author cyril
  *
  */
-final public class ServerCommunicationProxy extends ServerCommunication implements IServerCommunication  {
+public class ServerCommunicationProxy extends ServerCommunication implements IServerCommunication  {
 	
 	private ServerCommunication mServerCommunication = new ServerCommunication();
 	
