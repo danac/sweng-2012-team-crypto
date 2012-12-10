@@ -14,11 +14,13 @@ final public class SessionManager {
 	
 	private static SessionManager mInstance  = new SessionManager();
 	private SharedPreferences mSettings;
+	private boolean mIsOnline;
 	
 	/**
 	 * Single constructor declared private to ensure Singleton behaviour
 	 */
 	private SessionManager() {
+		mIsOnline = true;
 	}
 
 	/**
@@ -84,14 +86,14 @@ final public class SessionManager {
 	
 	
 	public boolean isOnline() {
-		return mSettings.getBoolean("IS_ONLINE", true);
+		return mIsOnline;
 	}
 
 	public void setOnlineState(boolean b, IDoNetworkCommunication callback) {
 		if (b == isOnline()) {
 			return;
 		} else {
-			mSettings.edit().putBoolean("IS_ONLINE", b).commit();
+			mIsOnline = b;
 			if (b) {
 				CacheManager.getInstance().doNetworkCommunication(callback);
 			} else {

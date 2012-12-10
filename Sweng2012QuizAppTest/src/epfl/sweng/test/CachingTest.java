@@ -45,13 +45,10 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		TestingTricks.authenticateMe(solo);
 		solo.goBackToActivity("MainActivity");
 		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
-		Boolean isChecked = chkBox.isChecked();
 		solo.clickOnView(chkBox);
-		if (isChecked) {
-			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));
-		} else {
-			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
-		}
+		solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));
+		solo.clickOnView(chkBox);
+		solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
 	}
 	
 	public void testEditAndShowQuestionInCacheAndGoBackOnline() {
