@@ -11,9 +11,8 @@ import org.apache.http.client.methods.HttpUriRequest;
  * @author cyril
  *
  */
-public class ServerCommunication implements IServerCommunication  {
+public class ServerCommunication  {
 
-	@Override
 	public HttpResponse execute(HttpUriRequest request) throws ClientProtocolException, IOException {
 		return SwengHttpClientFactory.getInstance().execute(request);
 	}

@@ -25,9 +25,9 @@ import epfl.sweng.quizquestions.QuizQuestion;
  * @author cyril
  *
  */
-public class ServerCommunicationProxy extends ServerCommunication implements IServerCommunication  {
+public class ServerCommunicationProxy extends ServerCommunication  {
 	
-	private IServerCommunication mServerCommunication = new ServerCommunication();
+	private ServerCommunication mServerCommunication = new ServerCommunication();
 	
 	public HttpResponse execute(HttpUriRequest request) throws ClientProtocolException, IOException {
 		

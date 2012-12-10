@@ -5,10 +5,10 @@ package epfl.sweng.servercomm;
  */
 final public class ServerCommunicationFactory {
 
-	private static IServerCommunication commObject;
+	private static ServerCommunication commObject;
 	
 	
-	public static synchronized IServerCommunication getInstance() {
+	public static synchronized ServerCommunication getInstance() {
 		if (commObject== null) {
 			commObject = new ServerCommunicationProxy();
 		}		
