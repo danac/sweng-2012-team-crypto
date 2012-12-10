@@ -68,7 +68,6 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		solo.assertCurrentActivity("Edit Question Form is being displayed",
                 EditQuestionActivity.class);
 
-		/*
 		assertTrue(((EditQuestionActivity) solo.getCurrentActivity()).auditErrors()==0);
 		solo.clickOnButton("\\+");
 		assertTrue(((EditQuestionActivity) solo.getCurrentActivity()).auditErrors()==0);
@@ -82,7 +81,6 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
     	assertTrue(solo.waitForText("One answer should be marked as correct"));		
 		assertTrue(((EditQuestionActivity) solo.getCurrentActivity()).auditErrors()==0);
     	solo.sleep(WAIT_TIME);
-    	*/
 		
 		solo.clickOnButton("\\+");
     	boolean rightAnswerEntered = false;
