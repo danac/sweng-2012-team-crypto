@@ -14,9 +14,9 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHttpResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.cache.CacheManager;
-import epfl.sweng.cache.IDoNetworkCommunication;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
 
@@ -34,20 +34,12 @@ public class ServerCommunicationProxy extends ServerCommunication implements ISe
 		String url = request.getRequestLine().getUri();
 		HttpResponse response = new BasicHttpResponse(HttpVersion.HTTP_1_1, Globals.STATUSCODE_NOTFOUND, "Not found");
 		
-		
-		if (SessionManager.getInstance().isOnline()) {
-			try {
+		try {
+			
+			if (SessionManager.getInstance().isOnline()) {
 				response = mServerCommunication.execute(request);
 				cacheData(request, response, url);
-			} catch (JSONException e) {
-				goOfflineOnError();
-			} catch (ClientProtocolException e) {
-				goOfflineOnError();
-			} catch (IOException e) {
-				goOfflineOnError();
-			}
-		} else {	
-			try {
+			} else {			
 				if (url.equals(Globals.RANDOM_QUESTION_URL)) {
 					response = loadRandomQuestion();
 				} else if (url.equals(Globals.SUBMIT_QUESTION_URL)) {
@@ -60,24 +52,11 @@ public class ServerCommunicationProxy extends ServerCommunication implements ISe
 				} else if (url.endsWith("ratings")) {
 					response = getRatings(request);
 				}
-			} catch (JSONException e) {
-			
 			}
+		} catch (JSONException e) {
+			
 		}
 		return response;
-	}
-	
-	private void goOfflineOnError() {
-		SessionManager.getInstance().setOnlineState(false, new IDoNetworkCommunication() {
-			
-			@Override
-			public void onSuccess() {
-			}
-			
-			@Override
-			public void onError() {
-			}
-		});
 	}
 	
 	private void cacheData(HttpUriRequest request, HttpResponse response, String url)

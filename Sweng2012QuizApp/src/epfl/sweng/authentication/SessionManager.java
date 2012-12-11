@@ -101,6 +101,5 @@ final public class SessionManager {
 			}
 		}
 	}
-
 }
 	
