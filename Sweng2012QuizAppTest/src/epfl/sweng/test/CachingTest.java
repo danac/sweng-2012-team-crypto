@@ -94,7 +94,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		assertTrue(((EditQuestionActivity) solo.getCurrentActivity()).auditErrors()==0);
 		solo.sleep(WAIT_TIME);
 		solo.clickOnButton("Submit");
-		assertTrue(solo.waitForText("\u2714 Question successfully submitted"));
+		assertTrue(solo.waitForText("Question successfully submitted"));
 		
 		// Now we go back to the main activity and display the question (while still offline)
 		solo.goBackToActivity("MainActivity");
@@ -121,6 +121,9 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 			solo.clickOnView(chkBox);
 		}
 		assertTrue(chkBox.isChecked());
+		
+		solo.sleep(WAIT_TIME);
+		
 		
 		editAndShowQuestion();
 
