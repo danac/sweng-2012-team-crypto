@@ -96,21 +96,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		solo.clickOnButton("Submit");
 		assertTrue(solo.waitForText("Question successfully submitted"));
 		
-		// Now we go back to the main activity and display the question (while still offline)
-		solo.goBackToActivity("MainActivity");
 		
-		if (solo.searchText("Show a random question")) {
-			solo.clickOnButton("Show a random question");
-		}
-		
-		solo.assertCurrentActivity("A question is being displayed",
-                ShowQuestionsActivity.class);
-		ListView l = solo.getCurrentListViews().get(0);
-		assertNotNull("No list views!", l);
-		solo.sleep(SLEEP_LISTCHECK);
-		assertTrue("No items in list view!", l.getChildCount()>0);
-		
-		assertFalse(solo.searchText("error"));
 	}
 	
 	public void testEditAndShowQuestionInCacheAndGoBackOnline() {
