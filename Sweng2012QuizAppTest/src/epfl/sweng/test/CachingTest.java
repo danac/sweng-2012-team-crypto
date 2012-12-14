@@ -48,28 +48,15 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		solo.assertCurrentActivity("Are we on the MainActivity?", MainActivity.class);
 		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
 		
-		if (chkBox.isChecked()) {
-			solo.clickOnView(chkBox);
-			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
-			assertTrue(SessionManager.getInstance().isOnline());
-			assertFalse(chkBox.isChecked());
-
-			solo.clickOnView(chkBox);
-			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));
-			assertFalse(SessionManager.getInstance().isOnline());
-			assertTrue(chkBox.isChecked());
-			
-		} else {
-			solo.clickOnView(chkBox);
-			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));
-			assertFalse(SessionManager.getInstance().isOnline());
-			assertTrue(chkBox.isChecked());
-			
-			solo.clickOnView(chkBox);
-			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
-			assertTrue(SessionManager.getInstance().isOnline());
-			assertFalse(chkBox.isChecked());
-		}
+		solo.clickOnView(chkBox);
+		solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));
+		assertFalse(SessionManager.getInstance().isOnline());
+		assertTrue(chkBox.isChecked());
+		
+		solo.clickOnView(chkBox);
+		solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
+		assertTrue(SessionManager.getInstance().isOnline());
+		assertFalse(chkBox.isChecked());
 	}
 
 	private void editAndShowQuestion() {
@@ -253,19 +240,6 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		assertFalse(chkBox.isChecked());
 	}
 
-	public void testSubmitRatingsWhenOffline() {
-		TestingTricks.authenticateMe(solo);
-		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
-		Boolean isChecked = chkBox.isChecked();
-		if (!isChecked) {
-			solo.clickOnView(chkBox);
-		}
-		assertTrue(chkBox.isChecked());
-		
-		
-		
-	}
-	
 	
 	@Override
 	protected void tearDown() throws Exception {

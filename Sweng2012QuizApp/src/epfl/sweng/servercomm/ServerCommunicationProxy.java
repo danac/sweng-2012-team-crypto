@@ -42,9 +42,6 @@ public class ServerCommunicationProxy extends ServerCommunication implements ISe
 			if (SessionManager.getInstance().isOnline()) {
 				try {
 					response = mServerCommunication.execute(request);
-				} catch (ClientProtocolException ec) {
-					Log.e(Globals.LOGTAG_PROXY_ERROR, "ClientProtocolException", ec);
-					throw ec;
 				} catch (IOException ec) {
 					goOffline();
 					Log.e(Globals.LOGTAG_PROXY_ERROR, "IO exception", ec);
