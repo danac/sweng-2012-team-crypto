@@ -8,12 +8,9 @@ import android.widget.ListView;
 import com.jayway.android.robotium.solo.Solo;
 
 import epfl.sweng.authentication.SessionManager;
+import epfl.sweng.cache.IDoNetworkCommunication;
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.entry.MainActivity;
-import epfl.sweng.patterns.CheckProxyHelper;
-import epfl.sweng.servercomm.ServerCommunication;
-import epfl.sweng.servercomm.ServerCommunicationFactory;
-import epfl.sweng.servercomm.ServerCommunicationProxy;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.test.mocking.InternalErrorServerSimulator;
@@ -150,13 +147,6 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		
 		
 	}
-	
-	public void testCheckProxyHelper() {
-		CheckProxyHelper helper = new CheckProxyHelper();
-		assertTrue(helper.getServerCommunicationClass() == ServerCommunication.class);
-		assertTrue(helper.getProxyClass() == ServerCommunicationProxy.class);
-		assertTrue(ServerCommunicationFactory.getInstance().getClass() == ServerCommunicationProxy.class);
-	}
 
 	public void testNoNetworkUponGoingBackOnline() {
 		TestingTricks.authenticateMe(solo);
@@ -269,6 +259,16 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		solo.finishOpenedActivities();
         SwengHttpClientFactory.setInstance(null);
 		ServerSimulatorFactory.setInstance(null);
+		SessionManager.getInstance().setOnlineState(true, new IDoNetworkCommunication() {
+			
+			@Override
+			public void onSuccess() {
+			}
+			
+			@Override
+			public void onError() {
+			}
+		});
 	}
 }
 
