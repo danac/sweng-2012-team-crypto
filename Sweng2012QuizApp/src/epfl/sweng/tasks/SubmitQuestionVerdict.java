@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
+import epfl.sweng.servercomm.ContentHelper;
 import epfl.sweng.tasks.interfaces.IQuestionPersonalRatingReloadedCallback;
 import epfl.sweng.tasks.interfaces.IQuestionRatingReloadedCallback;
 import epfl.sweng.tasks.interfaces.IQuizQuestionVerdictSubmittedCallback;
@@ -34,8 +35,8 @@ public class SubmitQuestionVerdict extends QuizServerTask {
 			
 			@Override
 			public void onSuccess(final HttpResponse response) {
-				if (getStatusCode(response) != Globals.STATUSCODE_OK 
-						&& getStatusCode(response) != Globals.STATUSCODE_CREATED) {
+				if (ContentHelper.getStatusCode(response) != Globals.STATUSCODE_OK 
+						&& ContentHelper.getStatusCode(response) != Globals.STATUSCODE_CREATED) {
 					onError();
 				} else {
 					

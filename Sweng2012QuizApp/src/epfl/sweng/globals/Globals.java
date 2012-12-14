@@ -23,6 +23,8 @@ public final class Globals {
 	public static final String LOGTAG_AUTH_COMMUNICATION = "Auth";
 	public static final int STATUSCODE_AUTHSUCCESSFUL = 302;
 	public static final int STATUSCODE_NOTFOUND = 404;
+	public static final int STATUSCODE_UNAUTHORIZED = 401;
+	public static final int STATUSCODE_BADREQUEST = 400;
 	public static final int STATUSCODE_FORBIDDEN = 403;
 	public static final String PREFS_NAME = "user_session";
 	public final static int AUTHENTICATION_REQUEST_CODE = 1;
@@ -30,6 +32,8 @@ public final class Globals {
 	public static final int STATUSCODE_OK = 200;
 	public static final int STATUSCODE_CREATED = 201;
 	public static final int STATUSCODE_NOCONTENT = 204;
+	public static final String LOGTAG_PROXY_ERROR = "ProxyError";
+	public static final int STATUSCODE_SERVERERROR = 500;
 	
 	
 		

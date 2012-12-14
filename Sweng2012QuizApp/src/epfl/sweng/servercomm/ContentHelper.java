@@ -31,4 +31,9 @@ public class ContentHelper {
 		response.setEntity(new StringEntity(content));
 		return content;
 	}
+	
+	
+	public static int getStatusCode(HttpResponse response) {
+		return response.getStatusLine().getStatusCode();
+	}
 }

@@ -2,6 +2,7 @@ package epfl.sweng.entry;
 
 import epfl.sweng.R;
 import epfl.sweng.authentication.AuthenticationActivity;
+import epfl.sweng.authentication.IOfflineStateChangedListener;
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.cache.IDoNetworkCommunication;
 import epfl.sweng.editquestions.EditQuestionActivity;
@@ -36,6 +37,21 @@ public class MainActivity extends Activity {
         
         setContentView(R.layout.activity_main);
         final CheckBox offlineChkBx = (CheckBox) findViewById(R.id.main_checkbox_offline);
+        offlineChkBx.setChecked(!SessionManager.getInstance().isOnline());
+        SessionManager.getInstance().setOfflineStateChangedListener(new IOfflineStateChangedListener() {
+			
+			@Override
+			public void onOfflineStateChanged(final boolean newOfflineState) {
+				mActivity.runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						offlineChkBx.setChecked(!newOfflineState);
+					}
+				});
+			}
+		});
+        
         offlineChkBx.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         	@Override
         	public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
@@ -54,13 +70,13 @@ public class MainActivity extends Activity {
 					public void onError() {
 						Toast.makeText(mActivity, 
 								getString(R.string.online_transition_error), Toast.LENGTH_LONG).show();
-						offlineChkBx.setChecked(true);
 					}
 				});
             	
         	}
         });
     }
+    
     
 	/**
 	 * Method invoked at the creation of the Options Menu. 

@@ -16,6 +16,7 @@ import epfl.sweng.servercomm.ServerCommunicationFactory;
 import epfl.sweng.servercomm.ServerCommunicationProxy;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.showquestions.ShowQuestionsActivity;
+import epfl.sweng.test.mocking.InternalErrorServerSimulator;
 import epfl.sweng.test.mocking.MockHttpClient;
 import epfl.sweng.test.mocking.NoNetworkServerSimulator;
 import epfl.sweng.test.mocking.ServerSimulatorFactory;
@@ -146,6 +147,8 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		solo.clickOnView(chkBox);
 		assertFalse(chkBox.isChecked());
 		assertTrue(SessionManager.getInstance().isOnline());
+		
+		
 	}
 	
 	public void testCheckProxyHelper() {
@@ -185,6 +188,76 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		assertTrue(chkBox.isChecked());		
 		ServerSimulatorFactory.setInstance(null);
 	}
+
+	public void testGoOfflineOnServerError() {
+		TestingTricks.authenticateMe(solo);
+
+		
+		solo.assertCurrentActivity("Quizzes are being displayed",
+				MainActivity.class);
+		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
+		Boolean isChecked = chkBox.isChecked();
+		if (isChecked) {
+			solo.clickOnText("Offline");
+			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
+		}
+		assertFalse(chkBox.isChecked());
+		ServerSimulatorFactory.setInstance(new InternalErrorServerSimulator());
+
+		solo.clickOnButton("Show a random question");
+		solo.waitForText(
+				(String) getActivity().getResources().getText(epfl.sweng.R.string.msg_offline_on_error));
+		
+		assertFalse(SessionManager.getInstance().isOnline());
+
+		ServerSimulatorFactory.setInstance(null);
+
+		solo.goBackToActivity("MainActivity");
+		chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
+		assertTrue(chkBox.isChecked());
+		
+		solo.clickOnText("Offline");
+		
+		solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
+		assertTrue(SessionManager.getInstance().isOnline());
+		assertFalse(chkBox.isChecked());
+	}
+
+
+	public void testGoOfflineOnIOException() {
+		TestingTricks.authenticateMe(solo);
+
+		
+		solo.assertCurrentActivity("Quizzes are being displayed",
+				MainActivity.class);
+		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
+		Boolean isChecked = chkBox.isChecked();
+		if (isChecked) {
+			solo.clickOnText("Offline");
+			solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
+		}
+		assertFalse(chkBox.isChecked());
+		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
+
+		solo.clickOnButton("Show a random question");
+		solo.waitForText(
+				(String) getActivity().getResources().getText(epfl.sweng.R.string.msg_offline_on_error));
+		
+		assertFalse(SessionManager.getInstance().isOnline());
+
+		ServerSimulatorFactory.setInstance(null);
+
+		solo.goBackToActivity("MainActivity");
+		chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
+		assertTrue(chkBox.isChecked());
+		
+		solo.clickOnText("Offline");
+		
+		solo.waitForText((String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));
+		assertTrue(SessionManager.getInstance().isOnline());
+		assertFalse(chkBox.isChecked());
+	}
+
 	
 	@Override
 	protected void tearDown() throws Exception {

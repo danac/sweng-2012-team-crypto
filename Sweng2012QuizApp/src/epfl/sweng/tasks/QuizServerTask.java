@@ -85,7 +85,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, HttpResponse> {
 			
 			HttpResponse response = ServerCommunicationFactory.getInstance().execute(request);
 			
-			Log.i("SERVER", "Replied with status code " + getStatusCode(response));
+			Log.i("SERVER", "Replied with status code " + ContentHelper.getStatusCode(response));
 			if (Globals.LOG_QUIZSERVER_REQUESTS) {
 				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, "==== Sweng QuizQuestion Server Response ====");
 				Log.i(Globals.LOGTAG_QUIZSERVER_COMMUNICATION, response.getStatusLine().getStatusCode() + " "
@@ -104,10 +104,7 @@ abstract class QuizServerTask extends AsyncTask<Object, Void, HttpResponse> {
     	}
 		return null;
 	}
-	
-	public static int getStatusCode(HttpResponse response) {
-		return response.getStatusLine().getStatusCode();
-	}
+
 	
 
 	protected static JSONObject getJSONObject(HttpResponse response) throws ParseException, JSONException, IOException {

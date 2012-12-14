@@ -54,5 +54,6 @@
     <string name="you_are_offline">You are now in offline mode.</string>
     <string name="you_are_online">You are now in online mode.</string>
     <string name="online_transition_error">There was an error transitioning to online mode.</string>
-    
+    <string name="msg_offline_on_error">Internal Server Error received, you are now in offline mode</string>
+     
 </resources>

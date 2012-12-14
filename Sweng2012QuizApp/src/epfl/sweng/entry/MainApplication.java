@@ -1,12 +1,15 @@
 package epfl.sweng.entry;
 
+import epfl.sweng.R;
 import epfl.sweng.authentication.AuthenticationActivity;
+import epfl.sweng.authentication.IOfflineOnErrorCallback;
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.globals.Globals;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 /**
  * Main application entry of the App
@@ -23,6 +26,7 @@ public class MainApplication extends Application {
         super.onCreate();
         SessionManager.getInstance().setSettings(getSharedPreferences(Globals.PREFS_NAME, 0));
         
+        
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
 			
 			@Override
@@ -30,10 +34,27 @@ public class MainApplication extends Application {
 			}
 			
 			@Override
-			public void onActivityStarted(Activity activity) {
+			public void onActivityStarted(final Activity activity) {
 				if (!activity.getClass().getName().equals("epfl.sweng.authentication.AuthenticationActivity")) {
 					checkAuthentication();
 				}
+				
+				SessionManager.getInstance().setOfflineOnErrorCallback(new IOfflineOnErrorCallback() {
+					
+					@Override
+					public void onSessionWentOffline() {
+						activity.runOnUiThread(new Runnable() {
+							
+							@Override
+							public void run() {
+								Toast.makeText(activity, 
+										getText(R.string.msg_offline_on_error), Toast.LENGTH_LONG).show();
+							}
+							
+						});
+						
+					}
+				});
 			}
 			
 			@Override

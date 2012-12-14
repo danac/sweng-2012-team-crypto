@@ -15,8 +15,11 @@ import org.apache.http.message.BasicHttpResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import epfl.sweng.authentication.SessionManager;
 import epfl.sweng.cache.CacheManager;
+import epfl.sweng.cache.IDoNetworkCommunication;
 import epfl.sweng.globals.Globals;
 import epfl.sweng.quizquestions.QuizQuestion;
 
@@ -37,8 +40,24 @@ public class ServerCommunicationProxy extends ServerCommunication implements ISe
 		try {
 			
 			if (SessionManager.getInstance().isOnline()) {
-				response = mServerCommunication.execute(request);
-				cacheData(request, response, url);
+				try {
+					response = mServerCommunication.execute(request);
+				} catch (ClientProtocolException ec) {
+					Log.e(Globals.LOGTAG_PROXY_ERROR, "ClientProtocolException", ec);
+					throw ec;
+				} catch (IOException ec) {
+					goOffline();
+					Log.e(Globals.LOGTAG_PROXY_ERROR, "IO exception", ec);
+				} finally {
+					if (ContentHelper.getStatusCode(response) == Globals.STATUSCODE_SERVERERROR) {
+						goOffline();
+						Log.e(Globals.LOGTAG_PROXY_ERROR, "Server Error, going offline");
+					}
+				}
+				
+				if (SessionManager.getInstance().isOnline()) {
+					cacheData(request, response, url);
+				}
 			} else {			
 				if (url.equals(Globals.RANDOM_QUESTION_URL)) {
 					response = loadRandomQuestion();
@@ -54,11 +73,24 @@ public class ServerCommunicationProxy extends ServerCommunication implements ISe
 				}
 			}
 		} catch (JSONException e) {
-			
+			Log.e(Globals.LOGTAG_PROXY_ERROR, "Malformed JSON", e);
 		}
 		return response;
 	}
 	
+	private void goOffline() {
+		SessionManager.getInstance().setOnlineState(false, new IDoNetworkCommunication() {
+			@Override
+			public void onSuccess() {
+				SessionManager.getInstance().notifyOfflineOnError();
+			}
+			
+			@Override
+			public void onError() {
+			}
+		});
+	}
+
 	private void cacheData(HttpUriRequest request, HttpResponse response, String url)
 		throws ClientProtocolException, JSONException, IOException {
 

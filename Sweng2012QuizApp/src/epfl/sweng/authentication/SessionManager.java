@@ -15,12 +15,22 @@ final public class SessionManager {
 	private static SessionManager mInstance  = new SessionManager();
 	private SharedPreferences mSettings;
 	private boolean mIsOnline;
+	private IOfflineOnErrorCallback mOfflineOnErrorCallback;
+	private IOfflineStateChangedListener mOfflineStateChangedListener;
+	
+	
 	
 	/**
 	 * Single constructor declared private to ensure Singleton behaviour
 	 */
 	private SessionManager() {
 		mIsOnline = true;
+		mOfflineStateChangedListener = new IOfflineStateChangedListener() {
+			
+			@Override
+			public void onOfflineStateChanged(boolean newOfflineState) {
+			}
+		};
 	}
 
 	/**
@@ -89,17 +99,44 @@ final public class SessionManager {
 		return mIsOnline;
 	}
 
-	public void setOnlineState(boolean b, IDoNetworkCommunication callback) {
+	public void setOnlineState(boolean b, final IDoNetworkCommunication callback) {
 		if (b == isOnline()) {
 			return;
 		} else {
 			mIsOnline = b;
 			if (b) {
-				CacheManager.getInstance().doNetworkCommunication(callback);
+				CacheManager.getInstance().doNetworkCommunication(new IDoNetworkCommunication() {
+					
+					@Override
+					public void onSuccess() {
+						callback.onSuccess();
+						mOfflineStateChangedListener.onOfflineStateChanged(true);
+					}
+					
+					@Override
+					public void onError() {
+						callback.onError();
+						mIsOnline = false;
+						mOfflineStateChangedListener.onOfflineStateChanged(false);
+					}
+				});
 			} else {
 				callback.onSuccess();
 			}
 		}
+		mOfflineStateChangedListener.onOfflineStateChanged(mIsOnline);
+	}
+
+	public void notifyOfflineOnError() {
+		mOfflineOnErrorCallback.onSessionWentOffline();
+	}
+
+	public void setOfflineOnErrorCallback(IOfflineOnErrorCallback callback) {
+		mOfflineOnErrorCallback = callback;
+	}
+	
+	public void setOfflineStateChangedListener(IOfflineStateChangedListener callback) {
+		mOfflineStateChangedListener = callback;
 	}
 }
 	
