@@ -3,7 +3,6 @@ package epfl.sweng.test;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -12,7 +11,6 @@ import epfl.sweng.cache.IDoNetworkCommunication;
 import epfl.sweng.editquestions.EditQuestionActivity;
 import epfl.sweng.entry.MainActivity;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
-import epfl.sweng.showquestions.ShowQuestionsActivity;
 import epfl.sweng.test.mocking.InternalErrorServerSimulator;
 import epfl.sweng.test.mocking.MockHttpClient;
 import epfl.sweng.test.mocking.NoNetworkServerSimulator;
@@ -30,7 +28,6 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 	private final static String TEST_FALSEANSWER = "False Answer";
 	private final static String TEST_RIGHTANSWER = "Right Answer";
 	private final static String TEST_TAGS = "test";
-	private static final int SLEEP_LISTCHECK = 1000;
 	
 	public CachingTest() {
 		super(MainActivity.class);
