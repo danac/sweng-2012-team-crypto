@@ -5,7 +5,7 @@ import com.jayway.android.robotium.solo.Solo;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.quizzes.ShowAvailableQuizzesActivity;
 import epfl.sweng.test.mocking.MockHttpClient;
-import epfl.sweng.test.mocking.NoNetworkServerSimulator;
+import epfl.sweng.test.mocking.NotFoundServerSimulator;
 import epfl.sweng.test.mocking.ServerSimulatorFactory;
 import epfl.sweng.test.tools.TestingTricks;
 /**
@@ -50,7 +50,7 @@ public class ShowAvailableQuizzesActivityTest extends
 	}	
 	
 	public void testNoNetwork() {
-		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
+		ServerSimulatorFactory.setInstance(new NotFoundServerSimulator());
 		solo.goBack();
 		getActivity().startActivity(getActivity().getIntent());
 		

@@ -187,6 +187,11 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		assertFalse(SessionManager.getInstance().isOnline());
 		assertTrue(chkBox.isChecked());		
 		ServerSimulatorFactory.setInstance(null);
+		
+		solo.clickOnView(chkBox);
+		solo.waitForText(
+				(String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));		
+		
 	}
 
 	public void testGoOfflineOnServerError() {

@@ -6,7 +6,7 @@ import com.jayway.android.robotium.solo.Solo;
 import epfl.sweng.servercomm.SwengHttpClientFactory;
 import epfl.sweng.quizzes.ShowQuizActivity;
 import epfl.sweng.test.mocking.MockHttpClient;
-import epfl.sweng.test.mocking.NoNetworkServerSimulator;
+import epfl.sweng.test.mocking.NotFoundServerSimulator;
 import epfl.sweng.test.mocking.QuizServerSimulator;
 import epfl.sweng.test.mocking.ServerSimulatorFactory;
 import epfl.sweng.test.tools.TestingTricks;
@@ -88,7 +88,7 @@ public class ShowQuizActivityTest extends
 	
 	
 	public void testNoNetworkLoad() {
-		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
+		ServerSimulatorFactory.setInstance(new NotFoundServerSimulator());
 		solo.goBack();
 		getActivity().startActivity(getActivity().getIntent());
 		
@@ -106,7 +106,7 @@ public class ShowQuizActivityTest extends
 		
 		assertTrue(solo.searchText("How much is 2 \\+ 2 \\?"));
 		
-		ServerSimulatorFactory.setInstance(new NoNetworkServerSimulator());
+		ServerSimulatorFactory.setInstance(new NotFoundServerSimulator());
 
 		solo.clickOnText("Hand in quiz");
 		assertTrue(solo.searchText("An error occurred while handing in your answers"));

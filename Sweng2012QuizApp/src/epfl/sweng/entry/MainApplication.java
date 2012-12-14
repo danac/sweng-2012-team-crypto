@@ -40,18 +40,19 @@ public class MainApplication extends Application {
 				}
 				
 				SessionManager.getInstance().setOfflineOnErrorCallback(new IOfflineOnErrorCallback() {
-					
 					@Override
 					public void onSessionWentOffline() {
-						activity.runOnUiThread(new Runnable() {
-							
-							@Override
-							public void run() {
-								Toast.makeText(activity, 
-										getText(R.string.msg_offline_on_error), Toast.LENGTH_LONG).show();
-							}
-							
-						});
+						if (activity != null) {
+							activity.runOnUiThread(new Runnable() {
+								
+								@Override
+								public void run() {
+									Toast.makeText(activity, 
+											getText(R.string.msg_offline_on_error), Toast.LENGTH_LONG).show();
+								}
+								
+							});
+						}
 						
 					}
 				});

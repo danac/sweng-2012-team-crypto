@@ -29,11 +29,14 @@ public final class CacheManager {
 	private int mRunningTasks;
 	private int mFailedTasks;
 	
+	private boolean mCacheLocked = false;
+	
 	
 	private CacheManager() {
 		mCachedQuestions = new ArrayList<QuizQuestion>();
 		mCachedQuestionsToSubmit = new ArrayList<QuizQuestion>();
 		mCachedVerdictsToSubmit = new ArrayList<QuizQuestion>();
+		mCacheLocked = false;
 	}
 	
 	public static CacheManager getInstance() {
@@ -44,15 +47,21 @@ public final class CacheManager {
 	}
 	
 	public void addCachedQuestion(QuizQuestion question) {
-		mCachedQuestions.add(question);
+		if (!mCacheLocked) {
+			mCachedQuestions.add(question);
+		}
 	}
 	
 	public void addCachedQuestionToSubmit(QuizQuestion question) {
-		mCachedQuestionsToSubmit.add(question);
+		if (!mCacheLocked) {
+			mCachedQuestionsToSubmit.add(question);
+		}
 	}
 	
 	public void addVerdictToSubmit(QuizQuestion question) {
-		mCachedVerdictsToSubmit.add(question);
+		if (!mCacheLocked) {
+			mCachedVerdictsToSubmit.add(question);
+		}
 	}
 	
 	public QuizQuestion getRandomQuestion() {
@@ -80,6 +89,7 @@ public final class CacheManager {
 	}
 	
 	public void doNetworkCommunication(IDoNetworkCommunication callback) {
+		mCacheLocked = true;
 		launchSubmitQuestionTasks(callback);
 	}
 
@@ -108,6 +118,7 @@ public final class CacheManager {
 								launchSubmitVerdictTasks(callback);
 							} else {
 								callback.onError();
+								mCacheLocked = false;
 							}
 						}
 					}
@@ -118,6 +129,7 @@ public final class CacheManager {
 						mRunningTasks--;
 						if (mRunningTasks == 0) {
 							callback.onError();
+							mCacheLocked = false;
 						}
 					}
 				}).execute(question);
@@ -147,6 +159,7 @@ public final class CacheManager {
 								launchReloadRatings(callback);
 							} else {
 								callback.onError();
+								mCacheLocked = false;
 							}
 						}
 					}
@@ -158,6 +171,7 @@ public final class CacheManager {
 						mRunningTasks--;
 						if (mRunningTasks == 0) {
 							callback.onError();
+							mCacheLocked = false;
 						}
 					}
 					
@@ -184,6 +198,7 @@ public final class CacheManager {
 		
 		if (mRunningTasks == 0) {
 			callback.onSuccess();
+			mCacheLocked = false;
 		} else {
 			for (QuizQuestion question : cachedQuestions) {
 				new ReloadPersonalRating(new IQuestionPersonalRatingReloadedCallback() {
@@ -194,8 +209,10 @@ public final class CacheManager {
 						if (mRunningTasks == 0) {
 							if (mFailedTasks == 0) {
 								callback.onSuccess();
+								mCacheLocked = false;
 							} else {
 								callback.onError();
+								mCacheLocked = false;
 							}
 						}
 					}
@@ -206,6 +223,7 @@ public final class CacheManager {
 						mRunningTasks--;
 						if (mRunningTasks == 0) {
 							callback.onError();
+							mCacheLocked = false;
 						}
 					}
 				}, question).execute();
@@ -218,8 +236,10 @@ public final class CacheManager {
 						if (mRunningTasks == 0) {
 							if (mFailedTasks == 0) {
 								callback.onSuccess();
+								mCacheLocked = false;
 							} else {
 								callback.onError();
+								mCacheLocked = false;
 							}
 						}
 					}
@@ -230,6 +250,7 @@ public final class CacheManager {
 						mRunningTasks--;
 						if (mRunningTasks == 0) {
 							callback.onError();
+							mCacheLocked = false;
 						}
 					}
 				}, question).execute();
