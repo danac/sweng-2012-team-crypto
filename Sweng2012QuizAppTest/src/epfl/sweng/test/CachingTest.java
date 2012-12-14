@@ -67,7 +67,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		// We first edit a new question while offline to populate the cache...
 		solo.assertCurrentActivity("Edit Question Form is being displayed",
                 EditQuestionActivity.class);
-		
+		solo.sleep(WAIT_TIME);
 		solo.clickOnButton("\\+");
     	boolean rightAnswerEntered = false;
 		for (EditText et: solo.getCurrentEditTexts()) {
@@ -132,9 +132,6 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		
 		assertTrue(chkBox.isChecked());
 		solo.clickOnView(chkBox);
-		solo.waitForLogMessage("Starting to submit cached new Questions");
-		solo.waitForLogMessage("Starting to submit cached new Verdicts");
-		solo.waitForLogMessage("Starting to reload rating stats");
 		
 		assertFalse(chkBox.isChecked());
 		assertTrue(SessionManager.getInstance().isOnline());
@@ -161,9 +158,6 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		solo.goBackToActivity("MainActivity");
 		
 		solo.clickOnView(chkBox);
-		solo.waitForLogMessage("Starting to submit cached new Questions");
-		solo.waitForLogMessage("Starting to submit cached new Verdicts");
-		solo.waitForLogMessage("Starting to reload rating stats");
 		
 		solo.waitForText(
 				(String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));	
