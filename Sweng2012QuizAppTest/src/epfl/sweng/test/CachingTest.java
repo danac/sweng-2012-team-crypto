@@ -253,11 +253,23 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		assertFalse(chkBox.isChecked());
 	}
 
+	public void testSubmitRatingsWhenOffline() {
+		TestingTricks.authenticateMe(solo);
+		CheckBox chkBox = (CheckBox) solo.getView(epfl.sweng.R.id.main_checkbox_offline);
+		Boolean isChecked = chkBox.isChecked();
+		if (!isChecked) {
+			solo.clickOnView(chkBox);
+		}
+		assertTrue(chkBox.isChecked());
+		
+		
+		
+	}
+	
 	
 	@Override
 	protected void tearDown() throws Exception {
 		solo.finishOpenedActivities();
-        SwengHttpClientFactory.setInstance(null);
 		ServerSimulatorFactory.setInstance(null);
 		SessionManager.getInstance().setOnlineState(true, new IDoNetworkCommunication() {
 			
@@ -269,7 +281,9 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 			public void onError() {
 			}
 		});
+		SwengHttpClientFactory.setInstance(null);
 	}
+	
 }
 
 
