@@ -129,9 +129,41 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		
 		assertTrue(chkBox.isChecked());
 		solo.clickOnView(chkBox);
+		solo.waitForLogMessage("Starting to submit cached new Questions");
+		solo.waitForLogMessage("Starting to submit cached new Verdicts");
+		solo.waitForLogMessage("Starting to reload rating stats");
+		
 		assertFalse(chkBox.isChecked());
 		assertTrue(SessionManager.getInstance().isOnline());
 		
+		solo.clickOnView(chkBox);
+
+		solo.waitForText(
+				(String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_offline));	
+	
+		solo.clickOnButton("Show a random question");
+		
+		solo.clickOnText("Like (");
+		assertTrue(solo.searchText("You like the question"));
+		
+		solo.clickOnText("Dislike (");
+		assertTrue(solo.searchText("You dislike the question"));
+		
+		
+		solo.clickOnText("Incorrect (");
+		assertTrue(solo.searchText("You think the question is incorrect"));
+		
+
+		// Eventually, we go back on line to flush the cache
+		solo.goBackToActivity("MainActivity");
+		
+		solo.clickOnView(chkBox);
+		solo.waitForLogMessage("Starting to submit cached new Questions");
+		solo.waitForLogMessage("Starting to submit cached new Verdicts");
+		solo.waitForLogMessage("Starting to reload rating stats");
+		
+		solo.waitForText(
+				(String) getActivity().getResources().getText(epfl.sweng.R.string.you_are_online));	
 		
 	}
 
