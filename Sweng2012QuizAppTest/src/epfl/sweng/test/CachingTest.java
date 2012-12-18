@@ -115,7 +115,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		
 		assertTrue(chkBox.isChecked());
 		solo.clickOnView(chkBox);
-		
+		solo.sleep(WAIT_TIME);
 		assertFalse(chkBox.isChecked());
 		assertTrue(SessionManager.getInstance().isOnline());
 		

@@ -89,7 +89,7 @@ public class EditQuestionActivityTest extends
 		assertTrue(getActivity().auditErrors()==0);
 		solo.sleep(WAIT_TIME);
 		solo.clickOnButton("Submit");
-		assertTrue(solo.waitForText("\u2714 Question successfully submitted"));
+		assertTrue(solo.waitForText("Question successfully submitted"));
 	}
 
 	
