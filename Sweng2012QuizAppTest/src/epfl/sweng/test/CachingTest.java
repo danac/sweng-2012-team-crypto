@@ -255,7 +255,6 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 	
 	@Override
 	protected void tearDown() throws Exception {
-		solo.finishOpenedActivities();
 		ServerSimulatorFactory.setInstance(null);
 		SessionManager.getInstance().setOnlineState(true, new IDoNetworkCommunication() {
 			
@@ -268,6 +267,7 @@ public class CachingTest extends ActivityInstrumentationTestCase2<MainActivity> 
 			}
 		});
 		SwengHttpClientFactory.setInstance(null);
+		solo.finishOpenedActivities();
 	}
 	
 }

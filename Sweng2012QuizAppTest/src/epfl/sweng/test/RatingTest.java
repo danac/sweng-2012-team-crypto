@@ -55,4 +55,10 @@ public class RatingTest extends ActivityInstrumentationTestCase2<ShowQuestionsAc
 		assertTrue(solo.searchText("You think the question is incorrect"));
 				
 	}
+	
+	@Override
+	protected void tearDown() throws Exception {
+        SwengHttpClientFactory.setInstance(null);
+        solo.finishOpenedActivities();
+	}
 }

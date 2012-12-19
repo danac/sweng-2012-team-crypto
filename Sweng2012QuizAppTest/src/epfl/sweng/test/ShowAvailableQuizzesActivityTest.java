@@ -65,9 +65,8 @@ public class ShowAvailableQuizzesActivityTest extends
 	
 	@Override
 	protected void tearDown() throws Exception {
-		solo.finishOpenedActivities();
-
         SwengHttpClientFactory.setInstance(null);
+        solo.finishOpenedActivities();
 	}
 
 }

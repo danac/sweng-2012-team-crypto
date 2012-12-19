@@ -131,9 +131,8 @@ public class EditQuestionActivityTest extends
 	
 	@Override
 	protected void tearDown() throws Exception {
-		solo.finishOpenedActivities();
-
         SwengHttpClientFactory.setInstance(null);
+        solo.finishOpenedActivities();
 	}
 
 }
