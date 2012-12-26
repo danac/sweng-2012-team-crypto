@@ -1,0 +1,36 @@
+Ex2_3                                                                                      = 10/10 points
+  [pass] test01GoDirectlyOfflineThenShowQuestionWhenNoQuestionsAreCached                   = 5/5 points
+  [pass] test02ShowQuestionInOnlineModeStaysInOnlineMode                                   = 5/5 points
+
+Ex2_4                                                                                      = 10/10 points
+  [pass] test01OfflineSubmitQuestion                                                       = 10/10 points
+
+Ex2_5a                                                                                     = 6/6 points
+  [pass] test01ShowQuestionGoOfflineShowQuestion                                           = 3/3 points
+  [pass] test02ShowTwoQuestionsGoOfflineShowQuestion                                       = 3/3 points
+
+Ex2_5b                                                                                     = 14/14 points
+  [pass] test01GoBackOnlineAfterNetworkIsBackOnline                                        = 2/2 points
+  [pass] test02HandleServerErrorGoBackOnline                                               = 2/2 points
+  [pass] test03HandleServerErrorGoBackOnlineShowQuestion                                   = 3/3 points
+  [pass] test03SyncOnOfflineToOnlineTransition                                             = 7/7 points
+
+Ex2_6                                                                                      = 15/15 points
+  [pass] test01ServerErrorRightAfterAuthenticationWhenClickinOnShowRandomQuestion          = 2/2 points
+  [pass] test01ServerExceptionRightAfterAuthenticationWhenClickinOnShowRandomQuestion      = 2/2 points
+  [pass] test02ServerErrorRightAfterAuthenticationWhenClickinOnShowRandomQuestionTwice     = 2/2 points
+  [pass] test02ServerExceptionRightAfterAuthenticationWhenClickinOnShowRandomQuestionTwice = 2/2 points
+  [pass] test03HTTPNotFoundStatusRightAfterAuthenticationWhenClickinOnShowRandomQuestion   = 3/3 points
+  [pass] test04NetworkErrorRightAfterAuthenticationWhenClickinOnShowRandomQuestion         = 2/2 points
+  [pass] test05HandleServerError                                                           = 2/2 points
+
+OfflineSanityChecks                                                                        = 15/15 points
+  [pass] test00CheckProxyDesignPattern                                                     = 10/10 points
+  [pass] test01OfflineModeTextExists                                                       = 3/3 points
+  [pass] test021OfflineModeCheckBoxCanBeCheckedTwice                                       = 1/1 points
+  [pass] test02OfflineModeCheckBoxCanBeChecked                                             = 1/1 points
+
+TOTAL: 70/70 points
+
+
+Coverage: 83% Grade: 32.250
